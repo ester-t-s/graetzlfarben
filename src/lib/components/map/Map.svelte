@@ -104,8 +104,8 @@
       container: "map", // container id
       style: mapStyle(window.location.origin + window.location.pathname),
       maxBounds: [
-        [13.046434258466917, 52.30190843622876],
-        [13.820874468731887, 52.69894396430871],
+        [16.153336,48.104680],
+        [16.588669,48.332061],
       ],
       dragRotate: false,
       attributionControl: false,
@@ -113,7 +113,7 @@
       hash: true,
       minZoom: 10,
       maxZoom: 14,
-      center: [13.3915, 52.49899],
+      center: [16.370402529206963, 48.20996163502622],
       zoom: 13,
     });
 
