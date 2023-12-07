@@ -32,6 +32,5 @@ for l in all_layers:
     all_data[l] = gdf
     print("successfully fetched data for", l)
     
-fmzk_gdf = pd.concat(all_data.values())
-fmzk_gdf.drop(columns=['BW_SON_ID', 'BW_BRK_ID', 'BW_GEB_ID', 'T_KOTE', 'HOEHE_DGM', 'U_KOTE', 'O_KOTE', 'BEZUG', 'LM', 'GEWAESSER', 'H_KLASSE'])
-fmzk_gdf.to_file(r'data-preprocessing\fmzk_combined.geojson', driver="GeoJSON")
+fmzk = pd.concat(all_data.values())
+fmzk.to_file(r'data-preprocessing\fmzk.geojson', driver="GeoJSON")
