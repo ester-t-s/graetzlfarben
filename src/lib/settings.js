@@ -1,8 +1,8 @@
 export const landuseFieldname = "NUTZUNG_LEVEL1";
 
 export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
-    [16.01,48],
-    [16.73,48.3],
+    [16.0,48.05],
+    [16.75,48.4],
   ];
 
 export const initialMapCenter = [16.370402529206963, 48.20996163502622];
