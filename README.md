@@ -6,9 +6,9 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-# Kiezcolors
+# Grätzlfarben, aka Kiezcolors
 
-*Kiezcolors* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood. The browser application uses Berlin’s landuse open data. By zooming in and out you can pick a location within Berlin and position it inside the circle. *Kiezcolors* then maps the individual areas onto a tree map diagram. You can print the resulting motive as a postcard and share it!
+*Grätzlfarben* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood in Vienna. It is based on the Kiezcolors Tool of the Open Data Informationsstelle Berlin. By zooming in and out you can pick a location and position it inside the circle. *Grätzlfarben* then maps the individual areas onto a tree map diagram. You can print the resulting motive as a postcard and share it!
 
 ![kiezcolors_overview](https://github.com/technologiestiftung/kiezcolors/assets/46717848/fc4b20c6-4485-4a53-aafd-19c2ce5633e0)
 
@@ -18,6 +18,12 @@
 This website is a [svelte](https://svelte.dev/) app.
 
 ## Developing
+
+Install dependencies by running:
+
+```bash
+npm install
+```
 
 Start a development server by running:
 
@@ -41,41 +47,31 @@ You can preview the production build with `npm run preview`.
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
 ## Data
-You can find the data on Berlins [Geoportal (FIS-Broker)](https://fbinter.stadt-berlin.de/fb/)
 
-Search for: *ALKIS*
+For Vienna, the 'Realnutzungskartierung' dataset by the City of Vienna is suitable for the application and [available as a WFS](https://www.data.gv.at/katalog/dataset/2f5baa1f-208c-42c2-8d04-9ea74aa1b229#resources). QGIS can be used to project it to ```EPSG:4326``` and save it as ```GeoJSON```, which is required to create the vector tiles for the map.
 
-Select *ALKIS Berlin (Amtliches Liegenschaftskatasterinformationssystem)*
-
-Then select *ALKIS Berlin Tatsächliche Nutzung* on the right to get the WFS Link to download the data.
-
-Or download directly via WFS: 
-
-```
-https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_wfs_alkis_tatsaechlichenutzungflaechen?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetCapabilities
-```
-
-Or as GeoJSON:
-
-```
-https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_wfs_alkis_tatsaechlichenutzungflaechen?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&outputFormat=application/json&TYPENAMES=fis:s_wfs_alkis_tatsaechlichenutzungflaechen
-```
-
-
-You will need to convert the data to ```GeoJSON``` format and convert it to the ```EPSG:4326``` projection if you want to create the tiles for the map . 
   
 ## Tile Creation
 
-The tiles were created with *tippecanoe* by running the following command:
+The tiles were created with *tippecanoe*. To [use tippecanoe on Windows, you need to install Ubuntu](https://gist.github.com/ryanbaumann/e5c7d76f6eeb8598e66c5785b677726e)
+
+To then use tippecanoe, open the Ubuntu shell, change directory to c/ by `cd ../../mnt/c`, change directory to tippecanoe folder and `sudo make install`, enter sudo password. 
+
+After changing to the directory where the input file is located, you can make the tiles by running the following command:
 
 ```bash
-tippecanoe --output-to-directory ./tiles '--use-attribute-for-id=id' --no-tile-compression --force -B 13 '--minimum-zoom=10' '--maximum-zoom=13' ./alkis.geojson
+tippecanoe --output-to-directory ./tiles --layer "landuse-data" --no-tile-compression --force --minimum-zoom=10 --maximum-zoom=13 ./{input-file}.geojson
 ```
+
 Your input data has to be in ```GeoJSON``` format and in the ```EPSG:4326``` projection. 
 
 ## Licence
 
-The landuse data *ALKIS Berlin* can be downloaded from the Geoportal Berlin.
+The landuse data *Realnutzungskartierung Wien 2020* can be downloaded from the [Open Data Portal Austria](https://www.data.gv.at) and is licenced under CC BY 4.0 DEED.
+
+
+## Adapting to your city
+All variables to be adapted can be found in `src/lib/settings.js`
 
 ## Contributing
 
