@@ -11,8 +11,6 @@ https://observablehq.com/@d3/treemap
   import chroma from "chroma-js";
   import {
     areaSizes,
-    landuses,
-    categories,
     dimensions,
     svg,
     textVis,
@@ -21,6 +19,10 @@ https://observablehq.com/@d3/treemap
     isMobile,
     screenWidth,
   } from "$lib/stores.js";
+  import {
+    landuses,
+    categories
+  } from "../../settings.js";
 
   let treemap;
   function sumByCount(d) {

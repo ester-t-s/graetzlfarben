@@ -1,4 +1,4 @@
-import { landuses, categories } from '$lib/stores.js';
+import { landuses, categories, landuseFieldname } from '$lib/settings.js';
 
 const landuseColors = [];
 
@@ -53,11 +53,11 @@ export default function (location) {
 				id: 'landuse',
 				type: 'fill',
 				source: 'landuse-source',
-				'source-layer': 'alkis',
+				'source-layer': 'landuse-data',
 				maxzoom: 24,
 				paint: {
 					'fill-opacity': 1,
-					'fill-color': ['match', ['string', ['get', 'bezeich']], ...landuseColors, '#fff']
+					'fill-color': ['match', ['string', ['get', landuseFieldname]], ...landuseColors, '#fff']
 				}
 			},
 

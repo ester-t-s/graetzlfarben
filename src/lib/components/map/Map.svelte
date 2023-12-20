@@ -10,10 +10,16 @@
   import getLanduseSizes from "$lib/assets/getLanduseSizes";
   import getCircleGeom from "$lib/assets/getCircleGeom";
   import checkCirleFits from "$lib/assets/checkCirleFits";
+  import {
+    landuses,
+    mapBounds,
+    initialMapCenter,
+    mapMaxZoom,
+    mapMinZoom
+  } from "../../settings.js";
 
   import {
     areaSizes,
-    landuses,
     circleRadius,
     dimensions,
     totalSize,
@@ -26,6 +32,7 @@
     isMobile,
   } from "$lib/stores.js";
 
+
   let map;
 
   function setShowBasemap(show) {
@@ -36,7 +43,6 @@
 
   function setBounds(b) {
     if (!b || !map) return;
-    console.log(b);
     map.setCenter(b);
   }
 
@@ -103,17 +109,13 @@
     map = new maplibregl.Map({
       container: "map", // container id
       style: mapStyle(window.location.origin + window.location.pathname),
-      maxBounds: [
-        [16.153336,48.104680],
-        [16.588669,48.332061],
-      ],
+      maxBounds: mapBounds,
       dragRotate: false,
       attributionControl: false,
-      // bounds: [13.3682291, 52.4827923, 13.4914434, 52.5310256],
       hash: true,
-      minZoom: 10,
-      maxZoom: 14,
-      center: [16.370402529206963, 48.20996163502622],
+      minZoom: mapMinZoom,
+      maxZoom: mapMaxZoom,
+      center: initialMapCenter,
       zoom: 13,
     });
 

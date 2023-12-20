@@ -1,5 +1,6 @@
 <script>
   import { newBounds, textVis, lang } from "$lib/stores.js";
+  import {mapBounds} from "$lib/settings.js";
 
   let searchText = "";
   let searchResults = undefined;
@@ -15,7 +16,7 @@
     }
 
     if (event.keyCode === 13 || event.target.getAttribute("id") === "submit") {
-      let geocoderQuery = `https://nominatim.openstreetmap.org/search.php?viewbox=13.0648,52.7554,13.7796,52.33449&bounded=1&q=${searchText}&format=json&limit=5`;
+      let geocoderQuery = 'https://nominatim.openstreetmap.org/search.php?viewbox='+mapBounds[0,0]+','+mapBounds[0,1]+','+mapBounds[1,0]+','+mapBounds[1,1]+'&bounded=1&q=${searchText}&format=json&limit=5';
 
       // get the data
       let fetchResults = await fetch(geocoderQuery)

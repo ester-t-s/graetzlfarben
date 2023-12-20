@@ -1,5 +1,8 @@
+<!-- map legend -->
+
 <script>
-  import { categories, dimensions, lang, isMobile } from "$lib/stores.js";
+  import { dimensions, lang, isMobile } from "$lib/stores.js";
+  import {categories} from "../../settings.js";
 </script>
 
 <div

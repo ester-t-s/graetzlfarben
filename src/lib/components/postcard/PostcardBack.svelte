@@ -1,5 +1,6 @@
 <script>
-  import { categories, dimensions } from "$lib/stores.js";
+  import { dimensions } from "$lib/stores.js";
+  import { categories } from "../../settings";
   import LogoCityLab from "$lib/components/logos/LogoCityLab.svelte";
   import LogoODIS from "$lib/components/logos/LogoODIS.svelte";
   import LogoTSB from "$lib/components/logos/LogoTSB.svelte";

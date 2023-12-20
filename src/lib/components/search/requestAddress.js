@@ -4,7 +4,7 @@ export default function getAddress(filterText) {
     const xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
-      `https://nominatim.openstreetmap.org/search?viewbox=13.0648,52.7554,13.7796,52.33449&bounded=1&q=${filterText.toLowerCase()}&countrycodes=de&format=json`
+      'https://nominatim.openstreetmap.org/search?viewbox='+mapBounds[0,0]+','+mapBounds[0,1]+','+mapBounds[1,0]+','+mapBounds[1,1]+'&bounded=1&q=${filterText.toLowerCase()}&countrycodes=de&format=json'
     );
     xhr.send();
 

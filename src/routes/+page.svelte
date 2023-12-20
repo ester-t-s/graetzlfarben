@@ -8,6 +8,7 @@
   import PrintAndDownload from "$lib/components/PrintAndDownload.svelte";
   import Footer from "$lib/components/Footer.svelte";
 
+  import {projectTitle} from "$lib/settings.js"
   import {
     dimensions,
     lang,
@@ -27,7 +28,7 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <svelte:head>
-  <title>Kiezcolors</title>
+  <title>{projectTitle}</title>
   <meta
     name="description"
     content="A map based tool to create a postcard showing the landuse distribution in your neighborhood"
@@ -68,7 +69,7 @@
     class="lg:h-full w-full lg:w-1/3 bg-white z-10 relative p-4 lg:p-8 overflow-auto"
     class:shadow-lg={!$isMobile}
   >
-    <div class="bold py-4 text-4xl md:text-4xl xl:text-5xl">Kiezcolors</div>
+    <div class="bold py-4 text-4xl md:text-4xl xl:text-5xl">{projectTitle}</div>
 
     <p class="my-4">
       {#if $lang === "en"}
