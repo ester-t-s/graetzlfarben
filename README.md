@@ -50,6 +50,7 @@ You can preview the production build with `npm run preview`.
 
 For Vienna, the 'Realnutzungskartierung' dataset by the City of Vienna is suitable for the application and [available as a WFS](https://www.data.gv.at/katalog/dataset/2f5baa1f-208c-42c2-8d04-9ea74aa1b229#resources). QGIS can be used to project it to ```EPSG:4326``` and save it as ```GeoJSON```, which is required to create the vector tiles for the map.
 
+To refine the categories, for Vienna NUTZUNG_LEVEL3 could be used, but the naming has to be pre-processed because the category names include spaces and commas.
   
 ## Tile Creation
 
