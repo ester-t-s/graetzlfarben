@@ -1,11 +1,17 @@
 import { get } from "svelte/store";
+import {
+  country,
+  mapBounds,
+} from "../../settings.js";
+
 export default function getAddress(filterText) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
-      'https://nominatim.openstreetmap.org/search?viewbox='+mapBounds[0,0]+','+mapBounds[0,1]+','+mapBounds[1,0]+','+mapBounds[1,1]+'&bounded=1&q=${filterText.toLowerCase()}&countrycodes=de&format=json'
+      'https://nominatim.openstreetmap.org/search?viewbox='+mapBounds[0]+','+mapBounds[1]+'&bounded=1&q=${filterText.toLowerCase()}&countrycodes='+country+'&format=json'
     );
+    console.log(xhr)
     xhr.send();
 
     xhr.onload = () => {
