@@ -1,7 +1,6 @@
 import { landuses, categories, landuseFieldname } from '$lib/settings.js';
 
 const landuseColors = [];
-
 Object.keys(landuses).forEach((key) => {
 	landuseColors.push(key);
 	landuseColors.push(categories[landuses[key].category].color);
@@ -57,7 +56,7 @@ export default function (location) {
 				maxzoom: 24,
 				paint: {
 					'fill-opacity': 1,
-					'fill-color': ['match', ['string', ['get', landuseFieldname]], ...landuseColors, '#fff']
+					'fill-color': ['match', ['to-string', ['get', landuseFieldname]], ...landuseColors, '#fff']
 				}
 			},
 

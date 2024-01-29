@@ -1,4 +1,4 @@
-export const landuseFieldname = "NUTZUNG_LEVEL1";
+export const landuseFieldname = "NUTZUNG_CODE";
 
 export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
     [16.0,48.05],
@@ -14,39 +14,209 @@ export const mapMaxZoom = 14;
 export const projectTitle = "Grätzlfarben";
 
 export let landuses = {
-    Grünlandnutzung: {
-      category: "nature",
-      info: "",
-      name: "Grünfläche",
-      name_en: "greenspace",
-    },
-    Verkehr: {
-      category: "street",
-      info: "",
-      name: "Straßenverkehr",
-      name_en: "Street traffic",
-    },
-    Baulandnutzung: {
+    1: {
       category: "living",
       info: "",
-      name: "Wohnbau",
-      name_en: "Residential",
-    }
+      name: "locker bebautes Wohn(misch)gebiet",
+      name_en: "living",
+    },
+    2: {
+      category: "living",
+      info: "",
+      name: "Wohn(misch)gebiet mittlerer Dichte",
+      name_en: "living",
+    },
+    3: {
+      category: "living",
+      info: "",
+      name: "dichtes Wohn(misch)gebiet",
+      name_en: "living",
+    },
+    4: {
+      category: "living",
+      info: "",
+      name: "großvolumiger, solitärer Wohn(misch)bau",
+      name_en: "living",
+    },
+    5: {
+      category: "industry",
+      info: "",
+      name: "Büro- und Verwaltungsviertel",
+      name_en: "industry",
+    },
+    6: {
+      category: "industry",
+      info: "",
+      name: "solitäre Handelsstrukturen",
+      name_en: "industry",
+    },
+    7: {
+      category: "industry",
+      info: "",
+      name: "Geschäfts-, Kern- u. Mischgebiete",
+      name_en: "industry",
+    },
+    8: {
+      category: "industry",
+      info: "",
+      name: "Mischnutzung wenig dicht",
+      name_en: "industry",
+    },
+    9: {
+      category: "industry",
+      info: "",
+      name: "Industrie, prod. Gewerbe, Großhandel inkl. Lager",
+      name_en: "industry",
+    },
+    10: {
+      category: "leisure",
+      info: "",
+      name: "Kultur, Freizeit, Messe",
+      name_en: "culture and leisure",
+    },
+    11: {
+      category: "infrastructure",
+      info: "",
+      name: "Gesundheit und Einsatzorg",
+      name_en: "health",
+    },
+    12: {
+      category: "leisure", //Freizeit?!
+      info: "",
+      name: "Bildung",
+      name_en: "education",
+    },
+    13: {
+      category: "leisure",
+      info: "",
+      name: "Sport und Bad (Indoor)",
+      name_en: "sports and swimming indoor",
+    },
+    14: {
+      category: "infrastructure",
+      info: "",
+      name: "Militärische Anlagen",
+      name_en: "military",
+    },
+    15: {
+      category: "infrastructure",
+      info: "",
+      name: "Kläranlage, Deponie",
+      name_en: "sewage plant or landfill ",
+    },
+    16: {
+      category: "infrastructure",
+      info: "",
+      name: "Energieversorgung u. Rundfunkanlagen",
+      name_en: "Power supply and broadcasting equipment",
+    },
+    17: {
+      category: "infrastructure",
+      info: "",
+      name: "Wasserversorgung",
+      name_en: "water supply",
+    },
+    18: {
+      category: "infrastructure",
+      info: "",
+      name: "Transformationsfläche, Baustelle, Materialgew.",
+      name_en: "Transformation area, construction site, material weight",
+    },
+    19: {
+      category: "street",
+      info: "",
+      name: "Straßenraum begrünt",
+      name_en: "Street traffic",
+    },
+    20: {
+      category: "street",
+      info: "",
+      name: "Straßenraum unbegrünt", //are name and name_en relevant anywhere?
+      name_en: "Street traffic",
+    },
+    21: {
+      category: "street",
+      info: "",
+      name: "Parkplätze u. Parkhäuser",
+      name_en: "parking",
+    },
+    22: {
+      category: "rail",
+      info: "",
+      name: "Bahnhöfe und Bahnanlagen",
+      name_en: "railways",
+    },
+    23: {
+      category: "rail",
+      info: "",
+      name: "Transport und Logistik inkl. Lager",
+      name_en: "transport and logistics",
+    },
+    24: {
+      category: "greenspace",
+      info: "",
+      name: "Park, Grünanlage",
+      name_en: "park",
+    },
+    25: {
+      category: "leisure",
+      info: "",
+      name: "Sport und Bad (Outdoor), Camping",
+      name_en: "sports and swimming outdoor, camping",
+    },
+    26: {
+      category: "greenspace",
+      info: "",
+      name: "Friedhof",
+      name_en: "cemetery",
+    },
+    27: {
+      category: "agriculture",
+      info: "",
+      name: "Acker",
+      name_en: "field",
+    },
+    28: {
+      category: "agriculture",
+      info: "",
+      name: "Weingarten",
+      name_en: "vineyard",
+    },
+    29: {
+      category: "agriculture",
+      info: "",
+      name: "Gärtnerei, Obstplantagen",
+      name_en: "orchards",
+    },
+    30: {
+      category: "greenspace",
+      info: "",
+      name: "Wald",
+      name_en: "forest",
+    },
+    31: {
+      category: "greenspace",
+      info: "",
+      name: "Wiese",
+      name_en: "meadow",
+    },
+    32: {
+      category: "water",
+      info: "",
+      name: "Gewässer inkl. Bachbett",
+      name_en: "water",
+    },
   };
   
 export let categories = {
-    street: { color: "#292929", name_en: "Street", name: "Straßen" },
-    living: { color: "#cf4b56", name_en: "Living", name: "Baulandnutzung" },
-    // transport: { color: "#4d5759", name_en: "Transport", name: "Verkehr" },
-    // water: { color: "#277da1", name_en: "Water", name: "Wasser" },
-    nature: { color: "#53935c", name_en: "Nature", name: "Grünlandnutzung" },
-    // industry: { color: "#f9c74f", name_en: "Economy", name: "Wirtschaft" },
-    // leisure: { color: "#a4ba72", name_en: "Leisure", name: "Freizeit" },
-    /* trash: {
-        color: "#89775c",
-        name_en: "Trash, Open pit",
-        name: "Halde, Tagebau",
-    },*/
-    //other: { color: "#9c6a74", name_en: "Other", name: "Andere" },
+    street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
+    living: { color: "#E7836F", name_en: "Living", name: "Wohnen" },
+    rail: { color: "#4A5D61", name_en: "Rail", name: "Schienenverkehr" },
+    water: { color: "#86C7D6", name_en: "Water", name: "Wasser" },
+    greenspace: { color: "#779A7A", name_en: "Nature", name: "Grünflächen" },
+    industry: { color: "#5D4E2D", name_en: "Economy", name: "Wirtschaft" },
+    leisure: { color: "#EAB906", name_en: "Leisure", name: "Freizeit" },
+    agriculture: {color: "#404436", name_en: "Agriculture", name: "Landwirtschaft"},
+    infrastructure: { color: "#632431", name_en: "Infrastructure and Other", name: "Infrastruktur und Anderes" },
 };
   
