@@ -7,6 +7,8 @@ export const mapBounds = [ //should be bigger than city boundingbox, because cit
 
 export const initialMapCenter = [16.370402529206963, 48.20996163502622];
 
+export const country = "AT" //for Nominatim request
+
 export const mapMinZoom = 11;
 
 export const mapMaxZoom = 14;
