@@ -9,9 +9,8 @@ export default function getAddress(filterText) {
     const xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
-      'https://nominatim.openstreetmap.org/search?viewbox='+mapBounds[0]+','+mapBounds[1]+'&bounded=1&q=${filterText.toLowerCase()}&countrycodes='+country+'&format=json'
+      `https://nominatim.openstreetmap.org/search?viewbox=${mapBounds[0]},${mapBounds[1]}&bounded=1&q=${filterText.toLowerCase()}&countrycodes=${country}&format=json`
     );
-    console.log(xhr)
     xhr.send();
 
     xhr.onload = () => {
