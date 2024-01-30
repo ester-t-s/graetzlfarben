@@ -84,7 +84,7 @@
     if ($printBackUI) {
       var a = document.createElement("A");
       a.href = file_path;
-      a.download = "ODIS-postcard.svg";
+      a.download = "Graetzlfarben-postcard.svg";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -150,7 +150,7 @@
       var file_path = canvas.toDataURL("image/png");
       var a = document.createElement("A");
       a.href = file_path;
-      a.download = "ODIS-postcard.png";
+      a.download = "Graetzlfarben-postcard.png";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

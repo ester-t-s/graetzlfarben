@@ -24,7 +24,7 @@
   <g>
     <g transform="translate(15,5)">
       <MulitlineText
-        text="Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche kiezcolors.odis-berlin.de und entdecke die Verteilung in deinem Kiez,"
+        text="Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche cartolab.at/graetzlfarben und entdecke die Verteilung in deinem Grätzl,"
         x="10"
         y="30"
         width="275"
@@ -37,7 +37,7 @@
 
     <g transform="translate(15,107)">
       <MulitlineText
-        text="Mit herzlichen Grüßen aus dem Kiezlabor!"
+        text="Mit herzlichen Grüßen vom GEO-Tag 2024!"
         x="10"
         y="30"
         width="275"
@@ -71,7 +71,7 @@
     <g transform="translate(15,310)">
       <MulitlineText
         text="Du siehst die Flächenverteilung in einem 1000 Meter Radius.
-        Möglich gemacht durch offene Verwaltungsdaten des Liegenschaftskatasters (ALKIS) aus dem Geoportal Berlin. <3"
+        Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien."
         x="10"
         y="30"
         width="275"

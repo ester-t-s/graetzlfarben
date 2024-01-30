@@ -79,7 +79,7 @@
       {:else}
         Hier kannst du dir eine Postkarte erstellen, die die Verteilung der
         Flächennutzung in deiner Nachbarschaft zeigt. Verschiebe einfach die
-        Karte von Berlin oder suche nach einem Ort. Den Text auf der Postkarte
+        Karte von Wien oder suche nach einem Ort. Den Text auf der Postkarte
         kannst du auch ändern.
       {/if}
     </p>

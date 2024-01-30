@@ -5,8 +5,8 @@
 <div class=" text-sm text-gray-400 mt-10">
   <p>
     {$lang === "en"
-      ? "Kiezcolors was developed by ODIS and CityLAB Berlin. ODIS and CityLAB are projects of the Technology Foundation Berlin and are funded by the Berlin Senate Chancellery. You can find the code to this project on "
-      : "Kiezcolors wurde von ODIS und CityLAB Berlin entwickelt. ODIS und CityLAB sind Projekte der Technologiestiftung Berlin und werden von der Berliner Senatskanzlei gefördert. Den Code zum Projekt findest auf "}
+      ? "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The research unit cartography from TU Wien adapted it for Vienna. You can find the code to this project on "
+      : "Grätzlfarben wurde ursprünglich unter dem Namen 'Kiezcolors' von ODIS und dem CityLAB Berlin entwickelt. Die Forschungsgruppe Kartographie der TU Wien hat das Projekt für Wien weiterentwickelt. Den Code zum Projekt findest auf "}
     <a
       class="font-bold"
       href="https://github.com/technologiestiftung/kiezcolors/"
@@ -23,9 +23,9 @@
         class="underline"
         target="_blank"
         rel="noreferrer"
-        href="https://daten.berlin.de/datensaetze/alkis-berlin-tatsächliche-nutzung-wfs"
+        href="https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien"
       >
-        ALKIS Berlin Tatsächliche Nutzung
+        Realnutzungskartierung ab 2007 Wien
       </a>
       |
       <a
@@ -41,9 +41,9 @@
         class="underline"
         target="_blank"
         rel="noreferrer"
-        href="https://www.govdata.de/dl-de/by-2-0"
+        href="https://creativecommons.org/licenses/by/4.0/deed.de"
       >
-        DL-DE->BY-2.0
+        CC BY 4.0 Deed
       </a>
     </span>
   </p>
@@ -56,44 +56,17 @@
     <a
       class="basis-2/4"
       style="padding:10px"
-      href="https://citylab-berlin.org/de/start/"
-    >
+      href="https://kiezcolors.odis-berlin.de">
       <img
         width="200"
-        alt="citylab-logo"
-        src="./img/logo-citylab-berlin.svg"
-      /></a
-    >
-  </div>
-
-  <div
-    style="text-align:center;margin-top:20px"
-    class="flex flex-wrap sm:flex-nowrap"
-  >
-    <a
-      class="basis-2/4"
-      style="padding:10px"
-      href="https://www.technologiestiftung-berlin.de/"
-      ><img
-        width="150"
-        alt="technologiestiftung-logo"
-        src="./img/logo-tsb.svg"
-      /></a
-    >
-    <a
-      class="basis-2/4"
-      style="padding:10px"
-      href="https://www.berlin.de/rbmskzl/"
-      ><img
-        width="100"
-        alt="seninnds-logo"
-        src="./img/B_RBm_Skzl_Logo_DE_V_PT_RGB.svg"
-      /></a
-    >
+        alt="Kiezcolors logo"
+        src="./img/kiezcolors-logo.png" 
+      />
+    </a>
   </div>
 
   <div class="w-full text-center text-gray-400 mt-4">
-    <a href="https://www.technologiestiftung-berlin.de/impressum">Impressum</a>
+    <a href="https://cartolab.at/">Impressum</a>
     <input
       bind:checked={$printBackUI}
       type="checkbox"

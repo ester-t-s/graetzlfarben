@@ -197,7 +197,7 @@
       contributors &copy; |
     {/if}
 
-    Geoportal Berlin / ALKIS Berlin
+    Datenquelle: Stadt Wien - https://data.wien.gv.at
   </div>
 
   <div
