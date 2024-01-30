@@ -28,15 +28,8 @@
         Realnutzungskartierung ab 2007 Wien
       </a>
       |
-      <a
-        class="underline"
-        target="_blank"
-        rel="noreferrer"
-        href="https://www.berlin.de/sen/sbw/">SenSBW</a
-      >
       <!-- ,
       {$lang === "en" ? "published under:" : "veröffentlicht unter"} -->
-      |
       <a
         class="underline"
         target="_blank"
@@ -49,11 +42,7 @@
   </p>
 
   <div style="text-align:center" class="flex flex-wrap sm:flex-nowrap mt-8">
-    <a class="basis-2/4" style="padding:10px" href="https://odis-berlin.de">
-      <img width="200" alt="odis-logo" src="./img/logo-odis-berlin.svg" />
-    </a>
-
-    <a
+    <a 
       class="basis-2/4"
       style="padding:10px"
       href="https://kiezcolors.odis-berlin.de">

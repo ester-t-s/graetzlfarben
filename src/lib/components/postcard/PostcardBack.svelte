@@ -82,72 +82,15 @@
         fontFill="rgb(148, 148, 148)"
       />
     </g>
-
-    <line
-      y1="30"
-      x1={width / 2}
-      y2={height - 80}
-      x2={width / 2}
-      style="stroke:rgb(200, 200, 200);stroke-width:1"
-    />
-
-    <line
-      y1={200}
-      x1={width - 30}
-      y2={200}
-      x2={width / 2 + 30}
-      style="stroke:rgb(200, 200, 200);stroke-width:1"
-    />
-
-    <line
-      y1={250}
-      x1={width - 30}
-      y2={250}
-      x2={width / 2 + 30}
-      style="stroke:rgb(200, 200, 200);stroke-width:1"
-    />
-
-    <line
-      y1={300}
-      x1={width - 30}
-      y2={300}
-      x2={width / 2 + 30}
-      style="stroke:rgb(200, 200, 200);stroke-width:1"
-    />
-
-    <rect
-      width="90"
-      height="120"
-      style="stroke:rgb(200, 200, 200);stroke-width:1"
-      transform={`translate(${width - 120},${30})`}
-      fill="transparent"
-    />
-
-    <text
-      transform="translate(424,535.5)"
-      text-anchor="end"
-      font-family="IBM Plex Sans Text"
-      font-size="12"
-      fill="#292929"
-      ><tspan x="0" y="0" dy="1.5em"
-        >Data: Geoportal Berlin / ALKIS Berlin</tspan
-      ><tspan x="0" y="0" dy="3em">KiezLabor 2023</tspan><tspan
-        x="0"
-        y="0"
-        dy="4.5em">kiezcolors.odis-berlin.de</tspan
-      >
-    </text>
   </g>
   <g transform="translate(25,375)">
     <!-- <text font-size="12" fill="#292929">Ein Projekt von</text> -->
     <LogoODIS width={130} height={50} />
   </g>
   <g transform="translate(175,375)">
-    <!-- <text font-size="12" fill="#292929">mit</text> -->
     <LogoCityLab width={120} height={50} />
   </g>
   <g transform="translate(330,375)">
-    <!-- <text font-size="12" fill="#292929">unterstützt von</text> -->
     <text
       transform="translate(60,-10)"
       text-anchor="end"
@@ -159,7 +102,6 @@
     <LogoTSB width={120} height={50} />
   </g>
   <g transform="translate(470,355)">
-    <!-- <text font-size="12" fill="#292929">gefördert von</text> -->
     <text
       transform="translate(90,10)"
       text-anchor="end"
