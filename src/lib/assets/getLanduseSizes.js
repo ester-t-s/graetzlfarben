@@ -6,7 +6,6 @@ export default function (map, circleGeom, landuses) {
   let sizes = {};
   let sumSizes = 0;
   const landuse = map.queryRenderedFeatures({ layers: ["landuse"] });
-  console.log(map.queryRenderedFeatures(), landuse);
   landuse.forEach(function (feature) {
     const intersection = intersect(circleGeom, feature.geometry);
     if (intersection) {
