@@ -1,14 +1,6 @@
-![](https://img.shields.io/badge/Built%20with%20%E2%9D%A4%EF%B8%8F-at%20Technologiestiftung%20Berlin-blue)
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
-
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 # Grätzlfarben, aka Kiezcolors
 
-*Grätzlfarben* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood in Vienna. It is based on the Kiezcolors Tool of the Open Data Informationsstelle Berlin. By zooming in and out you can pick a location and position it inside the circle. *Grätzlfarben* then maps the individual areas onto a tree map diagram. You can print the resulting motive as a postcard and share it!
+*Grätzlfarben* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood in Vienna. It is based on the [Kiezcolors](https://kiezcolors.odis-berlin.de) Tool of the [Open Data Informationsstelle Berlin](https://odis-berlin.de/). By zooming in and out you can pick a location and position it inside the circle. *Grätzlfarben* then maps the individual areas onto a tree map diagram. You can print the resulting motive as a postcard and share it!
 
 ![kiezcolors_overview](https://github.com/technologiestiftung/kiezcolors/assets/46717848/fc4b20c6-4485-4a53-aafd-19c2ce5633e0)
 
@@ -48,9 +40,9 @@ You can preview the production build with `npm run preview`.
 
 ## Data
 
-For Vienna, the 'Realnutzungskartierung' dataset by the City of Vienna is suitable for the application and [available as a WFS](https://www.data.gv.at/katalog/dataset/2f5baa1f-208c-42c2-8d04-9ea74aa1b229#resources). QGIS can be used to project it to ```EPSG:4326``` and save it as ```GeoJSON```, which is required to create the vector tiles for the map.
+For Vienna, the 'Realnutzungskartierung' dataset by the City of Vienna is suitable for the application and [available as a WFS](https://www.data.gv.at/katalog/dataset/2f5baa1f-208c-42c2-8d04-9ea74aa1b229#resources). QGIS can be used to project it to ```EPSG:4326``` and save it (with layername 'landuse-data') as ```GeoJSON```, which is required to create the vector tiles for the map.
 
-To refine the categories, for Vienna NUTZUNG_LEVEL3 could be used, but the naming has to be pre-processed because the category names include spaces and commas.
+The most detailed information on landuse was used, based on the NUTZUNG_CODE or the NUTZUNG_LEVEL3 column.
   
 ## Tile Creation
 
@@ -66,7 +58,7 @@ tippecanoe --output-to-directory ./tiles --layer "landuse-data" --no-tile-compre
 
 Your input data has to be in ```GeoJSON``` format and in the ```EPSG:4326``` projection. 
 
-## Licence
+## Data Licence
 
 The landuse data *Realnutzungskartierung Wien 2020* can be downloaded from the [Open Data Portal Austria](https://www.data.gv.at) and is licenced under CC BY 4.0 DEED.
 
@@ -79,61 +71,14 @@ All variables to be adapted can be found in `src/lib/settings.js`
 Before you create a pull request, write an issue so we can discuss your changes.
 
 ## Contributors
+ODIS Berlin / CityLAB Berlin has made the biggest contribution by developing and coding the initial [Kiezcolors](https://kiezcolors.odis-berlin.de) tool. On part of the research unit cartography at TU Wien, [Ester Scheck](https://github.com/ester-t-s) and [Florian Ledermann](https://github.com/floledermann) mostly worked on the code and the documentation while Sacha Schlumpf and Andrea Binn supported with feedback and brainstorming ideas.
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
 
 ## Content Licensing
 
 Texts and content available as [CC BY](https://creativecommons.org/licenses/by/3.0/de/).
 
-## Credits
-
-<table>
-  <tr>
-        <td>
-      Made by <a href="https://odis-berlin.de">
-        <br />
-        <br />
-        <img width="200" src="https://logos.citylab-berlin.org/logo-odis-berlin.svg" />
-      </a>
-    </td>
-    <td>
-      In cooperation with <a href="https://citylab-berlin.org/de/start/">
-        <br />
-        <br />
-        <img width="200" src="https://citylab-berlin.org/wp-content/uploads/2021/05/citylab-logo.svg" />
-      </a>
-    </td>
-    <td>
-      A project by <a href="https://www.technologiestiftung-berlin.de/">
-        <br />
-        <br />
-        <img width="150" src="https://citylab-berlin.org/wp-content/uploads/2021/05/tsb.svg" />
-      </a>
-    </td>
-    <td>
-      Supported by <a href="https://www.berlin.de/rbmskzl/">
-        <br />
-        <br />
-        <img width="80" src="https://citylab-berlin.org/wp-content/uploads/2021/12/B_RBmin_Skzl_Logo_DE_V_PT_RGB-300x200.png" />
-      </a>
-    </td>
-  </tr>
-</table>
 
 ## Related Projects
+
+[Kiezcolors Berlin](https://kiezcolors.odis-berlin.de)
