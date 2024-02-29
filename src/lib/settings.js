@@ -83,13 +83,13 @@ export let landuses = {
       name_en: "health",
     },
     12: {
-      category: "leisure", //Freizeit?!
+      category: "education",
       info: "",
       name: "Bildung",
       name_en: "education",
     },
     13: {
-      category: "leisure",
+      category: "sports",
       info: "",
       name: "Sport und Bad (Indoor)",
       name_en: "sports and swimming indoor",
@@ -149,7 +149,7 @@ export let landuses = {
       name_en: "railways",
     },
     23: {
-      category: "rail",
+      category: "industry",
       info: "",
       name: "Transport und Logistik inkl. Lager",
       name_en: "transport and logistics",
@@ -161,7 +161,7 @@ export let landuses = {
       name_en: "park",
     },
     25: {
-      category: "leisure",
+      category: "sports",
       info: "",
       name: "Sport und Bad (Outdoor), Camping",
       name_en: "sports and swimming outdoor, camping",
@@ -173,19 +173,19 @@ export let landuses = {
       name_en: "cemetery",
     },
     27: {
-      category: "agriculture",
+      category: "greenspace",
       info: "",
       name: "Acker",
       name_en: "field",
     },
     28: {
-      category: "agriculture",
+      category: "greenspace",
       info: "",
       name: "Weingarten",
       name_en: "vineyard",
     },
     29: {
-      category: "agriculture",
+      category: "industry",
       info: "",
       name: "Gärtnerei, Obstplantagen",
       name_en: "orchards",
@@ -213,12 +213,13 @@ export let landuses = {
 export let categories = {
     street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
     living: { color: "#E7836F", name_en: "Living", name: "Wohnen" },
-    rail: { color: "#4A5D61", name_en: "Rail", name: "Schienenverkehr" },
-    water: { color: "#86C7D6", name_en: "Water", name: "Wasser" },
-    greenspace: { color: "#779A7A", name_en: "Nature", name: "Grünflächen" },
-    industry: { color: "#5D4E2D", name_en: "Economy", name: "Wirtschaft" },
-    leisure: { color: "#EAB906", name_en: "Leisure", name: "Freizeit" },
-    agriculture: {color: "#404436", name_en: "Agriculture", name: "Landwirtschaft"},
-    infrastructure: { color: "#632431", name_en: "Infrastructure and Other", name: "Infrastruktur und Anderes" },
+    rail: { color: "#56696D", name_en: "Rail", name: "Bahn" },
+    water: { color: "#C6E9F0", name_en: "Water", name: "Wasser" },
+    greenspace: { color: "#98D49D", name_en: "Nature", name: "Grünflächen" },
+    industry: { color: "#BE811D", name_en: "Economy", name: "Wirtschaft" },
+    leisure: { color: "#9E4D5D", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
+    sports: {color: "#EBC90A", name_en: "Sports", name: "Sport"},
+    education: {color: "#5282D6", name_en: "Education", name: "Schule und Bildung"},
+    infrastructure: { color: "#5D4E2D", name_en: "Infrastructure", name: "Infrastruktur" },
 };
   
