@@ -33,6 +33,8 @@
     name="description"
     content="A map based tool to create a postcard showing the landuse distribution in your neighborhood"
   />
+  <meta property="og:title" content="{projectTitle}" />
+  <meta property="og:site_name" content="{projectTitle}" />
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=0.8, user-scalable=0"
