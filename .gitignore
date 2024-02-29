@@ -1,6 +1,6 @@
 # svelte stuff
 .svelte-kit
-build/
+build/*
 
 # Logs
 logs
