@@ -1,10 +1,11 @@
 <script>
   import { dimensions } from "$lib/stores.js";
   import { categories } from "../../settings";
-  import LogoCityLab from "$lib/components/logos/LogoCityLab.svelte";
-  import LogoODIS from "$lib/components/logos/LogoODIS.svelte";
-  import LogoTSB from "$lib/components/logos/LogoTSB.svelte";
-  import LogoSenatskanzlei from "$lib/components/logos/LogoSenatskanzlei.svelte";
+  // import LogoCityLab from "$lib/components/logos/LogoCityLab.svelte";
+  // import LogoODIS from "$lib/components/logos/LogoODIS.svelte";
+  // import LogoTSB from "$lib/components/logos/LogoTSB.svelte";
+  // import LogoSenatskanzlei from "$lib/components/logos/LogoSenatskanzlei.svelte";
+  //tbd delete or replace logo?
 
   import MulitlineText from "./MulitlineText.svelte";
   const width = $dimensions[0],
@@ -33,7 +34,7 @@
         fontFamily="IBM Plex Sans Text"
         fill="#292929"
       />
-    </g>
+    </g> <!-- update link-->
 
     <g transform="translate(15,107)">
       <MulitlineText
@@ -139,8 +140,8 @@
       >
     </text>
   </g>
-  <g transform="translate(25,375)">
-    <!-- <text font-size="12" fill="#292929">Ein Projekt von</text> -->
+  <!-- 
+    <g transform="translate(25,375)">
     <LogoODIS width={130} height={50} />
   </g>
   <g transform="translate(175,375)">
@@ -167,7 +168,7 @@
       >Gefördert durch
     </text>
     <LogoSenatskanzlei width={140} height={100} />
-  </g>
+  </g> -->
 
   <defs
     ><style type="text/css">
