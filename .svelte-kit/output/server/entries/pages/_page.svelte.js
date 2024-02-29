@@ -13,6 +13,226 @@ import "textures";
 import chroma from "chroma-js";
 import { computePosition, autoUpdate, offset, flip, shift } from "@floating-ui/dom";
 const maplibreGl = "";
+const landuseFieldname = "NUTZUNG_CODE";
+const mapBounds = [
+  //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
+  [16, 48.05],
+  [16.75, 48.4]
+];
+const country = "AT";
+const projectTitle = "Grätzlfarben";
+let landuses = {
+  1: {
+    category: "living",
+    info: "",
+    name: "locker bebautes Wohn(misch)gebiet",
+    name_en: "living"
+  },
+  2: {
+    category: "living",
+    info: "",
+    name: "Wohn(misch)gebiet mittlerer Dichte",
+    name_en: "living"
+  },
+  3: {
+    category: "living",
+    info: "",
+    name: "dichtes Wohn(misch)gebiet",
+    name_en: "living"
+  },
+  4: {
+    category: "living",
+    info: "",
+    name: "großvolumiger, solitärer Wohn(misch)bau",
+    name_en: "living"
+  },
+  5: {
+    category: "industry",
+    info: "",
+    name: "Büro- und Verwaltungsviertel",
+    name_en: "industry"
+  },
+  6: {
+    category: "industry",
+    info: "",
+    name: "solitäre Handelsstrukturen",
+    name_en: "industry"
+  },
+  7: {
+    category: "industry",
+    info: "",
+    name: "Geschäfts-, Kern- u. Mischgebiete",
+    name_en: "industry"
+  },
+  8: {
+    category: "industry",
+    info: "",
+    name: "Mischnutzung wenig dicht",
+    name_en: "industry"
+  },
+  9: {
+    category: "industry",
+    info: "",
+    name: "Industrie, prod. Gewerbe, Großhandel inkl. Lager",
+    name_en: "industry"
+  },
+  10: {
+    category: "leisure",
+    info: "",
+    name: "Kultur, Freizeit, Messe",
+    name_en: "culture and leisure"
+  },
+  11: {
+    category: "infrastructure",
+    info: "",
+    name: "Gesundheit und Einsatzorg",
+    name_en: "health"
+  },
+  12: {
+    category: "leisure",
+    //Freizeit?!
+    info: "",
+    name: "Bildung",
+    name_en: "education"
+  },
+  13: {
+    category: "leisure",
+    info: "",
+    name: "Sport und Bad (Indoor)",
+    name_en: "sports and swimming indoor"
+  },
+  14: {
+    category: "infrastructure",
+    info: "",
+    name: "Militärische Anlagen",
+    name_en: "military"
+  },
+  15: {
+    category: "infrastructure",
+    info: "",
+    name: "Kläranlage, Deponie",
+    name_en: "sewage plant or landfill "
+  },
+  16: {
+    category: "infrastructure",
+    info: "",
+    name: "Energieversorgung u. Rundfunkanlagen",
+    name_en: "Power supply and broadcasting equipment"
+  },
+  17: {
+    category: "infrastructure",
+    info: "",
+    name: "Wasserversorgung",
+    name_en: "water supply"
+  },
+  18: {
+    category: "infrastructure",
+    info: "",
+    name: "Transformationsfläche, Baustelle, Materialgew.",
+    name_en: "Transformation area, construction site, material weight"
+  },
+  19: {
+    category: "street",
+    info: "",
+    name: "Straßenraum begrünt",
+    name_en: "Street traffic"
+  },
+  20: {
+    category: "street",
+    info: "",
+    name: "Straßenraum unbegrünt",
+    //are name and name_en relevant anywhere?
+    name_en: "Street traffic"
+  },
+  21: {
+    category: "street",
+    info: "",
+    name: "Parkplätze u. Parkhäuser",
+    name_en: "parking"
+  },
+  22: {
+    category: "rail",
+    info: "",
+    name: "Bahnhöfe und Bahnanlagen",
+    name_en: "railways"
+  },
+  23: {
+    category: "rail",
+    info: "",
+    name: "Transport und Logistik inkl. Lager",
+    name_en: "transport and logistics"
+  },
+  24: {
+    category: "greenspace",
+    info: "",
+    name: "Park, Grünanlage",
+    name_en: "park"
+  },
+  25: {
+    category: "leisure",
+    info: "",
+    name: "Sport und Bad (Outdoor), Camping",
+    name_en: "sports and swimming outdoor, camping"
+  },
+  26: {
+    category: "greenspace",
+    info: "",
+    name: "Friedhof",
+    name_en: "cemetery"
+  },
+  27: {
+    category: "agriculture",
+    info: "",
+    name: "Acker",
+    name_en: "field"
+  },
+  28: {
+    category: "agriculture",
+    info: "",
+    name: "Weingarten",
+    name_en: "vineyard"
+  },
+  29: {
+    category: "agriculture",
+    info: "",
+    name: "Gärtnerei, Obstplantagen",
+    name_en: "orchards"
+  },
+  30: {
+    category: "greenspace",
+    info: "",
+    name: "Wald",
+    name_en: "forest"
+  },
+  31: {
+    category: "greenspace",
+    info: "",
+    name: "Wiese",
+    name_en: "meadow"
+  },
+  32: {
+    category: "water",
+    info: "",
+    name: "Gewässer inkl. Bachbett",
+    name_en: "water"
+  }
+};
+let categories = {
+  street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
+  living: { color: "#E7836F", name_en: "Living", name: "Wohnen" },
+  rail: { color: "#4A5D61", name_en: "Rail", name: "Schienenverkehr" },
+  water: { color: "#86C7D6", name_en: "Water", name: "Wasser" },
+  greenspace: { color: "#779A7A", name_en: "Nature", name: "Grünflächen" },
+  industry: { color: "#5D4E2D", name_en: "Economy", name: "Wirtschaft" },
+  leisure: { color: "#EAB906", name_en: "Leisure", name: "Freizeit" },
+  agriculture: { color: "#404436", name_en: "Agriculture", name: "Landwirtschaft" },
+  infrastructure: { color: "#632431", name_en: "Infrastructure and Other", name: "Infrastruktur und Anderes" }
+};
+const landuseColors = [];
+Object.keys(landuses).forEach((key) => {
+  landuseColors.push(key);
+  landuseColors.push(categories[landuses[key].category].color);
+});
 let areaSizes = writable();
 let circleRadius = writable();
 let dimensions = writable([210 * 3, 148 * 3]);
@@ -28,172 +248,6 @@ let printBackUI = writable(true);
 let isMobile = writable(true);
 let screenWidth = writable(0);
 let textVis = writable("");
-let landuses = {
-  AX_FlaecheBesondererFunktionalerPraegung: {
-    category: "other",
-    info: "Schulen, Museum",
-    name: "Besondere funktionale Prägung",
-    name_en: "Special functional characterization"
-  },
-  AX_IndustrieUndGewerbeflaeche: {
-    category: "industry",
-    info: "",
-    name: "Industrie, Gewerbe",
-    name_en: "Industry, commerce"
-  },
-  AX_FlaecheGemischterNutzung: {
-    category: "other",
-    info: "",
-    name: "Gemischte Nutzung",
-    name_en: "Mixed use"
-  },
-  AX_Heide: {
-    category: "nature",
-    info: "",
-    name: "Heide",
-    name_en: "Heath"
-  },
-  AX_Gehoelz: {
-    category: "nature",
-    info: "",
-    name: "Gehölz",
-    name_en: "Grove"
-  },
-  AX_Moor: {
-    category: "nature",
-    info: "",
-    name: "Moor",
-    name_en: "Moor"
-  },
-  AX_Sumpf: {
-    category: "nature",
-    info: "",
-    name: "Sumpf",
-    name_en: "Swamp"
-  },
-  AX_Wald: {
-    category: "nature",
-    info: "",
-    name: "Wald",
-    name_en: "Forest"
-  },
-  AX_Friedhof: {
-    category: "nature",
-    info: "",
-    name: "Friedhof",
-    name_en: "Cemetery"
-  },
-  AX_UnlandVegetationsloseFlaeche: {
-    category: "nature",
-    info: "",
-    name: "Unland, Vegetationslose Fläche",
-    name_en: "Wasteland, area without vegetation"
-  },
-  AX_Landwirtschaft: {
-    category: "nature",
-    info: "",
-    name: "Landwirtschaft",
-    name_en: "Farming"
-  },
-  AX_Fliessgewaesser: {
-    category: "water",
-    info: "",
-    name: "Fliessgewässer",
-    name_en: "Watercourse"
-  },
-  AX_Hafenbecken: {
-    category: "water",
-    info: "",
-    name: "Hafenbecken",
-    name_en: "Port basin"
-  },
-  AX_StehendesGewaesser: {
-    category: "water",
-    info: "",
-    name: "Stehendes Gewässer",
-    name_en: "Stagnant water"
-  },
-  AX_SportFreizeitUndErholungsflaeche: {
-    category: "leisure",
-    info: "",
-    name: "Sport, Freizeit, Erholungsfläche",
-    name_en: "Sports, leisure, recreational area"
-  },
-  AX_Platz: {
-    category: "street",
-    info: "",
-    name: "Platz",
-    name_en: "Square"
-  },
-  AX_Strassenverkehr: {
-    category: "street",
-    info: "",
-    name: "Straßenverkehr",
-    name_en: "Street traffic"
-  },
-  AX_Weg: {
-    category: "street",
-    info: "",
-    name: "Weg",
-    name_en: "Path"
-  },
-  AX_Wohnbauflaeche: {
-    category: "living",
-    info: "",
-    name: "Wohnbau",
-    name_en: "Residential"
-  },
-  AX_Halde: {
-    category: "trash",
-    info: "",
-    name: "Halde",
-    name_en: "Dump"
-  },
-  AX_Flugverkehr: {
-    category: "transport",
-    info: "",
-    name: "Flugverkehr",
-    name_en: "Air traffic"
-  },
-  AX_TagebauGrubeSteinbruch: {
-    category: "trash",
-    info: "",
-    name: "Tagebau, Grube, Steinbruch",
-    name_en: "Open pit, mine, quarry"
-  },
-  AX_Schiffsverkehr: {
-    category: "transport",
-    info: "",
-    name: "Schiffsverkehr",
-    name_en: "Shipping traffic"
-  },
-  AX_Bahnverkehr: {
-    category: "transport",
-    info: "",
-    name: "Bahnverkehr",
-    name_en: "Rail transport"
-  }
-};
-let categories = {
-  street: { color: "#292929", name_en: "Street", name: "Straßenverkehr" },
-  living: { color: "#cf4b56", name_en: "Living", name: "Wohnen" },
-  transport: { color: "#4d5759", name_en: "Transport", name: "Verkehr" },
-  water: { color: "#277da1", name_en: "Water", name: "Wasser" },
-  nature: { color: "#53935c", name_en: "Nature", name: "Natur" },
-  industry: { color: "#f9c74f", name_en: "Economy", name: "Wirtschaft" },
-  leisure: { color: "#a4ba72", name_en: "Leisure", name: "Freizeit" },
-  trash: {
-    color: "#89775c",
-    name_en: "Trash, Open pit",
-    name: "Halde, Tagebau"
-  },
-  other: { color: "#9c6a74", name_en: "Other", name: "Andere" }
-};
-const landuseColors = [];
-Object.keys(landuses).forEach((key) => {
-  landuseColors.push(key);
-  landuseColors.push(categories[landuses[key].category].color);
-});
 const MapKey = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $isMobile, $$unsubscribe_isMobile;
   let $lang, $$unsubscribe_lang;
@@ -201,12 +255,16 @@ const MapKey = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_lang = subscribe(lang, (value) => $lang = value);
   $$unsubscribe_isMobile();
   $$unsubscribe_lang();
-  return `<div class="${[
+  return `
+
+
+
+<div class="${[
     "z-50 absolute pointer-events-auto inline-block mx-2",
     ($isMobile ? "relative" : "") + " " + (!$isMobile ? "bottom-4" : "") + " " + ($isMobile ? "my-8" : "")
   ].join(" ").trim()}"${add_attribute("style", $isMobile ? "" : "max-width:calc(100% - 250px)", 0)}>${each(Object.values(categories), ({ color, name, name_en }, i) => {
-    return `<div class="${"inline-block align-middle"}"><div class="${"w-4 h-4 rounded-full ml-2 inline-block"}"${add_attribute("style", `background-color:${color}`, 0)}></div>
-      <p class="${"align-middle leading-4 ml-1 inline-block mb-2"}">${escape($lang === "de" ? name : name_en)}</p>
+    return `<div class="inline-block align-middle"><div class="w-4 h-4 rounded-full ml-2 inline-block"${add_attribute("style", `background-color:${color}`, 0)}></div>
+      <p class="align-middle leading-4 ml-1 inline-block mb-2">${escape($lang === "de" ? name : name_en)}</p>
     </div>`;
   })}</div>`;
 });
@@ -296,7 +354,7 @@ function getLanduseSizes(map, circleGeom, landuses2) {
     const intersection = intersect(circleGeom, feature.geometry);
     if (intersection) {
       const size = area(intersection);
-      const category = landuses2[feature.properties.bezeich].category;
+      const category = landuses2[feature.properties[landuseFieldname]].category;
       if (!sizes[category]) {
         sizes[category] = {};
         sizes[category].m = size;
@@ -381,7 +439,6 @@ const Map = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   function setBounds(b) {
     if (!b || !map)
       return;
-    console.log(b);
     map.setCenter(b);
   }
   const drawAndCount = function(map2) {
@@ -428,25 +485,25 @@ const Map = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_isMobile();
   $$unsubscribe_newBounds();
   $$unsubscribe_showBasemap();
-  return `<div id="${"map"}" class="${"w-full h-1/2 lg:h-screen !absolute left-0 z-0"}"><canvas id="${"myCanvas"}" class="${"absolute svelte-1dfwv1l"}"></canvas></div>
+  return `<div id="map" class="w-full h-1/2 lg:h-screen !absolute left-0 z-0"><canvas id="myCanvas" class="absolute svelte-1dfwv1l"></canvas></div>
 
-<div class="${"relative w-full h-full pointer-events-none"}">${!$isMobile ? `${validate_component(MapKey, "MapKey").$$render($$result, {}, {}, {})}` : ``}
-  <button class="${"btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-4 leading-7 z-40 pointer-events-auto "}"><svg xmlns="${"http://www.w3.org/2000/svg"}" width="${"26"}" height="${"26"}" fill="${"currentColor"}" class="${"bi bi-plus"}" viewBox="${"0 0 16 16"}"><path d="${"M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"}"></path></svg></button>
-  <button class="${"btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-10 mt-8 leading-7 z-40 pointer-events-auto"}"><svg xmlns="${"http://www.w3.org/2000/svg"}" width="${"26"}" height="${"26"}" fill="${"currentColor"}" class="${"bi bi-dash"}" viewBox="${"0 0 16 16"}"><path d="${"M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"}"></path></svg></button>
+<div class="relative w-full h-full pointer-events-none">${!$isMobile ? `${validate_component(MapKey, "MapKey").$$render($$result, {}, {}, {})}` : ``}
+  <button class="btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-4 leading-7 z-40 pointer-events-auto "><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"></path></svg></button>
+  <button class="btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-10 mt-8 leading-7 z-40 pointer-events-auto"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16"><path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"></path></svg></button>
 
-  <div class="${"absolute right-2 bottom-8 z-50 text-md"}">Radius: ${escape($circleRadius)}m
+  <div class="absolute right-2 bottom-8 z-50 text-md">Radius: ${escape($circleRadius)}m
   </div>
 
-  <div class="${"absolute right-2 bottom-2 z-50 text-md"}">${$showBasemap ? `©
-      <a target="${"_blank"}" rel="${"noreferrer"}" href="${"https://www.openstreetmap.org/copyright"}">OpenStreetMap
+  <div class="absolute right-2 bottom-2 z-50 text-md">${$showBasemap ? `©
+      <a target="_blank" rel="noreferrer" href="https://www.openstreetmap.org/copyright">OpenStreetMap
       </a>
       contributors © |` : ``}
 
-    Geoportal Berlin / ALKIS Berlin
+    Datenquelle: Stadt Wien - https://data.wien.gv.at
   </div>
 
-  <div class="${"absolute right-0 bottom-12 z-50 form-control w-fit pointer-events-auto"}"><label class="${"cursor-pointer label"}"><span class="${"mx-2 text-md"}">Basemap</span>
-      <input type="${"checkbox"}" class="${"toggle toggle-primary"}"${add_attribute("checked", $showBasemap, 1)}></label></div>
+  <div class="absolute right-0 bottom-12 z-50 form-control w-fit pointer-events-auto"><label class="cursor-pointer label"><span class="mx-2 text-md">Basemap</span>
+      <input type="checkbox" class="toggle toggle-primary"${add_attribute("checked", $showBasemap, 1)}></label></div>
 </div>`;
 });
 const PostcardFront_svelte_svelte_type_style_lang = "";
@@ -551,7 +608,7 @@ const PostcardFront = create_ssr_component(($$result, $$props, $$bindings, slots
         }
       }
     }).style("opacity", 0).transition(t).style("opacity", 1);
-    $svg.append("text").attr("transform", "translate(" + width / 2 + "," + height * 0.95 + ")").attr("text-anchor", "middle").attr("font-family", "IBM Plex Sans Bold").attr("font-size", 10).attr("fill", "#2f2fa2").text("Viele Grüße vom CityLAB Kiezlabor");
+    $svg.append("text").attr("transform", "translate(" + width / 2 + "," + height * 0.95 + ")").attr("text-anchor", "middle").attr("font-family", "IBM Plex Sans Bold").attr("font-size", 10).attr("fill", "#2f2fa2").text("GEO-Tag 2024 @ TU Wien");
   }
   $$result.css.add(css$5);
   {
@@ -578,9 +635,9 @@ const PostcardFront = create_ssr_component(($$result, $$props, $$bindings, slots
     "style",
     $screenWidth <= 500 ? `transform-origin: top left; transform:scale(${($screenWidth - 50) / 444}); height: ${630 * ($screenWidth - 0) / 444}px;` : "",
     0
-  )}><main class="${"w-full text-center"}"${add_attribute("this", visWrapper, 0)}></main>
+  )}><main class="w-full text-center"${add_attribute("this", visWrapper, 0)}></main>
 
-  <input type="${"text"}"${add_attribute("placeholder", $lang === "de" ? "Dein Text hier" : "Your text here", 0)} class="${[
+  <input type="text"${add_attribute("placeholder", $lang === "de" ? "Dein Text hier" : "Your text here", 0)} class="${[
     "input text-center absolute bottom-10 text-[30px] bold svelte-hlq8ce",
     ($screenWidth <= 444 ? `` : "w-full") ? "w-full" : ""
   ].join(" ").trim()}"${add_attribute(
@@ -589,47 +646,6 @@ const PostcardFront = create_ssr_component(($$result, $$props, $$bindings, slots
     0
   )}${add_attribute("value", $textVis, 0)}>
 </div>`;
-});
-const LogoCityLab = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { width } = $$props;
-  let { height } = $$props;
-  if ($$props.width === void 0 && $$bindings.width && width !== void 0)
-    $$bindings.width(width);
-  if ($$props.height === void 0 && $$bindings.height && height !== void 0)
-    $$bindings.height(height);
-  return `<svg xmlns="${"http://www.w3.org/2000/svg"}" xmlns:xlink="${"http://www.w3.org/1999/xlink"}"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} viewBox="${"0 0 872 175"}" version="${"1.1"}"><title>Group</title><desc>Created with Sketch.</desc><g id="${"Page-1"}" stroke="${"none"}" stroke-width="${"1"}" fill="${"none"}" fill-rule="${"evenodd"}"><g id="${"citylab-logo"}" transform="${"translate(-58.000000, -413.000000)"}"><g id="${"Group"}" transform="${"translate(58.000000, 413.000000)"}"><path d="${"M273.878618,99.7743212 C268.258397,109.4728 261.076012,114.269406 246.9194,114.269406 C230.058737,114.269406 218.4,102.588727 218.4,82.1490285 C218.4,61.7093296 229.537355,50.3424658 248.792807,50.3424658 C261.908638,50.3424658 269.923648,56.2870794 274.4,66.1941066 L259.202605,73.5985568 C257.537355,67.8624913 254.93441,64.2138929 248.376494,64.2138929 C239.737015,64.2138929 234.43002,71.0959798 234.43002,82.5661246 C234.43002,93.8297076 239.217615,100.397979 248.792807,100.397979 C253.685472,100.397979 258.058737,97.5835732 260.243387,91.9527748 L273.878618,99.7743212 Z"}" id="${"Fill-1"}" fill="${"#2F2FA2"}"></path><path d="${"M282.238876,113.47032 L297.451814,113.47032 L297.451814,65.4333996 L282.238876,65.4333996 L282.238876,113.47032 Z M289.846324,42.3515982 C295.190722,42.3515982 299.2,45.1595936 299.2,50.9835107 C299.2,56.5975213 295.190722,59.5084897 289.846324,59.5084897 C284.913033,59.5084897 280.8,56.5975213 280.8,50.9835107 C280.8,45.1595936 284.913033,42.3515982 289.846324,42.3515982 L289.846324,42.3515982 Z"}" id="${"Fill-3"}" fill="${"#2F2FA2"}"></path><path d="${"M344,111.030374 C339.631462,113.226868 334.43318,114.269406 328.195241,114.269406 C318.42049,114.269406 311.766689,109.77694 311.766689,98.078223 L311.766689,76.664398 L304.8,76.664398 L304.8,64.7527963 L311.869664,64.7527963 L311.869664,54.5164189 L327.25856,52.739726 L327.25856,64.7527963 L341.504824,64.7527963 L341.504824,76.664398 L327.155585,76.664398 L327.155585,94.5248372 C327.155585,99.5405626 329.131922,101.10835 332.874686,101.10835 C335.888699,101.10835 338.593786,99.9583739 341.399869,97.9747649 L344,111.030374 Z"}" id="${"Fill-5"}" fill="${"#2F2FA2"}"></path><path d="${"M368.953618,85.2968043 C371.562766,94.7436503 372.085789,101.040215 372.085789,101.040215 L372.503411,101.040215 C372.503411,101.040215 373.024445,94.6377081 375.844393,85.2968043 L382.110724,64.7260274 L398.4,64.7260274 L378.873153,117.623168 C373.235246,132.840865 366.447881,135.045662 356.005324,135.045662 C353.081964,135.045662 349.635582,134.519949 346.921034,133.892291 L349.323359,120.03785 C351.097262,121.191221 353.396176,121.820877 355.693101,121.820877 C359.869328,121.820877 362.583876,120.245737 364.254367,115.944084 L346.4,64.7260274 L363.315711,64.7260274 L368.953618,85.2968043 Z"}" id="${"Fill-6"}" fill="${"#2F2FA2"}"></path><polygon id="${"Fill-7"}" fill="${"#2F2FA2"}" points="${"421.967942 51.9406393 421.967942 99.8894622 444.8 99.8894622 444.8 113.47032 406.4 113.47032 406.4 51.9406393"}"></polygon><path d="${"M473.521424,88.9209202 L487.242692,88.9209202 L485.566934,84.2215377 C481.900215,73.9831708 480.643396,66.2516718 480.643396,66.2516718 L480.224457,66.2516718 C480.224457,66.2516718 478.654431,74.0866288 475.197182,84.1160901 L473.521424,88.9209202 Z M491.851027,101.978519 L469.120564,101.978519 L465.24637,113.47032 L448.8,113.47032 L471.111524,51.9406393 L490.281001,51.9406393 L512.8,113.47032 L495.936685,113.47032 L491.851027,101.978519 Z"}" id="${"Fill-8"}" fill="${"#2F2FA2"}"></path><path d="${"M537.308865,100.203815 L547.151837,100.203815 C551.76118,100.203815 554.483705,98.9503815 554.483705,94.2490093 C554.483705,90.3832598 551.76118,88.5031089 547.151837,88.5031089 L537.308865,88.5031089 L537.308865,100.203815 Z M545.163298,77.2202137 C549.455512,77.2202137 552.18003,75.654416 552.18003,71.3708552 C552.18003,66.7749307 549.561221,65.2071435 544.848163,65.2071435 L537.308865,65.2071435 L537.308865,77.2202137 L545.163298,77.2202137 Z M556.787379,82.1304915 C566.002076,83.4893731 570.4,89.4441792 570.4,96.7578668 C570.4,106.785339 563.594687,113.47032 548.514097,113.47032 L521.6,113.47032 L521.6,51.9406393 L548.723521,51.9406393 C561.185303,51.9406393 567.783186,57.7919873 567.783186,67.4016477 C567.783186,75.0276991 563.488977,79.9359873 556.787379,81.7126802 L556.787379,82.1304915 Z"}" id="${"Fill-9"}" fill="${"#2F2FA2"}"></path><path d="${"M631.901465,77.2202137 C636.160898,77.2202137 639.900018,75.654416 639.900018,70.5352326 C639.900018,66.6694831 637.717875,65.2071435 633.66815,65.2071435 L626.603388,65.2071435 L624.526099,77.2202137 L631.901465,77.2202137 Z M620.474396,100.203815 L630.239634,100.203815 C635.120275,100.203815 638.548791,98.3216749 638.548791,93.5168447 C638.548791,90.3832598 636.88696,88.5031089 632.316923,88.5031089 L622.551685,88.5031089 L620.474396,100.203815 Z M641.769579,82.0270335 C650.701923,83.385915 653.922711,89.0263678 653.922711,94.9791844 C653.922711,107.515514 644.054597,113.47032 629.096136,113.47032 L602.4,113.47032 L613.101008,51.9406393 L638.445916,51.9406393 C651.014506,51.9406393 656,57.6865397 656,65.7304024 C656,75.0257095 649.560403,80.5646938 641.874433,81.6072326 L641.769579,82.0270335 Z"}" id="${"Fill-10"}" fill="${"#2F2FA2"}"></path><path d="${"M693.51795,83.5459719 C693.623361,82.9232396 693.726782,82.1957302 693.726782,81.3634436 C693.726782,77.9394047 692.577212,75.2408983 688.505983,75.2408983 C684.327355,75.2408983 681.823361,79.082069 680.673791,83.5459719 L693.51795,83.5459719 Z M692.473791,96.4177486 L707.302848,99.9465647 C704.482623,109.702703 697.8,114.269406 684.223934,114.269406 C670.335614,114.269406 662.4,106.17191 662.4,93.4049107 C662.4,74.4105886 675.138749,63.9269406 689.132479,63.9269406 C703.126209,63.9269406 709.6,72.3348145 709.6,81.3634436 C709.6,85.2065912 708.868094,88.9410078 707.51168,91.6414911 L679.003135,91.6414911 C677.750143,97.9735908 680.359548,102.437494 685.476926,102.437494 C689.027069,102.437494 691.429631,100.982475 692.473791,96.4177486 L692.473791,96.4177486 Z"}" id="${"Fill-11"}" fill="${"#2F2FA2"}"></path><path d="${"M752.341238,82.687571 C745.443736,79.0224358 736.036061,80.0713265 734.260427,90.2252266 L730.183635,113.47032 L714.4,113.47032 L722.866112,65.0977138 L736.663107,65.0977138 L736.350579,78.396292 C739.692832,68.447783 747.740913,62.1664033 756,64.3658833 L752.341238,82.687571 Z"}" id="${"Fill-12"}" fill="${"#2F2FA2"}"></path><path d="${"M773.706457,97.342227 C773.284611,99.6407095 773.495534,101.624768 776.659379,101.624768 C777.607528,101.624768 778.557686,101.417805 779.823224,101.10338 L777.292148,112.910217 C774.656615,113.746029 771.595219,114.269406 768.959686,114.269406 C759.361686,114.269406 755.565073,109.463488 757.148,100.162097 L767.272302,43.9497717 L783.2,43.9497717 L773.706457,97.342227 Z"}" id="${"Fill-13"}" fill="${"#2F2FA2"}"></path><path d="${"M804.179359,41.5525114 C809.562019,41.5525114 813.6,44.3714144 813.6,50.2159663 C813.6,55.8517843 809.562019,58.7760482 804.179359,58.7760482 C799.208779,58.7760482 795.070243,55.8517843 795.070243,50.2159663 C795.070243,44.3714144 799.208779,41.5525114 804.179359,41.5525114 L804.179359,41.5525114 Z M804.59341,96.5608778 C804.179359,98.8569518 804.386385,100.838931 807.493737,100.838931 C808.424366,100.838931 809.356966,100.632185 810.599118,100.31809 L808.112842,112.112555 C805.52601,112.947491 802.523156,113.47032 799.936325,113.47032 C790.513713,113.47032 786.789228,108.669438 788.340932,99.3777928 L794.447195,64.7239732 L810.080569,64.7239732 L804.59341,96.5608778 Z"}" id="${"Fill-14"}" fill="${"#2F2FA2"}"></path><path d="${"M865.904769,96.6795004 C865.484408,98.959467 865.694589,100.927542 868.847294,100.927542 C869.792105,100.927542 870.738918,100.722246 872,100.410355 L869.477835,112.12208 C866.851582,112.951158 863.800964,113.47032 861.17471,113.47032 C851.610502,113.47032 847.827255,108.703117 849.404608,99.4766543 L852.030862,84.5512622 C852.767494,80.1985987 851.926773,76.6750139 847.092624,76.6750139 C843.307376,76.6750139 840.15467,79.993303 838.787497,87.5576598 L834.267618,112.951158 L818.4,112.951158 L826.913306,65.065937 L840.785211,65.065937 L840.995392,74.8095866 C844.044008,67.762417 848.351705,63.9269406 856.44465,63.9269406 C864.117235,63.9269406 868.951384,68.7987655 868.951384,76.1578266 C868.951384,77.8140102 868.847294,78.9549805 868.637114,80.1985987 L865.904769,96.6795004 Z"}" id="${"Fill-15"}" fill="${"#2F2FA2"}"></path><polygon id="${"Fill-16"}" fill="${"#F64C72"}" points="${"95.1873397 123.059361 66.4 106.693481 66.9479874 33.5407345 125.71064 0 153.6 15.9118228 153.486003 89.5305229"}"></polygon><polygon id="${"Fill-17"}" fill="${"#393A61"}" points="${"69.6 24.612994 60.3258154 29.9629488 60.0839491 62.4977463 27.1663429 81.4897878 26.728208 140.639269 0 125.280747 0.543207907 51.9845785 58.7913522 18.3789954"}"></polygon><polygon id="${"Fill-18"}" fill="${"#2F2FA2"}" points="${"60.4747991 70.3196347 60.1733254 110.994516 95.3406363 131.154489 120 116.853936 119.964299 141.471429 62.1467885 175 33.6 158.633283 34.1434461 85.4767932"}"></polygon></g></g></g></svg>`;
-});
-const LogoODIS = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { width } = $$props;
-  let { height } = $$props;
-  if ($$props.width === void 0 && $$bindings.width && width !== void 0)
-    $$bindings.width(width);
-  if ($$props.height === void 0 && $$bindings.height && height !== void 0)
-    $$bindings.height(height);
-  return `<svg xmlns="${"http://www.w3.org/2000/svg"}"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} viewBox="${"0 0 221 53"}"><g fill="${"none"}" transform="${"translate(.908 .023)"}"><path fill="${"#000"}" d="${"M78.6524424,9.1399053 C78.6524424,12.3521612 77.5351129,13.7339036 74.7711924,13.7339036 C72.0543174,13.7339036 70.878181,12.2931124 70.878181,9.1399053 C70.878181,5.98669821 72.0190333,4.56952651 74.7711924,4.56952651 C77.5351129,4.56952651 78.6524424,5.98669821 78.6524424,9.1399053 Z M76.5824424,9.1399053 C76.5824424,6.89605008 76.1237492,6.35280093 74.7711924,6.35280093 C73.430397,6.35280093 72.9599424,6.89605008 72.9599424,9.1399053 C72.9599424,11.3837605 73.4421583,11.9506292 74.7829538,11.9506292 C76.1119879,11.9506292 76.5824424,11.3719508 76.5824424,9.1399053 Z M87.6603401,7.74635311 C87.6603401,9.61229585 86.6723856,10.6869844 84.2142606,10.6869844 L83.0381242,10.6869844 L83.0381242,13.5685669 L81.0504538,13.5685669 L81.0504538,4.71124367 L84.2142606,4.71124367 C86.6606242,4.71124367 87.6603401,5.67964434 87.6603401,7.74635311 Z M85.6138629,7.73454336 C85.6138629,6.67166457 85.2374992,6.37642045 84.2142606,6.37642045 L83.0381242,6.37642045 L83.0381242,9.09266622 L84.2142606,9.09266622 C85.1904538,9.09266622 85.6138629,8.84466118 85.6138629,7.73454336 Z M91.8931242,11.8325316 L95.9507947,11.8325316 L95.9037492,13.5685669 L89.9054538,13.5685669 L89.9054538,4.71124367 L95.7273288,4.71124367 L95.7626129,6.47089857 L91.8931242,6.47089857 L91.8931242,8.23055343 L95.151022,8.23055343 L95.151022,9.81306185 L91.8931242,9.81306185 L91.8931242,11.8325316 Z M105.346817,13.5685669 L103.958976,13.5685669 L100.536419,8.7383733 L100.007158,7.94711911 L99.9836352,7.95892887 L99.9953972,8.91551978 L99.9953972,13.5685669 L98.2311924,13.5685669 L98.2311924,4.71124367 L99.9248292,4.71124367 L103.065113,9.28162246 L103.594374,10.0728767 L103.617897,10.0610669 L103.594374,9.11628578 L103.594374,4.71124367 L105.346817,4.71124367 L105.346817,13.5685669 Z M122.257044,9.10447598 C122.257044,12.3049222 120.92801,13.5685669 118.316988,13.5685669 L114.988522,13.5685669 L114.988522,4.71124367 L118.293465,4.71124367 C121.092669,4.71124367 122.257044,6.04574705 122.257044,9.10447598 Z M120.175283,9.09266622 C120.175283,6.9905282 119.669544,6.49451809 118.269942,6.49451809 L116.976192,6.49451809 L116.976192,11.7971023 L118.281704,11.7971023 C119.63426,11.7971023 120.175283,11.360141 120.175283,9.09266622 Z M129.86534,13.5685669 L129.371363,11.8443413 L126.172272,11.8443413 L125.678294,13.5685669 L123.584772,13.5685669 L126.630965,4.71124367 L128.994999,4.71124367 L132.076476,13.5685669 L129.86534,13.5685669 Z M127.783579,6.21108373 L127.53659,7.14405512 L126.654488,10.1791646 L128.900908,10.1791646 L128.05409,7.14405512 L127.818863,6.21108373 L127.783579,6.21108373 Z M139.284885,6.50632785 L136.90909,6.50632785 L136.90909,13.5685669 L134.909658,13.5685669 L134.909658,6.50632785 L132.545624,6.50632785 L132.592669,4.71124367 L139.23784,4.71124367 L139.284885,6.50632785 Z M146.034601,13.5685669 L145.540624,11.8443413 L142.341533,11.8443413 L141.847556,13.5685669 L139.754033,13.5685669 L142.800226,4.71124367 L145.16426,4.71124367 L148.245738,13.5685669 L146.034601,13.5685669 Z M143.95284,6.21108373 L143.705851,7.14405512 L142.823749,10.1791646 L145.070169,10.1791646 L144.223351,7.14405512 L143.988124,6.21108373 L143.95284,6.21108373 Z M71.3368742,29.9710173 L71.3368742,21.1136941 L73.3598288,21.1136941 L73.3598288,29.9710173 L71.3368742,29.9710173 Z M83.320397,29.9710173 L81.932556,29.9710173 L78.5099992,25.1408238 L77.9807379,24.3495695 L77.9572151,24.3613793 L77.9689765,25.3179702 L77.9689765,29.9710173 L76.204772,29.9710173 L76.204772,21.1136941 L77.8984083,21.1136941 L81.0386924,25.6840729 L81.5679538,26.4753271 L81.5914765,26.4635173 L81.5679538,25.5187362 L81.5679538,21.1136941 L83.320397,21.1136941 L83.320397,29.9710173 Z M91.8931242,22.9087783 L88.0236356,22.9087783 L88.0236356,24.8219601 L91.2462492,24.8219601 L91.2227265,26.5225662 L88.0236356,26.5225662 L88.0236356,29.9710173 L86.0477265,29.9710173 L86.0477265,21.1136941 L91.8578401,21.1136941 L91.8931242,22.9087783 Z M101.383238,25.5423558 C101.383238,28.7546116 100.265908,30.1363541 97.5019879,30.1363541 C94.7851129,30.1363541 93.6089765,28.6955628 93.6089765,25.5423558 C93.6089765,22.3891487 94.7498288,20.971977 97.5019879,20.971977 C100.265908,20.971977 101.383238,22.3891487 101.383238,25.5423558 Z M99.3132382,25.5423558 C99.3132382,23.2985005 98.8545447,22.7552513 97.5019879,22.7552513 C96.1611924,22.7552513 95.6907379,23.2985005 95.6907379,25.5423558 C95.6907379,27.786211 96.1729538,28.3530796 97.5137492,28.3530796 C98.8427833,28.3530796 99.3132382,27.7744012 99.3132382,25.5423558 Z M110.297044,23.8653692 C110.297044,25.1053945 109.767783,25.979317 108.815113,26.2745611 L110.873351,29.9710173 L108.556363,29.9710173 L107.015624,26.6642833 L105.768919,26.6642833 L105.768919,29.9710173 L103.781249,29.9710173 L103.781249,21.1136941 L107.015624,21.1136941 C109.203238,21.1136941 110.297044,21.9758069 110.297044,23.8653692 Z M108.227044,23.9480376 C108.227044,23.0504955 107.897726,22.7670611 107.027385,22.7670611 L105.768919,22.7670611 L105.768919,25.176253 L106.992101,25.176253 C107.874204,25.176253 108.227044,24.9046285 108.227044,23.9480376 Z M112.824431,21.1136941 L115.012044,21.1136941 L117.058522,26.2863709 L117.38784,27.1721032 L117.423124,27.1721032 L117.752442,26.2863709 L119.810681,21.1136941 L121.998294,21.1136941 L121.998294,29.9710173 L120.187044,29.9710173 L120.187044,25.4596874 L120.210567,24.5030965 L120.175283,24.4912867 L119.845965,25.3888288 L118.034715,29.9710173 L116.717442,29.9710173 L114.917954,25.4006386 L114.588635,24.5030965 L114.565113,24.5149062 L114.576874,25.4714972 L114.576874,29.9710173 L112.824431,29.9710173 L112.824431,21.1136941 Z M130.229942,29.9710173 L129.735965,28.2467918 L126.536874,28.2467918 L126.042897,29.9710173 L123.949374,29.9710173 L126.995567,21.1136941 L129.359601,21.1136941 L132.441079,29.9710173 L130.229942,29.9710173 Z M128.148181,22.6135342 L127.901192,23.5465056 L127.01909,26.581615 L129.26551,26.581615 L128.418692,23.5465056 L128.183465,22.6135342 L128.148181,22.6135342 Z M139.649488,22.9087783 L137.273692,22.9087783 L137.273692,29.9710173 L135.27426,29.9710173 L135.27426,22.9087783 L132.910226,22.9087783 L132.957272,21.1136941 L139.602442,21.1136941 L139.649488,22.9087783 Z M141.80051,29.9710173 L141.80051,21.1136941 L143.823465,21.1136941 L143.823465,29.9710173 L141.80051,29.9710173 Z M154.113351,25.5423558 C154.113351,28.7546116 152.996022,30.1363541 150.232101,30.1363541 C147.515226,30.1363541 146.33909,28.6955628 146.33909,25.5423558 C146.33909,22.3891487 147.479942,20.971977 150.232101,20.971977 C152.996022,20.971977 154.113351,22.3891487 154.113351,25.5423558 Z M152.043351,25.5423558 C152.043351,23.2985005 151.584658,22.7552513 150.232101,22.7552513 C148.891306,22.7552513 148.420851,23.2985005 148.420851,25.5423558 C148.420851,27.786211 148.903067,28.3530796 150.243863,28.3530796 C151.572897,28.3530796 152.043351,27.7744012 152.043351,25.5423558 Z M163.626988,29.9710173 L162.239147,29.9710173 L158.81659,25.1408238 L158.287329,24.3495695 L158.263806,24.3613793 L158.275567,25.3179702 L158.275567,29.9710173 L156.511363,29.9710173 L156.511363,21.1136941 L158.204999,21.1136941 L161.345283,25.6840729 L161.874544,26.4753271 L161.898067,26.4635173 L161.874544,25.5187362 L161.874544,21.1136941 L163.626988,21.1136941 L163.626988,29.9710173 Z M171.964488,27.3138204 C171.964488,29.0616655 170.753067,30.1363541 168.694829,30.1363541 C167.67159,30.1363541 166.730681,29.888349 165.966192,29.4750073 L166.224942,27.7625914 C167.001192,28.1759332 167.800965,28.4121285 168.671306,28.4121285 C169.635738,28.4121285 170.059147,28.0578355 170.059147,27.4437278 C170.059147,26.0501756 166.001476,26.6406638 166.001476,23.676413 C166.001476,22.1765729 166.965908,20.9601672 169.200567,20.9601672 C170.059147,20.9601672 170.988294,21.1373136 171.670454,21.420748 L171.423465,23.0977345 C170.69426,22.8615392 169.965056,22.7198221 169.294658,22.7198221 C168.200851,22.7198221 167.906817,23.0977345 167.906817,23.5701251 C167.906817,24.9518675 171.964488,24.3141402 171.964488,27.3138204 Z M179.80801,27.3138204 C179.80801,29.0616655 178.59659,30.1363541 176.538351,30.1363541 C175.515113,30.1363541 174.574204,29.888349 173.809715,29.4750073 L174.068465,27.7625914 C174.844715,28.1759332 175.644488,28.4121285 176.514829,28.4121285 C177.47926,28.4121285 177.902669,28.0578355 177.902669,27.4437278 C177.902669,26.0501756 173.844999,26.6406638 173.844999,23.676413 C173.844999,22.1765729 174.809431,20.9601672 177.04409,20.9601672 C177.902669,20.9601672 178.831817,21.1373136 179.513976,21.420748 L179.266988,23.0977345 C178.537783,22.8615392 177.808579,22.7198221 177.138181,22.7198221 C176.044374,22.7198221 175.75034,23.0977345 175.75034,23.5701251 C175.75034,24.9518675 179.80801,24.3141402 179.80801,27.3138204 Z M188.169033,22.9087783 L185.793238,22.9087783 L185.793238,29.9710173 L183.793806,29.9710173 L183.793806,22.9087783 L181.429772,22.9087783 L181.476817,21.1136941 L188.121988,21.1136941 L188.169033,22.9087783 Z M192.178352,28.234982 L196.236022,28.234982 L196.188977,29.9710173 L190.190681,29.9710173 L190.190681,21.1136941 L196.012556,21.1136941 L196.04784,22.873349 L192.178352,22.873349 L192.178352,24.6330039 L195.436249,24.6330039 L195.436249,26.2155123 L192.178352,26.2155123 L192.178352,28.234982 Z M200.515852,28.1759332 L204.150113,28.1759332 L204.103068,29.9710173 L198.51642,29.9710173 L198.51642,21.1136941 L200.515852,21.1136941 L200.515852,28.1759332 Z M208.241761,28.1759332 L211.876022,28.1759332 L211.828977,29.9710173 L206.242329,29.9710173 L206.242329,21.1136941 L208.241761,21.1136941 L208.241761,28.1759332 Z M215.955909,28.234982 L220.013579,28.234982 L219.966534,29.9710173 L213.968238,29.9710173 L213.968238,21.1136941 L219.790113,21.1136941 L219.825397,22.873349 L215.955909,22.873349 L215.955909,24.6330039 L219.213806,24.6330039 L219.213806,26.2155123 L215.955909,26.2155123 L215.955909,28.234982 Z M77.570397,43.8934172 C77.570397,45.4641159 76.8411924,46.373468 74.9123288,46.373468 L71.6779538,46.373468 L71.6779538,37.5161446 L74.7359083,37.5161446 C76.3707379,37.5161446 77.1940333,38.2129206 77.1940333,39.6891412 C77.1940333,40.8464981 76.6412492,41.4606058 75.9002833,41.6731816 L75.9002833,41.6968011 C76.9352833,41.9093769 77.570397,42.5825335 77.570397,43.8934172 Z M76.8059083,43.8343686 C76.8059083,42.6297725 76.1707947,42.0747136 74.8770447,42.0747136 L72.4189197,42.0747136 L72.4189197,45.6885014 L74.9240901,45.6885014 C76.1002265,45.6885014 76.8059083,45.2043013 76.8059083,43.8343686 Z M76.4530674,39.8190486 C76.4530674,38.6735015 75.9002833,38.2129206 74.7123856,38.2129206 L72.430681,38.2129206 L72.430681,41.4369863 L74.8064765,41.4369863 C75.9120447,41.4369863 76.4530674,40.8937372 76.4530674,39.8190486 Z M81.5326697,45.6412626 L86.2136924,45.6412626 L86.1784083,46.373468 L80.768181,46.373468 L80.768181,37.5161446 L85.9667038,37.5161446 L86.0019879,38.24835 L81.5326697,38.24835 L81.5326697,41.401557 L85.4021583,41.401557 L85.4021583,42.0629038 L81.5326697,42.0629038 L81.5326697,45.6412626 Z M94.6217606,39.9135267 C94.6217606,41.354318 93.9631242,42.1101429 92.7399424,42.25186 L95.1980674,46.373468 L94.2571583,46.373468 L91.9989765,42.3935772 L89.9524992,42.3935772 L89.9524992,46.373468 L89.1762492,46.373468 L89.1762492,37.5161446 L92.0342606,37.5161446 C93.8102265,37.5161446 94.6217606,38.295589 94.6217606,39.9135267 Z M93.8219879,39.948956 C93.8219879,38.7089307 93.2692038,38.2129206 92.0342606,38.2129206 L89.9524992,38.2129206 L89.9524992,41.75585 L91.9636924,41.75585 C93.245681,41.75585 93.8219879,41.2362203 93.8219879,39.948956 Z M98.6663629,45.6176427 L103.04159,45.6176427 L103.006306,46.373468 L97.8901129,46.373468 L97.8901129,37.5161446 L98.6663629,37.5161446 L98.6663629,45.6176427 Z M105.874772,46.373468 L105.874772,37.5161446 L106.651022,37.5161446 L106.651022,46.373468 L105.874772,46.373468 Z M116.846817,46.373468 L116.27051,46.373468 L111.707101,39.5238045 L111.189601,38.7207405 L111.166079,38.7325503 L111.17784,39.6891412 L111.17784,46.373468 L110.472158,46.373468 L110.472158,37.5161446 L111.236647,37.5161446 L115.647158,44.2004711 L116.164658,45.0035353 L116.188181,44.9917256 L116.164658,44.0469444 L116.152897,37.5161446 L116.846817,37.5161446 L116.846817,46.373468 Z"}"></path><ellipse cx="${"22.496"}" cy="${"30.473"}" fill="${"#53B6E7"}" rx="${"22.404"}" ry="${"22.496"}" transform="${"rotate(-90 22.496 30.473)"}"></ellipse><ellipse cx="${"47.805"}" cy="${"5.628"}" fill="${"#E60332"}" rx="${"5.628"}" ry="${"5.651"}" transform="${"rotate(-90 47.805 5.628)"}"></ellipse><ellipse cx="${"22.72"}" cy="${"30.628"}" fill="${"#16469D"}" rx="${"5.628"}" ry="${"5.651"}" transform="${"rotate(-90 22.72 30.628)"}"></ellipse></g></svg>`;
-});
-const LogoTSB = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { width } = $$props;
-  let { height } = $$props;
-  if ($$props.width === void 0 && $$bindings.width && width !== void 0)
-    $$bindings.width(width);
-  if ($$props.height === void 0 && $$bindings.height && height !== void 0)
-    $$bindings.height(height);
-  return `
-<svg version="${"1.1"}" id="${"Ebene_1"}" xmlns="${"http://www.w3.org/2000/svg"}" xmlns:xlink="${"http://www.w3.org/1999/xlink"}" x="${"0px"}" y="${"0px"}" viewBox="${"0 0 497.4 151.9"}" style="${"enable-background:new 0 0 497.4 151.9;"}" xml:space="${"preserve"}"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)}><style type="${"text/css"}">.st0 {
-      fill: #1e3791;
-    }</style><g id="${"Schriftzug"}"><path class="${"st0"}" d="${"M302.4,103v24.2h11.4l-0.1,3.3h-14.8V103H302.4z M245.7,103v27.5h15.7l0.1-3.3h-12.3v-9.5h10.1v-3h-10.1v-8.4\n		H261l-0.1-3.3C260.9,103,245.7,103,245.7,103z M284.4,110.9c0-3.6-1.4-4.8-4.5-4.8h-4.8v9.7h4.7\n		C282.9,115.8,284.4,114.6,284.4,110.9z M283,118l6.6,12.4h-4.1l-5.6-11.8h-4.8v11.8h-3.5V103h8.2c5.5,0,8.1,2.4,8.1,7.8\n		C288,115.1,286.2,117.4,283,118z M226.9,127.4c3,0,4.7-1.2,4.7-5c0-3.4-1.5-4.8-4.8-4.8H221v9.8H226.9z M220.9,114.8h5.6\n		c2.9,0,4.1-1.4,4.1-4.4c0-3.2-1.3-4.3-4.3-4.3h-5.5L220.9,114.8L220.9,114.8z M230.5,115.9c2.9,0.7,4.6,2.8,4.6,6.7\n		c0,5-2.3,7.8-8.2,7.8h-9.3V103h9c5,0,7.6,2.2,7.6,6.8C234.1,113.2,232.6,115.1,230.5,115.9L230.5,115.9z M323.1,130.4h3.5V103h-1.8\n		H323L323.1,130.4L323.1,130.4z M354.4,103v17.9l0.1,2.9h-0.1l-1.5-2.6L342,103h-3.2v27.5h3.1V112v-3h0.1l1.5,2.6l11.5,18.9h2.5V103\n		H354.4z M406.1,74.8c-0.8,0.2-1.6,0.3-2.6,0.3c-4.2,0-5.7-1.8-5.7-8.9c0-7,1.5-8.9,6.4-8.9c2.1,0,4.3,0.4,6,1.1l0.6-5.1\n		c-1.9-0.8-4.5-1.2-6.9-1.2c-8.5,0-12.1,4.4-12.1,14.3c0,9.6,3.2,14.2,11.9,14.2c2.8,0,5.7-0.6,7.6-1.5v-14h-5.2L406.1,74.8\n		L406.1,74.8z M272.8,52.5h-2.9H267V80h5.9V52.5H272.8z M246.4,80h5.8V57.9h6.7l-0.1-5.4h-18.9l-0.1,5.4h6.7L246.4,80L246.4,80z\n		 M224,75.3c-2.5,0-4.7-0.7-6.8-1.8l-0.8,5.1c2.1,1.2,4.8,1.9,7.7,1.9c5.9,0,9.4-3.2,9.4-8.6c0-9-11.4-7.4-11.4-11.8\n		c0-1.5,0.9-2.7,4-2.7c1.9,0,3.8,0.4,5.9,1.1l0.7-5c-1.9-0.9-4.4-1.4-6.9-1.4c-6.3,0-9.2,3.6-9.2,8.2c0,9,11.4,7.4,11.4,11.9\n		C227.9,74.2,226.7,75.3,224,75.3z M377.6,66.2l0.1,2.9h-0.1l-10.2-16.7h-4.9V80h5.1V65.5v-3h0.1l1.5,2.6l9.4,14.9h4.1V52.5h-5.1\n		V66.2z M298,64h-9v-6.1h10.7l-0.1-5.4h-16.4V80h5.8V69.1h8.9L298,64z M352.6,70.6V52.5h-5.7v18.1c0,3.2-1.2,4.5-4.3,4.5\n		c-3.1,0-4.4-1.4-4.4-4.5V52.5h-5.8v18.1c0,6.6,3.5,9.8,10.1,9.8S352.6,77.2,352.6,70.6z M324.9,52.5H306l-0.1,5.4h6.7V80h5.8V57.9\n		h6.7L324.9,52.5z M342.7,28V0.5h-5.1v13.7l0.1,2.9h-0.1L327.5,0.5h-4.9V28h5.1V13.5v-3h0.1l1.5,2.6l9.4,14.9\n		C338.6,28,342.7,28,342.7,28z M220.6,28h5.8V5.9h6.7L233,0.5h-18.9L214,5.9h6.7L220.6,28L220.6,28z M486.1,22.8v-6.5h9.1v-4.8h-9.1\n		V5.7h10.8l-0.1-5.3h-16.4V28h16.9l0.1-5.2H486.1L486.1,22.8z M398.9,22.6h-10.1V0.5H383V28h15.8L398.9,22.6z M298,16.6h8.5V28h5.8\n		V0.5h-5.8v10.7H298V0.5h-5.8V28h5.8V16.6z M258.4,22.8H247v-6.5h9.1v-4.8H247V5.7h10.8l-0.1-5.3h-16.4V28h16.9L258.4,22.8z\n		 M367.7,14.2c0-7.3-1.2-8.8-5-8.8c-3.7,0-5,1.6-5,8.8c0,7.3,1.3,8.9,5,8.9C366.5,23.1,367.7,21.5,367.7,14.2z M362.8,28.4\n		c-7.7,0-11-4.1-11-14.2C351.8,4,355,0,362.8,0s11,4,11,14.2C373.8,24.6,370.6,28.4,362.8,28.4z M464.1,28h5.9V0.5h-3h-2.9V28z\n		 M277.5,28.4c2.2,0,4.5-0.5,6.2-1.4l-0.6-4.9c-1.4,0.6-2.9,1-4.7,1c-4.5,0-6.1-2-6.1-9.2c0-6.7,1.5-8.7,6-8.7\n		c1.8,0,3.5,0.4,4.8,0.8l0.6-5.1c-1.4-0.6-3.8-1.1-5.8-1.1c-8,0-11.6,4.6-11.6,14C266.2,24,269.8,28.4,277.5,28.4z M421,14.2\n		c0-7.3-1.2-8.8-5-8.8c-3.7,0-5,1.6-5,8.8c0,7.3,1.3,8.9,5,8.9C419.7,23.1,421,21.5,421,14.2z M427,14.2c0,10.4-3.2,14.2-11,14.2\n		c-7.7,0-11-4.1-11-14.2C405,4,408.2,0,416,0S427,4.1,427,14.2z M449.2,22.8c-0.8,0.2-1.7,0.3-2.6,0.3c-4.2,0-5.7-1.8-5.7-8.9\n		c0-7,1.5-8.9,6.4-8.9c2.1,0,4.3,0.4,6,1.1l0.6-5.1C452,0.5,449.3,0,447,0c-8.5,0-12.1,4.4-12.1,14.3c0,9.6,3.3,14.2,11.9,14.2\n		c2.8,0,5.8-0.6,7.6-1.5V13.1h-5.2L449.2,22.8L449.2,22.8z"}"></path></g><g id="${"Linienmarke_A1"}"><path class="${"st0"}" d="${"M8.1,104.5l2.3-1.4l39,6.1l-1.5,1.5L8.1,104.5z M110.9,58.8l-1.3,1.3l43.9,19.3l-0.4-2.1L110.9,58.8z\n		 M94.1,51.4l-1.8,1.1l8.4,3.7l1.3-1.3L94.1,51.4z M186.7,91.6l-18.2,40.1L58.2,113l2.9-3.1l103.8,17.7L145.4,19.3L16.6,151.9\n		L0,102.3l36.7-76.7l47.9,21.1L81,48.9L38.4,30.1L5.6,98.7l141.8-87.5l20.4,113.3L182,93.4l-18.4-8.1l-0.7-4.2L186.7,91.6z\n		 M18.1,145.3L139.9,20L4.2,103.7L18.1,145.3z"}"></path></g></svg>`;
-});
-const LogoSenatskanzlei = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { width } = $$props;
-  let { height } = $$props;
-  if ($$props.width === void 0 && $$bindings.width && width !== void 0)
-    $$bindings.width(width);
-  if ($$props.height === void 0 && $$bindings.height && height !== void 0)
-    $$bindings.height(height);
-  return `<svg id="${"Ebene_1"}" data-name="${"Ebene 1"}" xmlns="${"http://www.w3.org/2000/svg"}"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} viewBox="${"0 0 1700.79 283.46"}"><defs><style>.cls-1 {
-        fill: #e40422;
-      }</style></defs><path d="${"M0,0V283.46H1700.79V0ZM850.39,277.8H5.67V5.67H850.39Zm566.93,0H856.06V5.67h561.26Zm277.8,0H1423V5.67h272.13Z"}"></path><path class="${"cls-1"}" d="${"M1335.94,96v62.44c0,.81-.54,1.08-.94.27l-35.63-63.25a2.41,2.41,0,0,0-2-1.08h-15.25a1.57,1.57,0,0,0-1.62,1.62v91.16a1.57,1.57,0,0,0,1.62,1.62h13.23a1.57,1.57,0,0,0,1.62-1.62v-62.3c0-.81.54-1.08.94-.27l35.63,63.11a2.41,2.41,0,0,0,2,1.08h15.25a1.56,1.56,0,0,0,1.62-1.62V96a1.56,1.56,0,0,0-1.62-1.62h-13.23a1.57,1.57,0,0,0-1.62,1.62m-95.36,92.78H1254a1.57,1.57,0,0,0,1.62-1.62V96a1.57,1.57,0,0,0-1.62-1.62h-13.37A1.56,1.56,0,0,0,1239,96v91.16a1.56,1.56,0,0,0,1.61,1.62m-53.28-16.45V96a1.56,1.56,0,0,0-1.62-1.62h-13.36A1.57,1.57,0,0,0,1170.7,96v91.16a1.57,1.57,0,0,0,1.62,1.62h46a1.56,1.56,0,0,0,1.62-1.62V174.76a1.56,1.56,0,0,0-1.62-1.62h-30.23a.77.77,0,0,1-.81-.8M1100,110h12.28c10.93,0,19.71,5.8,19.71,17.8s-8.78,17.8-19.84,17.8H1100a.78.78,0,0,1-.81-.81v-34a.71.71,0,0,1,.81-.8m31.31,78.75h17c1.35,0,1.75-.95.94-2L1129,159.39a.77.77,0,0,1,.27-1.21c12-4.86,20-15.51,20-30.34,0-21-15.93-33.45-36.17-33.45h-28.88A1.56,1.56,0,0,0,1082.6,96v91.16a1.56,1.56,0,0,0,1.62,1.62h13.36a1.57,1.57,0,0,0,1.62-1.62V162.09a.78.78,0,0,1,.81-.81h10.26a1.68,1.68,0,0,1,1.08.54l18.08,25.89a2.17,2.17,0,0,0,1.89,1.08m-73.26-80.37V96a1.56,1.56,0,0,0-1.62-1.62h-49.12A1.56,1.56,0,0,0,1005.7,96v91.16a1.56,1.56,0,0,0,1.62,1.62h49.12a1.56,1.56,0,0,0,1.62-1.62V174.76a1.56,1.56,0,0,0-1.62-1.62H1023a.77.77,0,0,1-.81-.8V149.68a.78.78,0,0,1,.81-.81h33.47a1.55,1.55,0,0,0,1.62-1.62V135a1.56,1.56,0,0,0-1.62-1.62H1023a.71.71,0,0,1-.81-.8V110.84a.78.78,0,0,1,.81-.8h33.47a1.56,1.56,0,0,0,1.62-1.62M952.84,173.14H938.53a.77.77,0,0,1-.8-.8V149.68a.71.71,0,0,1,.8-.81h14.31c8.77,0,13.63,5,13.63,12.14s-4.86,12.13-13.63,12.13M951.49,110c8.5,0,13.23,4.58,13.23,11.59s-4.73,11.73-13.23,11.73h-13a.71.71,0,0,1-.8-.8V110.84a.71.71,0,0,1,.8-.8ZM971.2,139.7A22.58,22.58,0,0,0,982,119.88c0-14.43-10-25.49-28.34-25.49H922.88A1.56,1.56,0,0,0,921.26,96v91.16a1.56,1.56,0,0,0,1.62,1.62h32c18.89,0,28.88-11.47,28.88-26.57,0-9.84-4.73-17.26-12.55-21.44-.54-.4-.54-.81,0-1.08"}"></path><path d="${"M1600.7,222.16s-5-32.87-7.29-46.73l1-.21a3.05,3.05,0,0,0,2-4.53c-5.61-9.66-7.61-21.69-7.61-33.65a64.6,64.6,0,0,1,3.5-21c.13-.38.27-.75.41-1.13l.27-.81a61.68,61.68,0,0,0,5-18.43,52.39,52.39,0,0,0-4.1-25.28l-.45-.8a6.59,6.59,0,0,0,.86-8c-1.84-3.16-5.6-4.42-8.4-2.8-.3.17-1,.66-1.3.89-.52-.38-.82-.57-.82-.57s-.79-.52-1.47-.87l-.26-.14a22.85,22.85,0,0,0-9.37-1.95,23.83,23.83,0,0,0-4.8.49,23.27,23.27,0,0,0-9.1,4.08,13.57,13.57,0,0,1-2.88.55l-3.8.18c-1.79.07-3.83,0-3.83,0a1.61,1.61,0,0,0-1.61,1.62c0,.08.58,5.3.58,5.32a4.33,4.33,0,0,0,1.79,3.25l.13.09a1.36,1.36,0,0,1,.6.62,5.87,5.87,0,0,0,1.84,2.62.51.51,0,0,0,.75-.21c.72-2.85,2.42.22,5.65-1.53.83-.45,1.28,1.57.93,2.45l-.3.76a5.13,5.13,0,0,1-4,3.18c-1.44.21-2.26.35-2.24.55.17,1.61,0,3,1.62,4a3.79,3.79,0,0,0,.72.31c2.51.66,9.83,3.47.52,14.46a23.43,23.43,0,0,0-1.57,2,7.08,7.08,0,0,0-.51.89l-.2.39-28-10.47a6.41,6.41,0,0,1-2.45-2l-2.75-4.74a7.29,7.29,0,0,0-6.19-3.51,24.81,24.81,0,0,0-3.89,0c-.84,0-1.32.24-1.49.73a5,5,0,0,0,.6,3.51l2.41,4.41c.21.31,3.24,7.09,3.24,7.09a5,5,0,0,0,1.5,2.14L1544.75,121l-30.29,15.11a3.7,3.7,0,0,1-2.84.29l-2.72-.82c-5-2.21-8.69-.67-10.87,1.16l-.86.81a1.44,1.44,0,0,0,.42,2.4s4.78,2.81,5.83,3.53l7.45,4.41a5.41,5.41,0,0,0,3.82.62l29.41-5.93a101.36,101.36,0,0,0,3.55,20.62,52.9,52.9,0,0,0-15,28.19c-1.43,7.94-1,15.13,1.2,23.59-4.1.23-8.07.83-11.36,3.12-3.13,2.18-3.77,6.06-3.79,8l23,.05h1.94a3.32,3.32,0,0,0,3.05-2.44,16.74,16.74,0,0,0,.42-2.38,51.43,51.43,0,0,1,5.4-17.6,58.32,58.32,0,0,1,9.14-12.65,91.17,91.17,0,0,0,26,24.1,25.58,25.58,0,0,0-9.57,2.57,9.83,9.83,0,0,0-4.76,8.46H1597a3.68,3.68,0,0,0,3.49-2.49c0-.15.09-.31.13-.46s0-.23,0-.34A3.76,3.76,0,0,0,1600.7,222.16Z"}"></path><path d="${"M92.75,59.48a15,15,0,0,1,6,6.12,19.14,19.14,0,0,1,2.15,9.22,19.12,19.12,0,0,1-2.15,9.23,15,15,0,0,1-6,6.12A17.68,17.68,0,0,1,84,92.33H73.5a.44.44,0,0,1-.5-.5v-34a.44.44,0,0,1,.5-.5H84A17.68,17.68,0,0,1,92.75,59.48ZM77,88.78H83.8a14.29,14.29,0,0,0,6.85-1.61,11,11,0,0,0,4.67-4.75A15.92,15.92,0,0,0,97,74.82a16,16,0,0,0-1.68-7.6,11.21,11.21,0,0,0-4.67-4.75,14.39,14.39,0,0,0-6.85-1.59H77c-.17,0-.25.08-.25.24v27.4C76.7,88.69,76.78,88.78,77,88.78Z"}"></path><path d="${"M111.32,91.37a10.52,10.52,0,0,1-4.17-4.27,14.36,14.36,0,0,1,0-12.72,10.45,10.45,0,0,1,4-4.25,11.27,11.27,0,0,1,5.78-1.5,11.16,11.16,0,0,1,5.72,1.5,10.57,10.57,0,0,1,4,4.12,12.14,12.14,0,0,1,1.45,5.93,10.81,10.81,0,0,1-.05,1.15.49.49,0,0,1-.5.4H110c-.4,0-.55.21-.45.65A8.21,8.21,0,0,0,112,87.63a7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.37-.37.65-.44.85-.21l1.65,1.81c.23.2.23.41,0,.65a12.75,12.75,0,0,1-4.13,2.92,12.11,12.11,0,0,1-4.92,1A12.34,12.34,0,0,1,111.32,91.37Zm12.93-13.14a7.65,7.65,0,0,0-2.47-4.58,7.63,7.63,0,0,0-9.71,0,7.47,7.47,0,0,0-2.47,4.58l0,.24c0,.2.16.31.5.31H123.8Q124.4,78.83,124.25,78.23Z"}"></path><path d="${"M144.7,68.68c.3,0,.45.16.45.5v2.65c0,.29-.12.44-.35.44a3.51,3.51,0,0,1-.72-.07,3.65,3.65,0,0,0-.68-.08,6.3,6.3,0,0,0-5.5,3,2,2,0,0,0-.35,1.24V91.83a.44.44,0,0,1-.5.5H134.4a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.79c0,.14,0,.22.1.26s.15,0,.25-.1a7.8,7.8,0,0,1,6.3-3A3.64,3.64,0,0,1,144.7,68.68Z"}"></path><path d="${"M165.65,92.33H163a.44.44,0,0,1-.5-.5v-34a.44.44,0,0,1,.5-.5h9.75a14.22,14.22,0,0,1,6.45,1.42,10.74,10.74,0,0,1,4.47,4.1,11.88,11.88,0,0,1,1.63,6.33,11.09,11.09,0,0,1-2.32,7.2,12.29,12.29,0,0,1-6.28,4c-.37.11-.43.29-.2.55l8.7,10.8a.46.46,0,0,1,.1.31c0,.19-.14.3-.4.3h-3.5a1.26,1.26,0,0,1-.48-.08,1,1,0,0,1-.37-.32l-8.3-10.6a1.26,1.26,0,0,0-.35-.33,1,1,0,0,0-.45-.08h-5c-.17,0-.25.09-.25.26V91.83A.44.44,0,0,1,165.65,92.33Zm.5-31.21v16c0,.16.08.24.25.24h5.95a10,10,0,0,0,6.5-2.05c1.7-1.36,2.55-3.43,2.55-6.19s-.85-4.84-2.55-6.2a10,10,0,0,0-6.5-2H166.4C166.23,60.88,166.15,61,166.15,61.12Z"}"></path><path d="${"M194.92,91.37a10.52,10.52,0,0,1-4.17-4.27,14.36,14.36,0,0,1,0-12.72,10.45,10.45,0,0,1,4.05-4.25,11.27,11.27,0,0,1,5.78-1.5,11.16,11.16,0,0,1,5.72,1.5,10.57,10.57,0,0,1,4,4.12,12.14,12.14,0,0,1,1.45,5.93,10.81,10.81,0,0,1-.05,1.15.49.49,0,0,1-.5.4H193.55c-.41,0-.55.21-.45.65a8.21,8.21,0,0,0,2.52,5.25,7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.37-.37.65-.44.85-.21l1.65,1.81c.23.2.23.41,0,.65A12.75,12.75,0,0,1,206,91.85a12.11,12.11,0,0,1-4.92,1A12.34,12.34,0,0,1,194.92,91.37Zm12.92-13.14a7.55,7.55,0,0,0-2.47-4.58,7.07,7.07,0,0,0-4.82-1.72,7.17,7.17,0,0,0-4.88,1.77,7.47,7.47,0,0,0-2.47,4.58l-.06.24c0,.2.17.31.5.31H207.4C207.8,78.83,208,78.63,207.84,78.23Z"}"></path><path d="${"M222,101.6a11.5,11.5,0,0,1-3.9-2.78.48.48,0,0,1,0-.7l1.7-1.85a.53.53,0,0,1,.35-.19.52.52,0,0,1,.34.19,9.5,9.5,0,0,0,12.26,1.38,6,6,0,0,0,1.94-4.93V89.28a.25.25,0,0,0-.14-.26.42.42,0,0,0-.36.15A9.91,9.91,0,0,1,227,91.83a11.13,11.13,0,0,1-5.66-1.46,10.27,10.27,0,0,1-4-4.09,12.48,12.48,0,0,1-1.45-6.1,11.94,11.94,0,0,1,1.5-6,10.64,10.64,0,0,1,4.07-4.08,11.56,11.56,0,0,1,5.73-1.44,9.52,9.52,0,0,1,7.25,2.79c.13.14.24.19.32.16s.13-.14.13-.31V69.63a.51.51,0,0,1,.5-.5h2.45a.44.44,0,0,1,.5.5V93a8.64,8.64,0,0,1-3.08,7.07,12.25,12.25,0,0,1-8,2.53A12.81,12.81,0,0,1,222,101.6Zm9.75-14.07A7.38,7.38,0,0,0,234.5,85a1.59,1.59,0,0,0,.25-.89V76.32a1.46,1.46,0,0,0-.25-.89,7.27,7.27,0,0,0-2.75-2.55,8.41,8.41,0,0,0-4.05-.95,7.74,7.74,0,0,0-5.83,2.3,8.19,8.19,0,0,0-2.22,6,8.3,8.3,0,0,0,2.22,6,7.77,7.77,0,0,0,5.83,2.3A8.41,8.41,0,0,0,231.75,87.53Z"}"></path><path d="${"M245.87,62.9a2.63,2.63,0,0,1-.82-1.93,2.53,2.53,0,0,1,.82-1.89,2.66,2.66,0,0,1,1.93-.81,2.54,2.54,0,0,1,1.85.81,2.59,2.59,0,0,1,.8,1.89,2.69,2.69,0,0,1-.8,1.93,2.52,2.52,0,0,1-1.85.83A2.64,2.64,0,0,1,245.87,62.9Zm0,28.93V69.63a.44.44,0,0,1,.5-.5h2.65a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5H246.4A.44.44,0,0,1,245.9,91.83Z"}"></path><path d="${"M261.17,91.37A10.52,10.52,0,0,1,257,87.1a14.36,14.36,0,0,1,0-12.72,10.45,10.45,0,0,1,4-4.25,11.27,11.27,0,0,1,5.78-1.5,11.16,11.16,0,0,1,5.72,1.5,10.57,10.57,0,0,1,4,4.12A12.14,12.14,0,0,1,278,80.18a10.81,10.81,0,0,1-.05,1.15.48.48,0,0,1-.5.4H259.8c-.4,0-.55.21-.45.65a8.21,8.21,0,0,0,2.52,5.25,7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.37-.37.65-.44.85-.21l1.65,1.81c.23.2.23.41,0,.65a12.75,12.75,0,0,1-4.13,2.92,12.11,12.11,0,0,1-4.92,1A12.34,12.34,0,0,1,261.17,91.37ZM274.1,78.23a7.65,7.65,0,0,0-2.47-4.58,7.63,7.63,0,0,0-9.71,0,7.47,7.47,0,0,0-2.47,4.58l-.05.24c0,.2.16.31.5.31h13.75Q274.25,78.83,274.1,78.23Z"}"></path><path d="${"M294.55,68.68c.3,0,.45.16.45.5v2.65c0,.29-.12.44-.35.44a3.51,3.51,0,0,1-.72-.07,3.65,3.65,0,0,0-.68-.08,6.3,6.3,0,0,0-5.5,3,2.11,2.11,0,0,0-.35,1.24V91.83a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.79c0,.14,0,.22.1.26s.15,0,.25-.1a7.8,7.8,0,0,1,6.3-3A3.64,3.64,0,0,1,294.55,68.68Z"}"></path><path d="${"M302.82,91.37a10.52,10.52,0,0,1-4.17-4.27,14.32,14.32,0,0,1,0-12.72,10.49,10.49,0,0,1,4-4.25,11.79,11.79,0,0,1,11.51,0,10.61,10.61,0,0,1,4,4.12,12,12,0,0,1,1.45,5.93,10.81,10.81,0,0,1,0,1.15.49.49,0,0,1-.5.4H301.45c-.4,0-.55.21-.45.65a8.21,8.21,0,0,0,2.53,5.25,7.69,7.69,0,0,0,5.42,2,8.84,8.84,0,0,0,6.55-2.9c.36-.37.65-.44.85-.21L318,88.28c.23.2.23.41,0,.65a12.82,12.82,0,0,1-4.12,2.92,12.16,12.16,0,0,1-4.93,1A12.34,12.34,0,0,1,302.82,91.37Zm12.93-13.14a7.56,7.56,0,0,0-2.48-4.58,7,7,0,0,0-4.82-1.72,7.17,7.17,0,0,0-4.88,1.77,7.47,7.47,0,0,0-2.47,4.58l-.05.24c0,.2.17.31.5.31H315.3Q315.9,78.83,315.75,78.23Z"}"></path><path d="${"M328.55,92.33H325.9a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.64c0,.14,0,.22.12.26s.18,0,.28-.15a8.35,8.35,0,0,1,2.65-2,7.7,7.7,0,0,1,3.4-.7A7.57,7.57,0,0,1,341,70.77a7.7,7.7,0,0,1,2.05,5.51V91.83a.44.44,0,0,1-.5.5H339.9a.44.44,0,0,1-.5-.5v-15a5.12,5.12,0,0,0-1.25-3.73,4.84,4.84,0,0,0-3.6-1.27,5.49,5.49,0,0,0-3,.85,6.74,6.74,0,0,0-2.25,2.44,2.33,2.33,0,0,0-.25,1.06v15.6A.44.44,0,0,1,328.55,92.33Z"}"></path><path d="${"M368.3,56.13H371a.44.44,0,0,1,.5.5v35.2a.44.44,0,0,1-.5.5H368.5a.44.44,0,0,1-.5-.5V90.08c0-.17,0-.26-.13-.28s-.19,0-.32.18c-1.7,1.89-4.17,2.85-7.4,2.85a11.22,11.22,0,0,1-5.8-1.53,10.94,10.94,0,0,1-4.1-4.27,14,14,0,0,1,0-12.6,11,11,0,0,1,4.1-4.28,11.31,11.31,0,0,1,5.8-1.52,10,10,0,0,1,7.2,2.64c.13.14.24.19.32.15s.13-.13.13-.3V56.63A.44.44,0,0,1,368.3,56.13Zm-3.5,32.39a7.2,7.2,0,0,0,2.8-2.7,1.78,1.78,0,0,0,.2-.79v-8.6a1.79,1.79,0,0,0-.2-.8,7.2,7.2,0,0,0-2.8-2.7,8.27,8.27,0,0,0-4.1-1,7.77,7.77,0,0,0-6,2.42,8.93,8.93,0,0,0-2.28,6.37,8.92,8.92,0,0,0,2.28,6.38,7.77,7.77,0,0,0,6,2.42A8.27,8.27,0,0,0,364.8,88.52Z"}"></path><path d="${"M382.57,91.37a10.52,10.52,0,0,1-4.17-4.27,14.32,14.32,0,0,1,0-12.72,10.45,10.45,0,0,1,4.05-4.25,11.77,11.77,0,0,1,11.5,0,10.61,10.61,0,0,1,4,4.12,12,12,0,0,1,1.45,5.93,10.81,10.81,0,0,1,0,1.15.49.49,0,0,1-.5.4H381.2c-.4,0-.55.21-.45.65a8.21,8.21,0,0,0,2.53,5.25,7.69,7.69,0,0,0,5.42,2,8.84,8.84,0,0,0,6.55-2.9c.36-.37.65-.44.85-.21l1.65,1.81c.23.2.23.41,0,.65a12.82,12.82,0,0,1-4.12,2.92,12.16,12.16,0,0,1-4.93,1A12.34,12.34,0,0,1,382.57,91.37ZM395.5,78.23A7.56,7.56,0,0,0,393,73.65a7,7,0,0,0-4.82-1.72,7.17,7.17,0,0,0-4.88,1.77,7.47,7.47,0,0,0-2.47,4.58l-.05.24c0,.2.17.31.5.31h13.75Q395.65,78.83,395.5,78.23Z"}"></path><path d="${"M435,58.53a8.25,8.25,0,0,1,3.45,3.29,9.65,9.65,0,0,1,1.18,4.76A8.47,8.47,0,0,1,438.45,71a8.18,8.18,0,0,1-3.1,3.08c-.33.2-.33.38,0,.55a8.91,8.91,0,0,1,5,8.15,9.17,9.17,0,0,1-2.8,6.9q-2.81,2.7-7.9,2.7h-10.1a.44.44,0,0,1-.5-.5v-34a.44.44,0,0,1,.5-.5h10A11.47,11.47,0,0,1,435,58.53Zm-12.22,2.59V72.47c0,.17.08.26.25.26h6.1a7.13,7.13,0,0,0,4.95-1.55,5.62,5.62,0,0,0,1.7-4.35,5.69,5.69,0,0,0-1.7-4.38,7,7,0,0,0-4.95-1.57H423C422.83,60.88,422.75,61,422.75,61.12Zm0,15.4v12c0,.17.08.26.25.26h6.3a7.76,7.76,0,0,0,5.37-1.65,6.7,6.7,0,0,0,0-9.2,7.76,7.76,0,0,0-5.37-1.65H423C422.83,76.28,422.75,76.36,422.75,76.52Z"}"></path><path d="${"M461.05,69.13h2.65a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5h-2.4a.44.44,0,0,1-.5-.5V90.17c0-.13,0-.21-.13-.24s-.19,0-.32.15a7.62,7.62,0,0,1-6.05,2.75,7.5,7.5,0,0,1-5.73-2.15,7.71,7.71,0,0,1-2-5.5V69.63a.44.44,0,0,1,.5-.5h2.65a.44.44,0,0,1,.5.5v15a5.07,5.07,0,0,0,1.25,3.72,4.81,4.81,0,0,0,3.6,1.28,5.57,5.57,0,0,0,3-.85,6.77,6.77,0,0,0,2.25-2.45,2.39,2.39,0,0,0,.25-1V69.63A.44.44,0,0,1,461.05,69.13ZM448.6,62.9a2.69,2.69,0,0,1-.8-1.93,2.7,2.7,0,0,1,5.4,0,2.69,2.69,0,0,1-.8,1.93,2.58,2.58,0,0,1-1.9.83A2.55,2.55,0,0,1,448.6,62.9Zm9.85,0a2.65,2.65,0,0,1-.8-1.93,2.75,2.75,0,0,1,2.7-2.7,2.75,2.75,0,0,1,2.7,2.7,2.69,2.69,0,0,1-.8,1.93,2.59,2.59,0,0,1-3.8,0Z"}"></path><path d="${"M482.6,68.68c.3,0,.45.16.45.5v2.65c0,.29-.12.44-.35.44a3.75,3.75,0,0,1-.73-.07,3.47,3.47,0,0,0-.67-.08,6.29,6.29,0,0,0-5.5,3,2,2,0,0,0-.35,1.24V91.83a.44.44,0,0,1-.5.5H472.3a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.79c0,.14,0,.22.1.26s.15,0,.25-.1a7.8,7.8,0,0,1,6.3-3A3.64,3.64,0,0,1,482.6,68.68Z"}"></path><path d="${"M491.45,101.6a11.5,11.5,0,0,1-3.9-2.78.48.48,0,0,1,0-.7l1.7-1.85a.53.53,0,0,1,.35-.19.56.56,0,0,1,.35.19,8.3,8.3,0,0,0,6.75,3,8.39,8.39,0,0,0,5.5-1.63,6.05,6.05,0,0,0,1.95-4.93V89.28A.25.25,0,0,0,504,89a.4.4,0,0,0-.35.15,10,10,0,0,1-7.2,2.66,11.09,11.09,0,0,1-5.65-1.46,10.23,10.23,0,0,1-4-4.09,12.48,12.48,0,0,1-1.45-6.1,11.94,11.94,0,0,1,1.5-6,10.64,10.64,0,0,1,4.07-4.08,11.56,11.56,0,0,1,5.73-1.44,9.52,9.52,0,0,1,7.25,2.79c.13.14.24.19.32.16s.13-.14.13-.31V69.63a.51.51,0,0,1,.5-.5h2.45a.44.44,0,0,1,.5.5V93a8.66,8.66,0,0,1-3.07,7.07,12.29,12.29,0,0,1-8,2.53A12.81,12.81,0,0,1,491.45,101.6Zm9.75-14.07A7.38,7.38,0,0,0,504,85a1.59,1.59,0,0,0,.25-.89V76.32a1.46,1.46,0,0,0-.25-.89,7.27,7.27,0,0,0-2.75-2.55,8.41,8.41,0,0,0-4.05-.95,7.74,7.74,0,0,0-5.83,2.3,8.19,8.19,0,0,0-2.22,6,8.3,8.3,0,0,0,2.22,6,7.77,7.77,0,0,0,5.83,2.3A8.41,8.41,0,0,0,501.2,87.53Z"}"></path><path d="${"M519.37,91.37a10.52,10.52,0,0,1-4.17-4.27,14.36,14.36,0,0,1,0-12.72,10.58,10.58,0,0,1,4.05-4.25,11.79,11.79,0,0,1,11.51,0,10.61,10.61,0,0,1,4,4.12,12,12,0,0,1,1.45,5.93,10.81,10.81,0,0,1-.05,1.15.49.49,0,0,1-.5.4H518c-.4,0-.55.21-.45.65a8.25,8.25,0,0,0,2.52,5.25,7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.36-.37.65-.44.85-.21l1.65,1.81c.23.2.23.41,0,.65a12.82,12.82,0,0,1-4.12,2.92,12.16,12.16,0,0,1-4.93,1A12.32,12.32,0,0,1,519.37,91.37ZM532.3,78.23a7.56,7.56,0,0,0-2.48-4.58A7,7,0,0,0,525,71.93a7.17,7.17,0,0,0-4.88,1.77,7.47,7.47,0,0,0-2.47,4.58l0,.24c0,.2.17.31.5.31h13.75Q532.45,78.83,532.3,78.23Z"}"></path><path d="${"M552.75,68.68c.3,0,.45.16.45.5v2.65c0,.29-.12.44-.35.44a3.83,3.83,0,0,1-.73-.07,3.47,3.47,0,0,0-.67-.08,6.29,6.29,0,0,0-5.5,3,2,2,0,0,0-.35,1.24V91.83a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.79c0,.14,0,.22.1.26s.15,0,.25-.1a7.8,7.8,0,0,1,6.3-3A3.64,3.64,0,0,1,552.75,68.68Z"}"></path><path d="${"M561,92.33h-2.65a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.64c0,.14,0,.22.12.26s.18,0,.28-.15a7.6,7.6,0,0,1,6.05-2.75,8.51,8.51,0,0,1,4.13.94,7.26,7.26,0,0,1,2.72,2.61c.13.23.3.23.5,0a11.51,11.51,0,0,1,3-2.63,7.24,7.24,0,0,1,3.75-.92,7.5,7.5,0,0,1,5.73,2.14,7.76,7.76,0,0,1,2,5.51V91.83a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5v-15a5.05,5.05,0,0,0-1.28-3.73A4.88,4.88,0,0,0,581,71.88a5.71,5.71,0,0,0-5.15,3.2,2.27,2.27,0,0,0-.3,1.2V91.83a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5v-15a5.12,5.12,0,0,0-1.25-3.73,4.84,4.84,0,0,0-3.6-1.27,5.49,5.49,0,0,0-3,.85,6.74,6.74,0,0,0-2.25,2.44,2.44,2.44,0,0,0-.25,1.11V91.83A.44.44,0,0,1,561,92.33Z"}"></path><path d="${"M600.83,91.37a10.48,10.48,0,0,1-4.18-4.27,14.32,14.32,0,0,1,0-12.72,10.45,10.45,0,0,1,4-4.25,11.77,11.77,0,0,1,11.5,0,10.61,10.61,0,0,1,4,4.12,12,12,0,0,1,1.45,5.93,10.81,10.81,0,0,1,0,1.15.49.49,0,0,1-.5.4H599.45c-.4,0-.55.21-.45.65a8.21,8.21,0,0,0,2.53,5.25,7.69,7.69,0,0,0,5.42,2,8.84,8.84,0,0,0,6.55-2.9c.37-.37.65-.44.85-.21L616,88.28c.23.2.23.41,0,.65a12.82,12.82,0,0,1-4.12,2.92,12.86,12.86,0,0,1-11-.48Zm12.92-13.14a7.56,7.56,0,0,0-2.48-4.58,7,7,0,0,0-4.82-1.72,7.17,7.17,0,0,0-4.88,1.77,7.47,7.47,0,0,0-2.47,4.58l-.05.24c0,.2.17.31.5.31H613.3Q613.9,78.83,613.75,78.23Z"}"></path><path d="${"M623.37,62.9a2.67,2.67,0,0,1-.82-1.93,2.57,2.57,0,0,1,.82-1.89,2.68,2.68,0,0,1,1.93-.81,2.52,2.52,0,0,1,1.85.81A2.59,2.59,0,0,1,628,61a2.69,2.69,0,0,1-.8,1.93,2.5,2.5,0,0,1-1.85.83A2.66,2.66,0,0,1,623.37,62.9Zm0,28.93V69.63a.44.44,0,0,1,.5-.5h2.65a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5H623.9A.44.44,0,0,1,623.4,91.83Z"}"></path><path d="${"M635.88,91.37a7.73,7.73,0,0,1-2.83-4l0-.21c0-.2.11-.33.35-.39l2.4-.85.2-.05c.2,0,.35.13.45.4a4.47,4.47,0,0,0,1.72,2.5,4.64,4.64,0,0,0,2.73.89,4.54,4.54,0,0,0,3.2-1,3.43,3.43,0,0,0,1.1-2.62,3.08,3.08,0,0,0-1.07-2.5,6.35,6.35,0,0,0-3-1.26l-2-.39a6.79,6.79,0,0,1-4.05-2.28,6.71,6.71,0,0,1-.55-7.67,6.58,6.58,0,0,1,2.68-2.43,8.47,8.47,0,0,1,3.87-.87,7.62,7.62,0,0,1,4.67,1.42,7.36,7.36,0,0,1,2.68,4.07l.05.2c0,.21-.14.35-.4.46l-2.35.6-.2.05c-.2,0-.33-.13-.4-.4a4.4,4.4,0,0,0-1.43-2.35,3.93,3.93,0,0,0-2.62-.85,4.09,4.09,0,0,0-2.82.94,3.08,3.08,0,0,0-1.08,2.4,3,3,0,0,0,.85,2.31,5.31,5.31,0,0,0,2.55,1.15l2,.39A8.39,8.39,0,0,1,647,81.35a7,7,0,0,1-.39,9.6,8.27,8.27,0,0,1-5.78,1.92A8.1,8.1,0,0,1,635.88,91.37Z"}"></path><path d="${"M656.05,60.08l2.7-1.46a.87.87,0,0,1,.25,0c.23,0,.35.13.35.4v9.9a.22.22,0,0,0,.25.25h2.75a.44.44,0,0,1,.5.5v2.14a.44.44,0,0,1-.5.5H659.6c-.17,0-.25.09-.25.26v19.3a.44.44,0,0,1-.5.5H656.2a.44.44,0,0,1-.5-.5V72.53c0-.17-.08-.26-.25-.26H652.7a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.75a.22.22,0,0,0,.25-.25v-8.2A.59.59,0,0,1,656.05,60.08Z"}"></path><path d="${"M671.87,91.37a10.52,10.52,0,0,1-4.17-4.27,14.36,14.36,0,0,1,0-12.72,10.58,10.58,0,0,1,4.05-4.25,11.3,11.3,0,0,1,5.78-1.5,11.13,11.13,0,0,1,5.72,1.5,10.57,10.57,0,0,1,4,4.12,12,12,0,0,1,1.45,5.93,10.81,10.81,0,0,1-.05,1.15.49.49,0,0,1-.5.4H670.5c-.4,0-.55.21-.45.65a8.21,8.21,0,0,0,2.52,5.25,7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.36-.37.65-.44.85-.21l1.65,1.81c.23.2.23.41,0,.65a12.82,12.82,0,0,1-4.12,2.92,12.19,12.19,0,0,1-4.93,1A12.32,12.32,0,0,1,671.87,91.37ZM684.8,78.23a7.61,7.61,0,0,0-2.48-4.58,7,7,0,0,0-4.82-1.72,7.17,7.17,0,0,0-4.88,1.77,7.47,7.47,0,0,0-2.47,4.58l0,.24c0,.2.16.31.5.31h13.75Q685,78.83,684.8,78.23Z"}"></path><path d="${"M705.25,68.68c.3,0,.45.16.45.5v2.65c0,.29-.12.44-.35.44a3.83,3.83,0,0,1-.73-.07,3.47,3.47,0,0,0-.67-.08,6.29,6.29,0,0,0-5.5,3,2,2,0,0,0-.35,1.24V91.83a.44.44,0,0,1-.5.5H695a.44.44,0,0,1-.5-.5V69.63a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.79c0,.14,0,.22.1.26s.15,0,.25-.1a7.8,7.8,0,0,1,6.3-3A3.64,3.64,0,0,1,705.25,68.68Z"}"></path><path d="${"M86.15,133.83H89c.36,0,.5.19.4.55L82,156.63a.6.6,0,0,1-.64.4H77.5a.61.61,0,0,1-.65-.4l-7.36-22.25,0-.2c0-.23.15-.35.45-.35h2.8a.58.58,0,0,1,.6.4l6,18.46a.18.18,0,0,0,.17.14c.09,0,.14-.05.18-.14l5.94-18.46A.6.6,0,0,1,86.15,133.83Z"}"></path><path d="${"M98.22,155.91a11.68,11.68,0,0,1-4.2-4.4,12.9,12.9,0,0,1,0-12.15,11.61,11.61,0,0,1,4.2-4.4,11.77,11.77,0,0,1,12,0,11.53,11.53,0,0,1,4.2,4.4,12.83,12.83,0,0,1,0,12.15,11.6,11.6,0,0,1-4.2,4.4,11.83,11.83,0,0,1-12,0Zm10.1-2.9a8,8,0,0,0,2.85-3.18,9.91,9.91,0,0,0,0-8.8,8,8,0,0,0-2.85-3.17,7.8,7.8,0,0,0-8.25,0A8.09,8.09,0,0,0,97.22,141a10,10,0,0,0,0,8.8,8.05,8.05,0,0,0,2.85,3.18,7.86,7.86,0,0,0,8.25,0Z"}"></path><path d="${"M125,157h-2.65a.44.44,0,0,1-.5-.5v-22.2a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5V136c0,.14,0,.22.12.25s.18,0,.28-.15A8.5,8.5,0,0,1,128.3,134a7.85,7.85,0,0,1,3.4-.7,7.58,7.58,0,0,1,5.75,2.15,7.69,7.69,0,0,1,2.05,5.5v15.55a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5V141.58a5.12,5.12,0,0,0-1.25-3.72,4.84,4.84,0,0,0-3.6-1.28,5.49,5.49,0,0,0-3,.85,6.77,6.77,0,0,0-2.25,2.45,2.26,2.26,0,0,0-.25,1.05v15.6A.44.44,0,0,1,125,157Z"}"></path><path d="${"M176.67,123.23a8.21,8.21,0,0,1,3.45,3.3,9.62,9.62,0,0,1,1.18,4.75,8.63,8.63,0,0,1-1.15,4.38,8.23,8.23,0,0,1-3.1,3.07c-.33.2-.33.39,0,.55a9.08,9.08,0,0,1,3.65,3.3,9,9,0,0,1,1.35,4.85,9.16,9.16,0,0,1-2.8,6.9c-1.87,1.8-4.5,2.7-7.91,2.7H161.25a.44.44,0,0,1-.5-.5v-34a.44.44,0,0,1,.5-.5h10A11.47,11.47,0,0,1,176.67,123.23Zm-12.22,2.6v11.35a.22.22,0,0,0,.25.25h6.1a7.05,7.05,0,0,0,4.94-1.55,5.56,5.56,0,0,0,1.71-4.35,5.65,5.65,0,0,0-1.71-4.37,7,7,0,0,0-4.94-1.58h-6.1A.22.22,0,0,0,164.45,125.83Zm0,15.4v12a.22.22,0,0,0,.25.25H171a7.76,7.76,0,0,0,5.37-1.65,6.7,6.7,0,0,0,0-9.2A7.76,7.76,0,0,0,171,141h-6.3A.22.22,0,0,0,164.45,141.23Z"}"></path><path d="${"M192.92,156.08a10.48,10.48,0,0,1-4.18-4.27,14.43,14.43,0,0,1,0-12.73,10.57,10.57,0,0,1,4.05-4.25,11.77,11.77,0,0,1,11.5,0,10.57,10.57,0,0,1,4,4.13,12,12,0,0,1,1.46,5.92,8.34,8.34,0,0,1-.06,1.15.47.47,0,0,1-.5.41H191.55c-.4,0-.55.21-.46.64a8.19,8.19,0,0,0,2.53,5.25,7.69,7.69,0,0,0,5.42,1.95,8.79,8.79,0,0,0,6.55-2.9c.37-.37.66-.43.85-.2l1.66,1.8a.39.39,0,0,1,0,.65,12.78,12.78,0,0,1-4.13,2.93,12.13,12.13,0,0,1-4.93,1A12.31,12.31,0,0,1,192.92,156.08Zm12.93-13.15a7.62,7.62,0,0,0-2.48-4.57,7.58,7.58,0,0,0-9.7,0A7.45,7.45,0,0,0,191.2,143l0,.25c0,.2.16.3.5.3H205.4Q206,143.53,205.85,142.93Z"}"></path><path d="${"M226.3,133.38c.29,0,.44.17.44.5v2.65c0,.3-.11.45-.35.45a3.05,3.05,0,0,1-.72-.08,4.49,4.49,0,0,0-.67-.07,6.33,6.33,0,0,0-5.51,2.95,2.17,2.17,0,0,0-.35,1.25v15.5a.44.44,0,0,1-.5.5H216a.44.44,0,0,1-.5-.5v-22.2a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.8c0,.14,0,.22.1.25s.14,0,.25-.1a7.79,7.79,0,0,1,6.29-2.95A4.59,4.59,0,0,1,226.3,133.38Z"}"></path><path d="${"M237.6,154.48v2.25a.44.44,0,0,1-.5.5h-.91a5.37,5.37,0,0,1-3.64-1.12,4.35,4.35,0,0,1-1.3-3.48v-31.3a.44.44,0,0,1,.5-.5h2.65a.44.44,0,0,1,.5.5v30.85q0,1.8,1.5,1.8h.7A.44.44,0,0,1,237.6,154.48Z"}"></path><path d="${"M243.27,127.6a2.61,2.61,0,0,1-.83-1.92,2.56,2.56,0,0,1,.83-1.9,2.69,2.69,0,0,1,1.93-.8,2.56,2.56,0,0,1,1.85.8,2.6,2.6,0,0,1,.79,1.9,2.64,2.64,0,0,1-.79,1.92,2.48,2.48,0,0,1-1.85.83A2.61,2.61,0,0,1,243.27,127.6Zm0,28.93v-22.2a.44.44,0,0,1,.5-.5h2.66a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5h-2.66A.44.44,0,0,1,243.29,156.53Z"}"></path><path d="${"M257.7,157h-2.65a.44.44,0,0,1-.5-.5v-22.2a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5V136c0,.14,0,.22.12.25s.18,0,.27-.15A8.65,8.65,0,0,1,261,134a7.8,7.8,0,0,1,3.39-.7,7.56,7.56,0,0,1,5.75,2.15,7.65,7.65,0,0,1,2.05,5.5v15.55a.44.44,0,0,1-.5.5h-2.64a.44.44,0,0,1-.5-.5V141.58a5.08,5.08,0,0,0-1.26-3.72,4.8,4.8,0,0,0-3.59-1.28,5.55,5.55,0,0,0-3,.85,6.84,6.84,0,0,0-2.24,2.45,2.26,2.26,0,0,0-.25,1.05v15.6A.44.44,0,0,1,257.7,157Z"}"></path><path d="${"M74.62,220.49a11.22,11.22,0,0,1-4.28-5.8l0-.2a.48.48,0,0,1,.35-.45l2.55-1a.58.58,0,0,1,.25-.05.35.35,0,0,1,.25.1.87.87,0,0,1,.15.25,7.69,7.69,0,0,0,2.87,4.2,8.21,8.21,0,0,0,4.93,1.5,7.71,7.71,0,0,0,5.47-1.8,6.7,6.7,0,0,0,.2-9.2,9.09,9.09,0,0,0-4.72-2.3l-2.55-.5A11.18,11.18,0,0,1,73.72,202a8.92,8.92,0,0,1-2.32-6.37,9.25,9.25,0,0,1,1.35-4.88,9.7,9.7,0,0,1,3.72-3.52,11.11,11.11,0,0,1,15.93,5.9.3.3,0,0,1,0,.2.49.49,0,0,1-.35.45l-2.6,1.1a.62.62,0,0,1-.25,0,.33.33,0,0,1-.25-.1.58.58,0,0,1-.15-.25,8,8,0,0,0-2.78-3.7,7,7,0,0,0-4.17-1.35,6.67,6.67,0,0,0-4.83,1.7,5.76,5.76,0,0,0-1.77,4.35,5.56,5.56,0,0,0,1.4,3.9,7.08,7.08,0,0,0,4.15,2.05l2.55.5a13.68,13.68,0,0,1,6.85,3.4,9,9,0,0,1,2.7,6.9,10.19,10.19,0,0,1-1.38,5.25,9.62,9.62,0,0,1-3.95,3.7,12.76,12.76,0,0,1-6,1.35A11.94,11.94,0,0,1,74.62,220.49Z"}"></path><path d="${"M103.32,220.79a10.55,10.55,0,0,1-4.17-4.28,14.36,14.36,0,0,1,0-12.72,10.71,10.71,0,0,1,4-4.25,11.79,11.79,0,0,1,11.51,0,10.75,10.75,0,0,1,4,4.12,12,12,0,0,1,1.45,5.93,10.81,10.81,0,0,1-.05,1.15.49.49,0,0,1-.5.4H102c-.4,0-.55.21-.45.65A8.23,8.23,0,0,0,104,217a7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.36-.37.65-.43.85-.2l1.65,1.8c.23.2.23.41,0,.65a12.82,12.82,0,0,1-4.12,2.92,12,12,0,0,1-4.93,1A12.32,12.32,0,0,1,103.32,220.79Zm12.93-13.15a7.59,7.59,0,0,0-2.48-4.58,7.6,7.6,0,0,0-9.7.06,7.42,7.42,0,0,0-2.47,4.57l0,.25c0,.2.17.3.5.3H115.8Q116.4,208.24,116.25,207.64Z"}"></path><path d="${"M129.05,221.74H126.4a.44.44,0,0,1-.5-.5V199a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.65a.25.25,0,0,0,.12.25c.09,0,.18,0,.28-.15a8.35,8.35,0,0,1,2.65-2,7.7,7.7,0,0,1,3.4-.7,7.58,7.58,0,0,1,5.75,2.15,7.66,7.66,0,0,1,2.05,5.5v15.55a.44.44,0,0,1-.5.5H140.4a.44.44,0,0,1-.5-.5v-15a5.14,5.14,0,0,0-1.25-3.73,4.84,4.84,0,0,0-3.6-1.27,5.49,5.49,0,0,0-3,.85,6.69,6.69,0,0,0-2.25,2.45,2.26,2.26,0,0,0-.25,1v15.6A.44.44,0,0,1,129.05,221.74Z"}"></path><path d="${"M154.85,220.71a10.94,10.94,0,0,1-4.1-4.27,14,14,0,0,1,0-12.6,10.88,10.88,0,0,1,4.1-4.27,11.22,11.22,0,0,1,5.8-1.53,9.38,9.38,0,0,1,7.55,3.1.18.18,0,0,0,.2.05c.07,0,.1-.1.1-.2v-2a.44.44,0,0,1,.5-.5h2.45a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5H169a.44.44,0,0,1-.5-.5v-2c0-.1,0-.17-.1-.2a.16.16,0,0,0-.2,0,10.28,10.28,0,0,1-7.55,3.1A11.22,11.22,0,0,1,154.85,220.71Zm10.55-2.77a6.28,6.28,0,0,0,2.7-2.7,2,2,0,0,0,.2-.9v-8.4a2,2,0,0,0-.2-.9,6.83,6.83,0,0,0-2.78-2.7,8.38,8.38,0,0,0-4.12-1,7.78,7.78,0,0,0-6,2.43,10,10,0,0,0,0,12.74,7.78,7.78,0,0,0,6,2.43A8.8,8.8,0,0,0,165.4,217.94Z"}"></path><path d="${"M181.1,189.49l2.7-1.45a.58.58,0,0,1,.25,0c.23,0,.35.13.35.4v9.9a.22.22,0,0,0,.25.25h2.75a.44.44,0,0,1,.5.5v2.15a.44.44,0,0,1-.5.5h-2.75a.22.22,0,0,0-.25.25v19.3a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5v-19.3a.22.22,0,0,0-.25-.25h-2.75a.44.44,0,0,1-.5-.5V199a.44.44,0,0,1,.5-.5h2.75a.22.22,0,0,0,.25-.25v-8.2A.58.58,0,0,1,181.1,189.49Z"}"></path><path d="${"M194.17,220.79a7.8,7.8,0,0,1-2.82-4l0-.2a.4.4,0,0,1,.35-.4l2.4-.85.2-.05c.2,0,.35.13.45.4a4.43,4.43,0,0,0,1.72,2.5,4.67,4.67,0,0,0,2.73.9,4.51,4.51,0,0,0,3.2-1,3.42,3.42,0,0,0,1.1-2.62,3.07,3.07,0,0,0-1.08-2.5,6.3,6.3,0,0,0-3-1.25l-2-.4a6.83,6.83,0,0,1-4.05-2.27,6.42,6.42,0,0,1-1.5-4.28,6.32,6.32,0,0,1,1-3.4,6.56,6.56,0,0,1,2.67-2.43,8.48,8.48,0,0,1,3.88-.87,7.62,7.62,0,0,1,4.67,1.42,7.35,7.35,0,0,1,2.68,4.08l.05.2c0,.2-.13.35-.4.45l-2.35.6-.2.05c-.2,0-.34-.13-.4-.4a4.43,4.43,0,0,0-1.43-2.35,3.93,3.93,0,0,0-2.62-.85,4.09,4.09,0,0,0-2.83.95,3,3,0,0,0-1.07,2.4,3,3,0,0,0,.85,2.3,5.27,5.27,0,0,0,2.55,1.15l2,.4a8.35,8.35,0,0,1,4.52,2.32,6.45,6.45,0,0,1,1.73,4.68,6.33,6.33,0,0,1-2.13,4.92,8.23,8.23,0,0,1-5.77,1.93A8.13,8.13,0,0,1,194.17,220.79Z"}"></path><path d="${"M225.7,221.29l-5.95-10c-.07-.17-.16-.26-.28-.28a.38.38,0,0,0-.33.18l-2.09,2.5a1.46,1.46,0,0,0-.3.9v6.65a.49.49,0,0,1-.15.35.55.55,0,0,1-.4.15h-2.6a.44.44,0,0,1-.5-.5V186a.44.44,0,0,1,.5-.5h2.6a.55.55,0,0,1,.4.15.49.49,0,0,1,.15.35v22.15c0,.2,0,.31.15.33s.21-.07.35-.23l7.8-9.45a.74.74,0,0,1,.6-.3h3.45a.42.42,0,0,1,.4.2.43.43,0,0,1-.1.45l-7,8.4a1,1,0,0,0-.23.43.61.61,0,0,0,.13.42l7.55,12.7a.69.69,0,0,1,.1.3c0,.2-.16.3-.45.3h-3.05A.8.8,0,0,1,225.7,221.29Z"}"></path><path d="${"M238.2,220.71a10.87,10.87,0,0,1-4.1-4.27,14,14,0,0,1,0-12.6,10.81,10.81,0,0,1,4.1-4.27A11.2,11.2,0,0,1,244,198a9.39,9.39,0,0,1,7.55,3.1.17.17,0,0,0,.2.05.21.21,0,0,0,.1-.2v-2a.44.44,0,0,1,.5-.5h2.45a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5h-2.45a.44.44,0,0,1-.5-.5v-2a.21.21,0,0,0-.1-.2.16.16,0,0,0-.2,0,10.28,10.28,0,0,1-7.55,3.1A11.2,11.2,0,0,1,238.2,220.71Zm10.55-2.77a6.28,6.28,0,0,0,2.7-2.7,2,2,0,0,0,.2-.9v-8.4a2,2,0,0,0-.2-.9,6.89,6.89,0,0,0-2.78-2.7,8.4,8.4,0,0,0-4.12-1,7.81,7.81,0,0,0-6,2.43,10.07,10.07,0,0,0,0,12.74,7.81,7.81,0,0,0,6,2.43A8.78,8.78,0,0,0,248.75,217.94Z"}"></path><path d="${"M266.1,221.74h-2.65a.44.44,0,0,1-.5-.5V199a.44.44,0,0,1,.5-.5h2.4a.44.44,0,0,1,.5.5v1.65a.25.25,0,0,0,.12.25c.08,0,.18,0,.28-.15a8.35,8.35,0,0,1,2.65-2,7.67,7.67,0,0,1,3.4-.7,7.23,7.23,0,0,1,7.8,7.65v15.55a.44.44,0,0,1-.5.5h-2.65a.44.44,0,0,1-.5-.5v-15a5.14,5.14,0,0,0-1.25-3.73,4.8,4.8,0,0,0-3.6-1.27,5.49,5.49,0,0,0-3,.85,6.69,6.69,0,0,0-2.25,2.45,2.26,2.26,0,0,0-.25,1v15.6A.44.44,0,0,1,266.1,221.74Z"}"></path><path d="${"M291.7,218.59h12.05c.33,0,.5.18.5.55v2.1a.44.44,0,0,1-.5.5H286.5c-.4,0-.6-.17-.6-.5a.8.8,0,0,1,.15-.5L298,202c.09-.2.05-.3-.15-.3H286.45a.44.44,0,0,1-.5-.5V199a.44.44,0,0,1,.5-.5h16.6c.37,0,.55.16.55.5a.92.92,0,0,1-.16.5L291.5,218.29C291.4,218.49,291.46,218.59,291.7,218.59Z"}"></path><path d="${"M315.7,219.19v2.25a.44.44,0,0,1-.5.5h-.9a5.4,5.4,0,0,1-3.65-1.13,4.33,4.33,0,0,1-1.3-3.47V186a.44.44,0,0,1,.5-.5h2.65a.44.44,0,0,1,.5.5v30.85q0,1.8,1.5,1.8h.7A.44.44,0,0,1,315.7,219.19Z"}"></path><path d="${"M325,220.79a10.55,10.55,0,0,1-4.17-4.28,14.36,14.36,0,0,1,0-12.72,10.57,10.57,0,0,1,4.05-4.25,11.27,11.27,0,0,1,5.78-1.5,11.16,11.16,0,0,1,5.72,1.5,10.71,10.71,0,0,1,4,4.12,12.13,12.13,0,0,1,1.44,5.93,11.37,11.37,0,0,1,0,1.15.49.49,0,0,1-.5.4H323.6c-.41,0-.56.21-.45.65a8.18,8.18,0,0,0,2.52,5.25,7.73,7.73,0,0,0,5.43,2,8.84,8.84,0,0,0,6.55-2.9c.36-.37.65-.43.85-.2l1.65,1.8c.23.2.23.41,0,.65a12.75,12.75,0,0,1-4.13,2.92,12,12,0,0,1-4.92,1A12.34,12.34,0,0,1,325,220.79Zm12.92-13.15a7.58,7.58,0,0,0-2.47-4.58,7.6,7.6,0,0,0-9.7.06,7.37,7.37,0,0,0-2.47,4.57l-.06.25c0,.2.17.3.5.3h13.76C337.85,208.24,338,208,337.89,207.64Z"}"></path><path d="${"M347.52,192.31a2.64,2.64,0,0,1-.83-1.92,2.56,2.56,0,0,1,.83-1.9,2.69,2.69,0,0,1,1.93-.8,2.56,2.56,0,0,1,1.85.8,2.6,2.6,0,0,1,.79,1.9,2.68,2.68,0,0,1-.79,1.92,2.52,2.52,0,0,1-1.85.83A2.64,2.64,0,0,1,347.52,192.31Zm0,28.93V199c0-.34.16-.5.49-.5h2.66a.44.44,0,0,1,.5.5v22.2a.44.44,0,0,1-.5.5H348A.44.44,0,0,1,347.55,221.24Z"}"></path></svg>`;
 });
 const MulitlineText = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { text = "" } = $$props;
@@ -671,17 +687,17 @@ const MulitlineText = create_ssr_component(($$result, $$props, $$bindings, slots
       0
     )}>${escape(line.text)}</tspan>`;
   })}</text>
-<canvas style="${"display: none;"}"${add_attribute("this", canvas, 0)}></canvas>`;
+<canvas style="display: none;"${add_attribute("this", canvas, 0)}></canvas>`;
 });
 const PostcardBack = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $dimensions, $$unsubscribe_dimensions;
   $$unsubscribe_dimensions = subscribe(dimensions, (value) => $dimensions = value);
   const width = $dimensions[0], height = $dimensions[1];
   $$unsubscribe_dimensions();
-  return `<svg encoding="${"UTF-8"}" version="${"1.0"}"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} xmlns="${"http://www.w3.org/2000/svg"}" id="${"postcardBack"}"><rect x="${"0"}" y="${"0"}"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} fill="${"#fff"}"></rect><g><g transform="${"translate(15,5)"}">${validate_component(MulitlineText, "MulitlineText").$$render(
+  return `<svg encoding="UTF-8" version="1.0"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} xmlns="http://www.w3.org/2000/svg" id="postcardBack"><rect x="0" y="0"${add_attribute("width", width, 0)}${add_attribute("height", height, 0)} fill="#fff"></rect><g><g transform="translate(15,5)">${validate_component(MulitlineText, "MulitlineText").$$render(
     $$result,
     {
-      text: "Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche kiezcolors.odis-berlin.de und entdecke die Verteilung in deinem Kiez,",
+      text: "Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche cartolab.at/graetzlfarben und entdecke die Verteilung in deinem Grätzl,",
       x: "10",
       y: "30",
       width: "275",
@@ -692,10 +708,10 @@ const PostcardBack = create_ssr_component(($$result, $$props, $$bindings, slots)
     },
     {},
     {}
-  )}</g><g transform="${"translate(15,107)"}">${validate_component(MulitlineText, "MulitlineText").$$render(
+  )}</g><g transform="translate(15,107)">${validate_component(MulitlineText, "MulitlineText").$$render(
     $$result,
     {
-      text: "Mit herzlichen Grüßen aus dem Kiezlabor!",
+      text: "Mit herzlichen Grüßen vom GEO-Tag 2024!",
       x: "10",
       y: "30",
       width: "275",
@@ -706,13 +722,13 @@ const PostcardBack = create_ssr_component(($$result, $$props, $$bindings, slots)
     },
     {},
     {}
-  )}</g><g transform="${"translate(15,160)"}">${each(Object.values(categories), ({ color, name, name_en }, i) => {
-    return `<rect classs="${"rect-legend"}" width="${"10"}" height="${"10"}"${add_attribute("fill", color, 0)}${add_attribute("transform", `translate(10,${10 + i * 16})`, 0)}></rect>
-        <text classs="${"text-legend"}"${add_attribute("transform", `translate(25,${19 + i * 16})`, 0)} text-anchor="${"start"}" font-family="${"IBM Plex Sans Text"}" font-size="${"11"}" fill="${"#292929"}">${escape(name)} (${escape(name_en)})</text>`;
-  })}</g><g transform="${"translate(15,310)"}">${validate_component(MulitlineText, "MulitlineText").$$render(
+  )}</g><g transform="translate(15,160)">${each(Object.values(categories), ({ color, name, name_en }, i) => {
+    return `<rect classs="rect-legend" width="10" height="10"${add_attribute("fill", color, 0)}${add_attribute("transform", `translate(10,${10 + i * 16})`, 0)}></rect>
+        <text classs="text-legend"${add_attribute("transform", `translate(25,${19 + i * 16})`, 0)} text-anchor="start" font-family="IBM Plex Sans Text" font-size="11" fill="#292929">${escape(name)} (${escape(name_en)})</text>`;
+  })}</g><g transform="translate(15,310)">${validate_component(MulitlineText, "MulitlineText").$$render(
     $$result,
     {
-      text: "Du siehst die Flächenverteilung in einem 1000 Meter Radius.\n        Möglich gemacht durch offene Verwaltungsdaten des Liegenschaftskatasters (ALKIS) aus dem Geoportal Berlin. <3",
+      text: "Du siehst die Flächenverteilung in einem 1000 Meter Radius.\r\n        Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien.",
       x: "10",
       y: "30",
       width: "275",
@@ -724,9 +740,7 @@ const PostcardBack = create_ssr_component(($$result, $$props, $$bindings, slots)
     },
     {},
     {}
-  )}</g><line y1="${"30"}"${add_attribute("x1", width / 2, 0)}${add_attribute("y2", height - 80, 0)}${add_attribute("x2", width / 2, 0)} style="${"stroke:rgb(200, 200, 200);stroke-width:1"}"></line><line${add_attribute("y1", 200, 0)}${add_attribute("x1", width - 30, 0)}${add_attribute("y2", 200, 0)}${add_attribute("x2", width / 2 + 30, 0)} style="${"stroke:rgb(200, 200, 200);stroke-width:1"}"></line><line${add_attribute("y1", 250, 0)}${add_attribute("x1", width - 30, 0)}${add_attribute("y2", 250, 0)}${add_attribute("x2", width / 2 + 30, 0)} style="${"stroke:rgb(200, 200, 200);stroke-width:1"}"></line><line${add_attribute("y1", 300, 0)}${add_attribute("x1", width - 30, 0)}${add_attribute("y2", 300, 0)}${add_attribute("x2", width / 2 + 30, 0)} style="${"stroke:rgb(200, 200, 200);stroke-width:1"}"></line><rect width="${"90"}" height="${"120"}" style="${"stroke:rgb(200, 200, 200);stroke-width:1"}"${add_attribute("transform", `translate(${width - 120},${30})`, 0)} fill="${"transparent"}"></rect><text transform="${"translate(424,535.5)"}" text-anchor="${"end"}" font-family="${"IBM Plex Sans Text"}" font-size="${"12"}" fill="${"#292929"}"><tspan x="${"0"}" y="${"0"}" dy="${"1.5em"}">Data: Geoportal Berlin / ALKIS Berlin</tspan><tspan x="${"0"}" y="${"0"}" dy="${"3em"}">KiezLabor 2023</tspan><tspan x="${"0"}" y="${"0"}" dy="${"4.5em"}">kiezcolors.odis-berlin.de</tspan></text></g><g transform="${"translate(25,375)"}">${validate_component(LogoODIS, "LogoODIS").$$render($$result, { width: 130, height: 50 }, {}, {})}</g><g transform="${"translate(175,375)"}">${validate_component(LogoCityLab, "LogoCityLab").$$render($$result, { width: 120, height: 50 }, {}, {})}</g><g transform="${"translate(330,375)"}"><text transform="${"translate(60,-10)"}" text-anchor="${"end"}" font-family="${"IBM Plex Sans Text"}" font-size="${"12"}" fill="${"rgb(148, 148, 148)"}">Projekt der
-    </text>${validate_component(LogoTSB, "LogoTSB").$$render($$result, { width: 120, height: 50 }, {}, {})}</g><g transform="${"translate(470,355)"}"><text transform="${"translate(90,10)"}" text-anchor="${"end"}" font-family="${"IBM Plex Sans Text"}" font-size="${"12"}" fill="${"rgb(148, 148, 148)"}">Gefördert durch
-    </text>${validate_component(LogoSenatskanzlei, "LogoSenatskanzlei").$$render($$result, { width: 140, height: 100 }, {}, {})}</g><defs><style type="${"text/css"}">@font-face {
+  )}</g><line y1="30"${add_attribute("x1", width / 2, 0)}${add_attribute("y2", height - 80, 0)}${add_attribute("x2", width / 2, 0)} style="stroke:rgb(200, 200, 200);stroke-width:1"></line><line${add_attribute("y1", 200, 0)}${add_attribute("x1", width - 30, 0)}${add_attribute("y2", 200, 0)}${add_attribute("x2", width / 2 + 30, 0)} style="stroke:rgb(200, 200, 200);stroke-width:1"></line><line${add_attribute("y1", 250, 0)}${add_attribute("x1", width - 30, 0)}${add_attribute("y2", 250, 0)}${add_attribute("x2", width / 2 + 30, 0)} style="stroke:rgb(200, 200, 200);stroke-width:1"></line><line${add_attribute("y1", 300, 0)}${add_attribute("x1", width - 30, 0)}${add_attribute("y2", 300, 0)}${add_attribute("x2", width / 2 + 30, 0)} style="stroke:rgb(200, 200, 200);stroke-width:1"></line><rect width="90" height="120" style="stroke:rgb(200, 200, 200);stroke-width:1"${add_attribute("transform", `translate(${width - 120},${30})`, 0)} fill="transparent"></rect><text transform="translate(424,535.5)" text-anchor="end" font-family="IBM Plex Sans Text" font-size="12" fill="#292929"><tspan x="0" y="0" dy="1.5em">Data: Geoportal Berlin / ALKIS Berlin</tspan><tspan x="0" y="0" dy="3em">KiezLabor 2023</tspan><tspan x="0" y="0" dy="4.5em">kiezcolors.odis-berlin.de</tspan></text></g><defs><style type="text/css">@font-face {
         font-family: "IBM Plex Sans Text";
         /* Add other properties here, as needed. For example: */
         /*
@@ -890,7 +904,11 @@ const css$4 = {
 };
 const ChevronIcon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$4);
-  return `<svg width="${"100%"}" height="${"100%"}" viewBox="${"0 0 20 20"}" focusable="${"false"}" aria-hidden="${"true"}" class="${"svelte-1ea3f3y"}"><path fill="${"currentColor"}" d="${"M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747\n          3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0\n          1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502\n          0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0\n          0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"}"></path></svg>`;
+  return `<svg width="100%" height="100%" viewBox="0 0 20 20" focusable="false" aria-hidden="true" class="svelte-1ea3f3y"><path fill="currentColor" d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747
+          3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0
+          1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502
+          0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0
+          0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"></path></svg>`;
 });
 const ClearIcon_svelte_svelte_type_style_lang = "";
 const css$3 = {
@@ -899,7 +917,8 @@ const css$3 = {
 };
 const ClearIcon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$3);
-  return `<svg width="${"100%"}" height="${"100%"}" viewBox="${"-2 -2 50 50"}" focusable="${"false"}" aria-hidden="${"true"}" role="${"presentation"}" class="${"svelte-yszwet"}"><path fill="${"currentColor"}" d="${"M34.923,37.251L24,26.328L13.077,37.251L9.436,33.61l10.923-10.923L9.436,11.765l3.641-3.641L24,19.047L34.923,8.124\n    l3.641,3.641L27.641,22.688L38.564,33.61L34.923,37.251z"}"></path></svg>`;
+  return `<svg width="100%" height="100%" viewBox="-2 -2 50 50" focusable="false" aria-hidden="true" role="presentation" class="svelte-yszwet"><path fill="currentColor" d="M34.923,37.251L24,26.328L13.077,37.251L9.436,33.61l10.923-10.923L9.436,11.765l3.641-3.641L24,19.047L34.923,8.124
+    l3.641,3.641L27.641,22.688L38.564,33.61L34.923,37.251z"></path></svg>`;
 });
 const LoadingIcon_svelte_svelte_type_style_lang = "";
 const css$2 = {
@@ -908,7 +927,7 @@ const css$2 = {
 };
 const LoadingIcon = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$result.css.add(css$2);
-  return `<svg class="${"loading svelte-d6026t"}" viewBox="${"25 25 50 50"}"><circle class="${"circle_path svelte-d6026t"}" cx="${"50"}" cy="${"50"}" r="${"20"}" fill="${"none"}" stroke="${"currentColor"}" stroke-width="${"5"}" stroke-miterlimit="${"10"}"></circle></svg>`;
+  return `<svg class="loading svelte-d6026t" viewBox="25 25 50 50"><circle class="circle_path svelte-d6026t" cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="5" stroke-miterlimit="10"></circle></svg>`;
 });
 const Select_svelte_svelte_type_style_lang = "";
 const css$1 = {
@@ -1459,7 +1478,7 @@ const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     (multiple ? "multi" : "") + " " + (disabled ? "disabled" : "") + " " + (focused ? "focused" : "") + " " + (listOpen ? "list-open" : "") + " " + (showChevron ? "show-chevron" : "") + " " + (hasError ? "error" : "")
   ].join(" ").trim()}"${add_attribute("style", containerStyles, 0)}${add_attribute("this", container, 0)}>${listOpen ? `<div class="${["svelte-select-list svelte-11n9eyg", prefloat ? "prefloat" : ""].join(" ").trim()}"${add_attribute("this", list, 0)}>${$$slots["list-prepend"] ? `${slots["list-prepend"] ? slots["list-prepend"]({}) : ``}` : ``}
             ${$$slots.list ? `${slots.list ? slots.list({ filteredItems }) : ``}` : `${filteredItems.length > 0 ? `${each(filteredItems, (item, i) => {
-    return `<div class="${"list-item svelte-11n9eyg"}" tabindex="${"-1"}"><div class="${[
+    return `<div class="list-item svelte-11n9eyg" tabindex="-1"><div class="${[
       "item svelte-11n9eyg",
       (item.groupHeader ? "list-group-title" : "") + " " + (isItemActive(item, value, itemId) ? "active" : "") + " " + (isItemFirst(i) ? "first" : "") + " " + (hoverItemIndex === i ? "hover" : "") + " " + (item.groupItem ? "group-item" : "") + " " + (item?.selectable === false ? "not-selectable" : "")
     ].join(" ").trim()}">${slots.item ? slots.item({ item, index: i }) : `
@@ -1467,24 +1486,24 @@ const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
                             `}</div>
                     </div>`;
   })}` : `${!hideEmptyState ? `${slots.empty ? slots.empty({}) : `
-                    <div class="${"empty svelte-11n9eyg"}">No options</div>
+                    <div class="empty svelte-11n9eyg">No options</div>
                 `}` : ``}`}`}
             ${$$slots["list-append"] ? `${slots["list-append"] ? slots["list-append"]({}) : ``}` : ``}</div>` : ``}
 
-    <span aria-live="${"polite"}" aria-atomic="${"false"}" aria-relevant="${"additions text"}" class="${"a11y-text svelte-11n9eyg"}">${focused ? `<span id="${"aria-selection"}" class="${"svelte-11n9eyg"}">${escape(ariaSelection)}</span>
-            <span id="${"aria-context"}" class="${"svelte-11n9eyg"}">${escape(ariaContext)}</span>` : ``}</span>
+    <span aria-live="polite" aria-atomic="false" aria-relevant="additions text" class="a11y-text svelte-11n9eyg">${focused ? `<span id="aria-selection" class="svelte-11n9eyg">${escape(ariaSelection)}</span>
+            <span id="aria-context" class="svelte-11n9eyg">${escape(ariaContext)}</span>` : ``}</span>
 
-    <div class="${"prepend svelte-11n9eyg"}">${slots.prepend ? slots.prepend({}) : ``}</div>
+    <div class="prepend svelte-11n9eyg">${slots.prepend ? slots.prepend({}) : ``}</div>
 
-    <div class="${"value-container svelte-11n9eyg"}">${hasValue ? `${multiple ? `${each(value, (item, i) => {
+    <div class="value-container svelte-11n9eyg">${hasValue ? `${multiple ? `${each(value, (item, i) => {
     return `<div class="${[
       "multi-item svelte-11n9eyg",
       (activeValue === i ? "active" : "") + " " + (disabled ? "disabled" : "")
-    ].join(" ").trim()}"><span class="${"multi-item-text svelte-11n9eyg"}">${slots.selection ? slots.selection({ selection: item, index: i }) : `
+    ].join(" ").trim()}"><span class="multi-item-text svelte-11n9eyg">${slots.selection ? slots.selection({ selection: item, index: i }) : `
                                 ${escape(item[label])}
                             `}</span>
 
-                        ${!disabled && !multiFullItemClearable && ClearIcon ? `<div class="${"multi-item-clear svelte-11n9eyg"}">${slots["multi-clear-icon"] ? slots["multi-clear-icon"]({}) : `
+                        ${!disabled && !multiFullItemClearable && ClearIcon ? `<div class="multi-item-clear svelte-11n9eyg">${slots["multi-clear-icon"] ? slots["multi-clear-icon"]({}) : `
                                     ${validate_component(ClearIcon, "ClearIcon").$$render($$result, {}, {}, {})}
                                 `}
                             </div>` : ``}
@@ -1511,24 +1530,24 @@ const Select = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     { classes: "svelte-11n9eyg" }
   )}${add_attribute("this", input, 0)}${add_attribute("value", filterText, 0)}></div>
 
-    <div class="${"indicators svelte-11n9eyg"}">${loading ? `<div class="${"icon loading svelte-11n9eyg"}" aria-hidden="${"true"}">${slots["loading-icon"] ? slots["loading-icon"]({}) : `
+    <div class="indicators svelte-11n9eyg">${loading ? `<div class="icon loading svelte-11n9eyg" aria-hidden="true">${slots["loading-icon"] ? slots["loading-icon"]({}) : `
                     ${validate_component(LoadingIcon, "LoadingIcon").$$render($$result, {}, {}, {})}
                 `}</div>` : ``}
 
-        ${showClear ? `<button class="${"icon clear-select svelte-11n9eyg"}">${slots["clear-icon"] ? slots["clear-icon"]({}) : `
+        ${showClear ? `<button class="icon clear-select svelte-11n9eyg">${slots["clear-icon"] ? slots["clear-icon"]({}) : `
                     ${validate_component(ClearIcon, "ClearIcon").$$render($$result, {}, {}, {})}
                 `}</button>` : ``}
 
-        ${showChevron ? `<div class="${"icon chevron svelte-11n9eyg"}" aria-hidden="${"true"}">${slots["chevron-icon"] ? slots["chevron-icon"]({ listOpen }) : `
+        ${showChevron ? `<div class="icon chevron svelte-11n9eyg" aria-hidden="true">${slots["chevron-icon"] ? slots["chevron-icon"]({ listOpen }) : `
                     ${validate_component(ChevronIcon, "ChevronIcon").$$render($$result, {}, {}, {})}
                 `}</div>` : ``}</div>
 
     ${slots["input-hidden"] ? slots["input-hidden"]({ value }) : `
-        <input${add_attribute("name", name, 0)} type="${"hidden"}"${add_attribute("value", value ? JSON.stringify(value) : null, 0)} class="${"svelte-11n9eyg"}">
+        <input${add_attribute("name", name, 0)} type="hidden"${add_attribute("value", value ? JSON.stringify(value) : null, 0)} class="svelte-11n9eyg">
     `}
 
     ${required && (!value || value.length === 0) ? `${slots.required ? slots.required({ value }) : `
-            <select class="${"required svelte-11n9eyg"}" required tabindex="${"-1"}" aria-hidden="${"true"}"></select>
+            <select class="required svelte-11n9eyg" required tabindex="-1" aria-hidden="true"></select>
         `}` : ``}
 </div>`;
 });
@@ -1537,7 +1556,7 @@ function getAddress(filterText) {
     const xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
-      `https://nominatim.openstreetmap.org/search?viewbox=13.0648,52.7554,13.7796,52.33449&bounded=1&q=${filterText.toLowerCase()}&countrycodes=de&format=json`
+      `https://nominatim.openstreetmap.org/search?viewbox=${mapBounds[0]},${mapBounds[1]}&bounded=1&q=${filterText.toLowerCase()}&countrycodes=${country}&format=json`
     );
     xhr.send();
     xhr.onload = () => {
@@ -1559,7 +1578,7 @@ const Search = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let selectedSearchResult;
   $$unsubscribe_newBounds();
   $$unsubscribe_lang();
-  return `<div class="${"mb-5 pt-5"}">${validate_component(Select, "Select").$$render(
+  return `<div class="mb-5 pt-5">${validate_component(Select, "Select").$$render(
     $$result,
     {
       noOptionsMessage,
@@ -1595,7 +1614,7 @@ const PrintAndDownload = create_ssr_component(($$result, $$props, $$bindings, sl
 
 <br>
 
-${$printBackUI ? `<button class="${"btn btn-sm btn-primary btn-outline mb-6"}">${escape($lang === "en" ? "Download backside" : "Rückseite herunterladen")}</button>` : ``}`;
+${$printBackUI ? `<button class="btn btn-primary btn-outline mb-6">${escape($lang === "en" ? "Download backside" : "Rückseite herunterladen")}</button>` : ``}`;
 });
 const Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $lang, $$unsubscribe_lang;
@@ -1604,19 +1623,25 @@ const Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_printBackUI = subscribe(printBackUI, (value) => $printBackUI = value);
   $$unsubscribe_lang();
   $$unsubscribe_printBackUI();
-  return `<div class="${"bottom-0 lg:absolute text-sm mr-8 text-gray-500 mb-4"}"><p>${escape($lang === "en" ? "Kiezcolors was developed by ODIS and CityLAB Berlin. ODIS and CityLAB are projects of the Technology Foundation Berlin and are funded by the Berlin Senate Chancellery. You can find the code to this project on " : "Kiezcolors wurde von ODIS und CityLAB Berlin entwickelt. ODIS und CityLAB sind Projekte der Technologiestiftung Berlin und werden von der Berliner Senatskanzlei gefördert. Den Code zum Projekt findest auf ")}
-    <a class="${"font-bold"}" href="${"https://github.com/technologiestiftung/kiezcolors/"}">GitHub
+  return `<div class="text-sm text-gray-400 mt-10"><p>${escape($lang === "en" ? "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The research unit cartography from TU Wien adapted it for Vienna. You can find the code to this project on " : "Grätzlfarben wurde ursprünglich unter dem Namen 'Kiezcolors' von ODIS und dem CityLAB Berlin entwickelt. Die Forschungsgruppe Kartographie der TU Wien hat das Projekt für Wien weiterentwickelt. Den Code zum Projekt findest auf ")}
+    <a class="font-bold" href="https://github.com/technologiestiftung/kiezcolors/">GitHub.
     </a>
-    .
-  </p>
+    
+    <br><br>
 
-  <div style="${"text-align:center;margin-top:20px"}" class="${"flex flex-wrap sm:flex-nowrap"}"><a class="${"basis-2/4"}" style="${"padding:10px"}" href="${"https://odis-berlin.de"}"><img width="${"200"}" alt="${"odis-logo"}" src="${"./img/logo-odis-berlin.svg"}"></a>
+    <span class="text-sm font-thin text-gray-400">${escape($lang === "en" ? "Data source:" : "Datenquelle:")}
+      <br>
+      <a class="underline" target="_blank" rel="noreferrer" href="https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien">Realnutzungskartierung ab 2007 Wien
+      </a>
+      |
+      
+      <a class="underline" target="_blank" rel="noreferrer" href="https://creativecommons.org/licenses/by/4.0/deed.de">CC BY 4.0 Deed
+      </a></span></p>
 
-    <a class="${"basis-2/4"}" style="${"padding:10px"}" href="${"https://citylab-berlin.org/de/start/"}"><img width="${"200"}" alt="${"citylab-logo"}" src="${"./img/logo-citylab-berlin.svg"}"></a>
-    <a class="${"basis-2/4"}" style="${"padding:10px"}" href="${"https://www.technologiestiftung-berlin.de/"}"><img width="${"150"}" alt="${"technologiestiftung-logo"}" src="${"./img/logo-tsb.svg"}"></a>
-    <a class="${"basis-2/4"}" style="${"padding:10px"}" href="${"https://www.berlin.de/rbmskzl/"}"><img width="${"100"}" alt="${"seninnds-logo"}" src="${"./img/B_RBm_Skzl_Logo_DE_V_PT_RGB.svg"}"></a></div>
-  <div class="${"w-full text-center text-gray-400"}"><a href="${"https://www.technologiestiftung-berlin.de/impressum"}">Impressum</a>
-    <input type="${"checkbox"}" class="${"checkbox checkbox-primary checkbox-xs opacity-90 fixed bottom-0 left-0"}"${add_attribute("checked", $printBackUI, 1)}></div></div>`;
+  <div style="text-align:center" class="flex flex-wrap sm:flex-nowrap mt-8"><a class="basis-2/4" style="padding:10px" href="https://kiezcolors.odis-berlin.de"><img width="200" alt="Kiezcolors logo" src="./img/kiezcolors-logo.png"></a></div>
+
+  <div class="w-full text-center text-gray-400 mt-4"><a href="https://cartolab.at/">Impressum</a>
+    <input type="checkbox" class="checkbox checkbox-primary checkbox-xs opacity-90 fixed bottom-0 left-0"${add_attribute("checked", $printBackUI, 1)}></div></div>`;
 });
 const _page_svelte_svelte_type_style_lang = "";
 const css = {
@@ -1642,36 +1667,36 @@ const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   $$unsubscribe_printBackUI();
   return `
 
-${$$result.head += `<!-- HEAD_svelte-16uzuh9_START -->${$$result.title = `<title>Kiezcolors</title>`, ""}<meta name="${"description"}" content="${"A map based tool to create a postcard showing the landuse distribution in your neighborhood"}"><meta name="${"viewport"}" content="${"width=device-width, initial-scale=1.0, maximum-scale=0.8, user-scalable=0"}"><!-- HEAD_svelte-16uzuh9_END -->`, ""}
+${$$result.head += `<!-- HEAD_svelte-7or58w_START -->${$$result.title = `<title>${escape(projectTitle)}</title>`, ""}<meta name="description" content="A map based tool to create a postcard showing the landuse distribution in your neighborhood"><meta property="og:title"${add_attribute("content", projectTitle, 0)}><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=0.8, user-scalable=0"><!-- HEAD_svelte-7or58w_END -->`, ""}
 
-<div class="${"fixed right-4 top-4 margin-4 z-50"}"><div class="${"btn-group"}"><input type="${"radio"}" name="${"options"}" data-title="${"en"}" class="${"btn btn-sm btn-outline "}" ${$lang === "en" ? "checked" : ""}>
-    <input type="${"radio"}" name="${"options"}" data-title="${"de"}" class="${"btn btn-sm btn-outline "}" ${$lang === "de" ? "checked" : ""}></div></div>
+<div class="fixed right-4 top-4 margin-4 z-50"><div class="btn-group"><input type="radio" name="options" data-title="en" class="btn btn-sm btn-outline" ${$lang === "en" ? "checked" : ""}>
+    <input type="radio" name="options" data-title="de" class="btn btn-sm btn-outline" ${$lang === "de" ? "checked" : ""}></div></div>
 
-<section class="${"w-full h-screen block lg:flex"}"><div class="${[
-    "lg:h-full w-full lg:w-1/3 bg-white z-10 relative p-4 lg:p-8 overflow-auto ",
+<section class="w-full h-screen block lg:flex"><div class="${[
+    "lg:h-full w-full lg:w-1/3 bg-white z-10 relative p-4 lg:p-8 overflow-auto",
     !$isMobile ? "shadow-lg" : ""
-  ].join(" ").trim()}"><div class="${"bold py-4 text-5xl svelte-hlq8ce"}">Kiezcolors</div>
+  ].join(" ").trim()}"><div class="bold py-4 text-4xl md:text-4xl xl:text-5xl svelte-hlq8ce">${escape(projectTitle)}</div>
 
-    <p class="${"my-4"}">${$lang === "en" ? `Create a postcard, which shows the distribution of land use in your
+    <p class="my-4">${$lang === "en" ? `Create a postcard, which shows the distribution of land use in your
         neighborhood. Simply move the map from Berlin or search for a location.
         You can also change the text on the postcard.` : `Hier kannst du dir eine Postkarte erstellen, die die Verteilung der
         Flächennutzung in deiner Nachbarschaft zeigt. Verschiebe einfach die
-        Karte von Berlin oder suche nach einem Ort. Den Text auf der Postkarte
+        Karte von Wien oder suche nach einem Ort. Den Text auf der Postkarte
         kannst du auch ändern.`}</p>
 
-    <div class="${"w-full"}">${validate_component(Search, "Search").$$render($$result, {}, {}, {})}</div>
+    <div class="w-full">${validate_component(Search, "Search").$$render($$result, {}, {}, {})}</div>
 
-    <span class="${"hidden lg:block"}">${validate_component(PrintAndDownload, "PrintAndDownload").$$render($$result, {}, {}, {})}
+    <span class="hidden lg:block">${validate_component(PrintAndDownload, "PrintAndDownload").$$render($$result, {}, {}, {})}
       ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</span></div>
-  <div class="${"h-1/2 lg:h-full w-full bg-white flex items-center"}">${validate_component(Map, "Map").$$render($$result, {}, {}, {})}
+  <div class="h-1/2 lg:h-full w-full bg-white flex items-center">${validate_component(Map, "Map").$$render($$result, {}, {}, {})}
     ${!$isMobile ? `${validate_component(PostcardFront, "PostcardFront").$$render($$result, {}, {}, {})}` : ``}</div>
 
-  ${$isMobile ? `<div class="${"relative width-full bg-gray-100"}">${validate_component(MapKey, "MapKey").$$render($$result, {}, {}, {})}</div>` : ``}
+  ${$isMobile ? `<div class="relative width-full bg-gray-100">${validate_component(MapKey, "MapKey").$$render($$result, {}, {}, {})}</div>` : ``}
   ${$isMobile ? `${validate_component(PostcardFront, "PostcardFront").$$render($$result, {}, {}, {})}` : ``}
-  <div class="${"lg:hidden lg:w-1/3 bg-white z-10 relative m-4 overflow-auto"}">${validate_component(PrintAndDownload, "PrintAndDownload").$$render($$result, {}, {}, {})}
+  <div class="lg:hidden lg:w-1/3 bg-white z-10 relative m-4 overflow-auto">${validate_component(PrintAndDownload, "PrintAndDownload").$$render($$result, {}, {}, {})}
     ${validate_component(Footer, "Footer").$$render($$result, {}, {}, {})}</div></section>
 
-${$printBackUI ? `<span class="${"p-4 hidden"}">${validate_component(PostcardBack, "PostcardBack").$$render($$result, {}, {}, {})}</span>` : ``}`;
+${$printBackUI ? `<span class="p-4 hidden">${validate_component(PostcardBack, "PostcardBack").$$render($$result, {}, {}, {})}</span>` : ``}`;
 });
 export {
   Page as default

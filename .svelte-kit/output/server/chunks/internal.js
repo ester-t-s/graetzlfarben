@@ -1,8 +1,13 @@
 import { c as create_ssr_component, s as setContext, v as validate_component, m as missing_component } from "./index2.js";
-const base = "";
+let base = "";
 let assets = base;
+const initial = { base, assets };
+function reset() {
+  base = initial.base;
+  assets = initial.assets;
+}
 function set_assets(path) {
-  assets = path;
+  assets = initial.assets = path;
 }
 let public_env = {};
 function set_private_env(environment) {
@@ -94,24 +99,43 @@ const options = {
   app_template_contains_nonce: false,
   csp: { "mode": "auto", "directives": { "upgrade-insecure-requests": false, "block-all-mixed-content": false }, "reportOnly": { "upgrade-insecure-requests": false, "block-all-mixed-content": false } },
   csrf_check_origin: true,
+  track_server_fetches: false,
   embedded: false,
   env_public_prefix: "PUBLIC_",
+  env_private_prefix: "",
   hooks: null,
   // added lazily, via `get_hooks`
+  preload_strategy: "modulepreload",
   root: Root,
   service_worker: false,
   templates: {
-    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\n<html lang="de">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="' + assets2 + '/favicon.png" />\n    <meta name="viewport" content="width=device-width" />\n\n    <meta property="og:locale" content="de_DE" />\n    <meta property="og:type" content="website" />\n    <meta property="og:title" content="Kiezcolors" />\n    <meta\n      property="og:description"\n      content="Zeige dir die Flächennutzung in deinem Berliner Kiez an."\n    />\n    <meta property="og:url" content="https://kiezcolors.odis-berlin.de/" />\n    <meta property="og:site_name" content="Kiezcolors" />\n    <meta\n      property="og:image"\n      content="https://kiezcolors.odis-berlin.de/img/opengraph-800x600.png"\n    />\n\n    <!-- TWITTER -->\n    <meta name="twitter:card" content="summary_large_image" />\n    <meta name="twitter:site" content="@citylabberlin" />\n    <meta name="twitter:creator" content="@citylabberlin" />\n    <meta name="twitter:url" content="https://kiezcolors.odis-berlin.de/" />\n    <meta name="twitter:title" content="Kiezcolors" />\n    <meta\n      name="twitter:description"\n      content="Zeige dir die Flächennutzung in deinem Berliner Kiez an."\n    />\n    <meta\n      name="twitter:image"\n      content="https://kiezcolors.odis-berlin.de/img/twitter.png"\n    />\n\n    ' + head + '\n  </head>\n  <body data-sveltekit-preload-data="hover">\n    <div style="display: contents">' + body + '</div>\n    <script>\n      var _paq = (window._paq = window._paq || []);\n      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */\n      _paq.push(["trackPageView"]);\n      _paq.push(["enableLinkTracking"]);\n      (function () {\n        var u = "https://piwik.technologiestiftung-berlin.de/";\n        _paq.push(["setTrackerUrl", u + "matomo.php"]);\n        _paq.push(["setSiteId", "30"]);\n        var d = document,\n          g = d.createElement("script"),\n          s = d.getElementsByTagName("script")[0];\n        g.async = true;\n        g.src = u + "matomo.js";\n        s.parentNode.insertBefore(g, s);\n      })();\n    <\/script>\n  </body>\n</html>\n',
-    error: ({ status, message }) => '<!DOCTYPE html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
+    app: ({ head, body, assets: assets2, nonce, env }) => '<!DOCTYPE html>\r\n<html lang="de">\r\n  <head>\r\n    <meta charset="utf-8" />\r\n    <link rel="icon" href="' + assets2 + '/favicon.png" />\r\n    <meta name="viewport" content="width=device-width" />\r\n\r\n    <meta property="og:locale" content="de_DE" />\r\n    <meta property="og:type" content="website" />\r\n    <meta\r\n      property="og:description"\r\n      content="Zeige dir die Flächennutzung in deinem Wiener Grätzl an."\r\n    />\r\n    <meta property="og:url" content="https://cartolab.at/graetzlfarben" />\r\n    <meta property="og:site_name" content="{projectTitle}" />\r\n    <meta\r\n      property="og:image"\r\n      content="https://kiezcolors.odis-berlin.de/img/opengraph-800x600.png"\r\n    /> <!-- tbd update preview image-->\r\n\r\n\r\n    ' + head + '\r\n  </head>\r\n  <body data-sveltekit-preload-data="hover">\r\n    <div style="display: contents">' + body + "</div>\r\n  </body>\r\n</html>\r\n",
+    error: ({ status, message }) => '<!doctype html>\n<html lang="en">\n	<head>\n		<meta charset="utf-8" />\n		<title>' + message + `</title>
 
 		<style>
 			body {
-				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-					Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+				--bg: white;
+				--fg: #222;
+				--divider: #ccc;
+				background: var(--bg);
+				color: var(--fg);
+				font-family:
+					system-ui,
+					-apple-system,
+					BlinkMacSystemFont,
+					'Segoe UI',
+					Roboto,
+					Oxygen,
+					Ubuntu,
+					Cantarell,
+					'Open Sans',
+					'Helvetica Neue',
+					sans-serif;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				height: 100vh;
+				margin: 0;
 			}
 
 			.error {
@@ -130,7 +154,7 @@ const options = {
 			}
 
 			.message {
-				border-left: 1px solid #ccc;
+				border-left: 1px solid var(--divider);
 				padding: 0 0 0 1rem;
 				margin: 0 0 0 1rem;
 				min-height: 2.5rem;
@@ -143,13 +167,21 @@ const options = {
 				font-size: 1em;
 				margin: 0;
 			}
+
+			@media (prefers-color-scheme: dark) {
+				body {
+					--bg: #222;
+					--fg: #ddd;
+					--divider: #666;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "do1z86"
+  version_hash: "u4xlde"
 };
 function get_hooks() {
   return {};
@@ -157,11 +189,12 @@ function get_hooks() {
 export {
   assets as a,
   base as b,
-  set_assets as c,
-  set_building as d,
-  set_private_env as e,
+  set_public_env as c,
+  set_assets as d,
+  set_building as e,
   get_hooks as g,
   options as o,
   public_env as p,
-  set_public_env as s
+  reset as r,
+  set_private_env as s
 };
