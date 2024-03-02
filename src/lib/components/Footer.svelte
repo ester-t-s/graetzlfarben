@@ -8,7 +8,7 @@
       ? "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The research unit cartography from TU Wien adapted it for Vienna. You can find the code to this project on "
       : "Grätzlfarben wurde ursprünglich unter dem Namen 'Kiezcolors' von ODIS und dem CityLAB Berlin entwickelt. Die Forschungsgruppe Kartographie der TU Wien hat das Projekt für Wien weiterentwickelt. Den Code zum Projekt findest auf "}
     <a
-      class="font-bold"
+      class="underline"
       href="https://github.com/technologiestiftung/kiezcolors/"
     >
       GitHub
@@ -17,30 +17,26 @@
     <br /><br />
 
     <span class="text-sm font-thin text-gray-400">
-      {$lang === "en" ? "Data source:" : "Datenquelle:"}
+      {$lang === "en" ? "Data sources:" : "Datenquellen:"}
       <br />
-      <a
+      Realnutzungskartierung ab 2007: <a
         class="underline"
         target="_blank"
-        rel="noreferrer"
         href="https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien"
       >
-        Realnutzungskartierung ab 2007 Wien
+        CC BY 4.0 Stadt Wien
       </a>
-      |
-      <!-- ,
-      {$lang === "en" ? "published under:" : "veröffentlicht unter"} -->
-      <a
+      <br />
+      Straßenkarte: © <a
         class="underline"
         target="_blank"
-        rel="noreferrer"
-        href="https://creativecommons.org/licenses/by/4.0/deed.de"
+        href="https://openstreetmap.org"
       >
-        CC BY 4.0 Deed
+      OpenStreetMap Contributors
       </a>
     </span>
   </p>
-
+<!--
   <div style="text-align:center" class="flex flex-wrap sm:flex-nowrap mt-8">
     <a 
       class="basis-2/4"
@@ -53,9 +49,13 @@
       />
     </a>
   </div>
-
-  <div class="w-full text-center text-gray-400 mt-4">
-    <a href="https://cartolab.at/">Impressum</a>
+-->
+  <div class="w-full text-gray-400 mt-4">
+    Impressum:
+    <br>
+    Dies ist ein Forschungsprototyp – Daten und Funktionalität ohne Gewähr! 
+    Entwickelt am Forschungsbereich Kartographie<br>
+    TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien
     <input
       bind:checked={$printBackUI}
       type="checkbox"
