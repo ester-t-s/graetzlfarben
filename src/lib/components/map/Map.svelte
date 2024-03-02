@@ -80,7 +80,7 @@
 
     let circleGeom = getCircleGeom(map, {
       radius: $circleRadius,
-      steps: 30,
+      steps: 16,
     });
 
     let circleFits = checkCirleFits(map, circleGeom);
