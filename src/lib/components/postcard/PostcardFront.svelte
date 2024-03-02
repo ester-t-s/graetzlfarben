@@ -47,10 +47,11 @@ https://observablehq.com/@d3/treemap
       // ignore small parts
       if (Math.round(size[keyCategories].p) < 1) {
         return;
-      } else {
       }
+
       child.children.push({
-        name: keyCategories,
+        category: keyCategories,
+        label: categories[keyCategories][$lang == "de" ? "name" : "name_en"],
         size: size[keyCategories]?.p || 0,
         color: categories[keyCategories].color,
       });
@@ -99,13 +100,12 @@ https://observablehq.com/@d3/treemap
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("class", "inline " + ($isMobile ? "border" : ""));
 
-    const rect = $svg.append("rect");
-    rect
+    const bg = $svg.append("rect")
       .attr("x", 0)
       .attr("y", 0)
       .attr("width", width)
       .attr("height", height)
-      .attr("fill", "#fff"); // f9f9f9
+      .attr("fill", "#fff");
 
     treemap = d3
       .treemap()
@@ -141,7 +141,7 @@ https://observablehq.com/@d3/treemap
         return d;
       });
 
-    cell
+    let rect = cell
       .append("rect")
       .attr("id", function (d) {
         // return d.data.id;
@@ -155,9 +155,13 @@ https://observablehq.com/@d3/treemap
       .attr("fill", function (d) {
         return d.data.color; // color(d.parent.data.id);
       })
-      .style("opacity", 0)
-      .transition(t)
+      .style("opacity", 0);
+      
+    rect.transition(t)
       .style("opacity", 1);
+      
+    rect.append("title")
+      .text(d => d.data.label + ": " + (d.data.size < 2 ? d.data.size.toFixed(1) : Math.round(d.data.size)) + "%");
 
     cell
       .append("text")
