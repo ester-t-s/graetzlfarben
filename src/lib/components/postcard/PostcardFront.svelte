@@ -159,11 +159,11 @@ https://observablehq.com/@d3/treemap
       
     rect.transition(t)
       .style("opacity", 1);
-      
-    rect.append("title")
-      .text(d => d.data.label + ": " + (d.data.size < 2 ? d.data.size.toFixed(1) : Math.round(d.data.size)) + "%");
+    
+    let titleFunc = d => d.data.label + ": " + (d.data.size < 2 ? d.data.size.toFixed(1) : Math.round(d.data.size)) + "%";
+    rect.append("title").text(titleFunc);
 
-    cell
+    let txt = cell
       .append("text")
       .attr("x", function (d) {
         return d.x1 - d.x0 - 5;
@@ -189,9 +189,14 @@ https://observablehq.com/@d3/treemap
           }
         }
       })
+      .style("cursor", "default")
       .style("opacity", 0)
+
+    txt  
       .transition(t)
       .style("opacity", 1);
+
+    txt.append("title").text(titleFunc);
 
     $svg
       .append("text")
