@@ -5,7 +5,7 @@
   import mapStyle from "./mapStyle.js";
   import MapKey from "$lib/components/map/MapKey.svelte";
 
-  import drawCanvasCirlce from "$lib/assets/drawCanvasCirlce";
+  import drawCanvasCircle from "$lib/assets/drawCanvasCircle";
   import getMaxCircleRadius from "$lib/assets/getMaxCircleRadius";
   import getLanduseSizes from "$lib/assets/getLanduseSizes";
   import getCircleGeom from "$lib/assets/getCircleGeom";
@@ -102,7 +102,7 @@
     if ($useLocationAsText) {
       $textVis = $locationText;
     }
-    drawCanvasCirlce(map, canvas, $circleRadius);
+    drawCanvasCircle(map, canvas, $circleRadius);
   };
 
   onMount(() => {
@@ -125,7 +125,7 @@
       map.on("moveend", function (e) {
         const canvas = document.getElementById("myCanvas");
         $circleRadius = getMaxCircleRadius(map);
-        drawCanvasCirlce(map, canvas, $circleRadius);
+        drawCanvasCircle(map, canvas, $circleRadius);
         setTimeout(() => {
           drawAndCount(map);
         }, 100);
@@ -134,7 +134,7 @@
       map.on("zoomend", function (e) {
         const canvas = document.getElementById("myCanvas");
         $circleRadius = getMaxCircleRadius(map);
-        drawCanvasCirlce(map, canvas, $circleRadius);
+        drawCanvasCircle(map, canvas, $circleRadius);
         setTimeout(() => {
           drawAndCount(map);
         }, 100);
