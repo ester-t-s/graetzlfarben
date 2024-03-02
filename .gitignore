@@ -1,6 +1,8 @@
 # svelte stuff
 .svelte-kit
-build/*
+build
+
+.netlify
 
 # Logs
 logs
