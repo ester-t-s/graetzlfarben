@@ -63,6 +63,8 @@
 
   $: setScrollZoom($isMobile);
 
+  $circleRadius = 750;
+
   const drawAndCount = function (map) {
     if (!map || !map.getLayer("landuse")) return;
     // if (!map.loaded()) {
@@ -76,7 +78,7 @@
     const canvas = document.getElementById("myCanvas");
 
     let carCountingEnabled = map.getZoom() >= 10;
-    $circleRadius = getMaxCircleRadius(map);
+    //$circleRadius = getMaxCircleRadius(map);
 
     let circleGeom = getCircleGeom(map, {
       radius: $circleRadius,
@@ -124,7 +126,6 @@
 
       map.on("moveend", function (e) {
         const canvas = document.getElementById("myCanvas");
-        $circleRadius = getMaxCircleRadius(map);
         drawCanvasCircle(map, canvas, $circleRadius);
         setTimeout(() => {
           drawAndCount(map);
@@ -133,7 +134,6 @@
 
       map.on("zoomend", function (e) {
         const canvas = document.getElementById("myCanvas");
-        $circleRadius = getMaxCircleRadius(map);
         drawCanvasCircle(map, canvas, $circleRadius);
         setTimeout(() => {
           drawAndCount(map);
