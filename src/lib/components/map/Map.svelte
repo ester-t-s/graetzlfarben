@@ -123,12 +123,18 @@
       drawAndCount(map);
 
       map.on("moveend", function (e) {
+        const canvas = document.getElementById("myCanvas");
+        $circleRadius = getMaxCircleRadius(map);
+        drawCanvasCirlce(map, canvas, $circleRadius);
         setTimeout(() => {
           drawAndCount(map);
         }, 100);
       });
 
       map.on("zoomend", function (e) {
+        const canvas = document.getElementById("myCanvas");
+        $circleRadius = getMaxCircleRadius(map);
+        drawCanvasCirlce(map, canvas, $circleRadius);
         setTimeout(() => {
           drawAndCount(map);
         }, 100);
