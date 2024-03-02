@@ -182,10 +182,11 @@ https://observablehq.com/@d3/treemap
       })
       .attr("fill", function (d) {
         if (d.data.color) {
-          if (d.data.name === "street" || d.data.name === "transport") {
-            return chroma(d.data.color).brighten(1).hex();
+          let c = chroma(d.data.color);
+          if (c.luminance() < 0.2) {
+            return c.brighten(1).hex();
           } else {
-            return chroma(d.data.color).darken(1).hex();
+            return c.darken(1).hex();
           }
         }
       })
