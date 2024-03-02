@@ -206,7 +206,7 @@ https://observablehq.com/@d3/treemap
       .attr("font-family", "IBM Plex Sans Bold")
       .attr("font-size", 10)
       .attr("fill", "#2f2fa2")
-      .text("GEO-Tag 2024 — cartolab.at/gf");
+      .text("TU Wien GEO-Tag 2024 — cartolab.at/gf");
   }
 
   function updateData(newData) {

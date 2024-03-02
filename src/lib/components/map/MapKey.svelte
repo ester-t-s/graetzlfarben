@@ -16,9 +16,9 @@
     <div class="inline-block align-middle">
       <div
         class="w-4 h-4 rounded-full ml-2 inline-block"
-        style={`background-color:${color}`}
+        style={`background-color:${color}; border: 0.5px solid white;`}
       />
-      <p class="align-middle leading-4 ml-1 inline-block mb-2">
+      <p class="align-middle leading-4 ml-1 inline-block mb-2" style="text-shadow: 0 0 2px #fff;">
         {$lang === "de" ? name : name_en}
       </p>
     </div>

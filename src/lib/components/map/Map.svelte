@@ -210,7 +210,7 @@
     class="absolute right-0 bottom-12 z-50 form-control w-fit pointer-events-auto"
   >
     <label class="cursor-pointer label">
-      <span class="mx-2 text-md">Basemap</span>
+      <span class="mx-2 text-md">Straßenkarte</span>
       <input
         type="checkbox"
         bind:checked={$showBasemap}
