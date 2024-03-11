@@ -213,7 +213,7 @@ export let landuses = {
 export let categories = {
     street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
     living: { color: "#EDB08D", name_en: "Living", name: "Wohnen" },
-    rail: { color: "#678C93", name_en: "Rail", name: "Bahn" },
+    rail: { color: "#596C6F", name_en: "Rail", name: "Bahn" },
     water: { color: "#CAECF2", name_en: "Water", name: "Wasser" },
     greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
     industry: { color: "#B6933A", name_en: "Economy", name: "Wirtschaft" },
