@@ -110,5 +110,6 @@ dist
 .tern-port
 
 .venv
-data-preprocessing\individual_layers
-data-preprocessing\fmzk_combined.geojson
+data-preprocessing/clean.py
+data-preprocessing/explore.py
+data-preprocessing/categorize.py
