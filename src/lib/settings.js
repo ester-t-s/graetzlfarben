@@ -212,14 +212,14 @@ export let landuses = {
   
 export let categories = {
     street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
-    living: { color: "#E7836F", name_en: "Living", name: "Wohnen" },
-    rail: { color: "#56696D", name_en: "Rail", name: "Bahn" },
-    water: { color: "#C6E9F0", name_en: "Water", name: "Wasser" },
-    greenspace: { color: "#98D49D", name_en: "Nature", name: "Grünflächen" },
-    industry: { color: "#BE811D", name_en: "Economy", name: "Wirtschaft" },
-    leisure: { color: "#9E4D5D", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
-    sports: {color: "#EBC90A", name_en: "Sports", name: "Sport"},
-    education: {color: "#5282D6", name_en: "Education", name: "Schule und Bildung"},
-    infrastructure: { color: "#5D4E2D", name_en: "Infrastructure", name: "Infrastruktur" },
+    living: { color: "#EDB08D", name_en: "Living", name: "Wohnen" },
+    rail: { color: "#678C93", name_en: "Rail", name: "Bahn" },
+    water: { color: "#CAECF2", name_en: "Water", name: "Wasser" },
+    greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
+    industry: { color: "#B6933A", name_en: "Economy", name: "Wirtschaft" },
+    leisure: { color: "#8B515C", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
+    sports: {color: "#F0DA59", name_en: "Sports", name: "Sport"},
+    education: {color: "#758EBA", name_en: "Education", name: "Schule und Bildung"},
+    infrastructure: { color: "#635F3F", name_en: "Infrastructure", name: "Infrastruktur" },
 };
   
