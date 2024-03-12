@@ -1,11 +1,6 @@
 <script>
   import { dimensions } from "$lib/stores.js";
   import { categories } from "../../settings";
-  // import LogoCityLab from "$lib/components/logos/LogoCityLab.svelte";
-  // import LogoODIS from "$lib/components/logos/LogoODIS.svelte";
-  // import LogoTSB from "$lib/components/logos/LogoTSB.svelte";
-  // import LogoSenatskanzlei from "$lib/components/logos/LogoSenatskanzlei.svelte";
-  //tbd delete or replace logo?
 
   import MulitlineText from "./MulitlineText.svelte";
   const width = $dimensions[0],
@@ -50,7 +45,7 @@
     </g>
 
     <g transform="translate(15,160)">
-      {#each Object.values(categories) as { color, name, name_en }, i}
+      {#each Object.values(categories) as { color, name}, i}
         <rect
           classs="rect-legend"
           width="10"
@@ -64,7 +59,7 @@
           text-anchor="start"
           font-family="IBM Plex Sans Text"
           font-size="11"
-          fill="#292929">{name} ({name_en})</text
+          fill="#292929">{name}</text
         >
       {/each}
     </g>
@@ -124,51 +119,7 @@
       transform={`translate(${width - 120},${30})`}
       fill="transparent"
     />
-
-    <text
-      transform="translate(424,535.5)"
-      text-anchor="end"
-      font-family="IBM Plex Sans Text"
-      font-size="12"
-      fill="#292929"
-      ><tspan x="0" y="0" dy="1.5em"
-        >Data: Geoportal Berlin / ALKIS Berlin</tspan
-      ><tspan x="0" y="0" dy="3em">KiezLabor 2023</tspan><tspan
-        x="0"
-        y="0"
-        dy="4.5em">kiezcolors.odis-berlin.de</tspan
-      >
-    </text>
   </g>
-  <!-- 
-    <g transform="translate(25,375)">
-    <LogoODIS width={130} height={50} />
-  </g>
-  <g transform="translate(175,375)">
-    <LogoCityLab width={120} height={50} />
-  </g>
-  <g transform="translate(330,375)">
-    <text
-      transform="translate(60,-10)"
-      text-anchor="end"
-      font-family="IBM Plex Sans Text"
-      font-size="12"
-      fill="rgb(148, 148, 148)"
-      >Projekt der
-    </text>
-    <LogoTSB width={120} height={50} />
-  </g>
-  <g transform="translate(470,355)">
-    <text
-      transform="translate(90,10)"
-      text-anchor="end"
-      font-family="IBM Plex Sans Text"
-      font-size="12"
-      fill="rgb(148, 148, 148)"
-      >Gefördert durch
-    </text>
-    <LogoSenatskanzlei width={140} height={100} />
-  </g> -->
 
   <defs
     ><style type="text/css">
