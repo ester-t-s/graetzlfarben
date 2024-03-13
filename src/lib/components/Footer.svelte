@@ -36,20 +36,6 @@
       </a>
     </span>
   </p>
-<!--
-  <div style="text-align:center" class="flex flex-wrap sm:flex-nowrap mt-8">
-    <a 
-      class="basis-2/4"
-      style="padding:10px"
-      href="https://kiezcolors.odis-berlin.de">
-      <img
-        width="200"
-        alt="Kiezcolors logo"
-        src="./img/kiezcolors-logo.png" 
-      />
-    </a>
-  </div>
--->
   <div class="w-full text-gray-400 mt-4">
     Impressum:
     <br>
