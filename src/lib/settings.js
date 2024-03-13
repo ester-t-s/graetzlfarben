@@ -212,14 +212,14 @@ export let landuses = {
   
 export let categories = {
     street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
-    living: { color: "#EDB08D", name_en: "Living", name: "Wohnen" },
-    rail: { color: "#596C6F", name_en: "Rail", name: "Bahn" },
-    water: { color: "#CAECF2", name_en: "Water", name: "Wasser" },
+    living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
+    rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
+    water: { color: "#DFECE8", name_en: "Water", name: "Wasser" },
     greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
-    industry: { color: "#B6933A", name_en: "Economy", name: "Wirtschaft" },
+    industry: { color: "#B68B3A", name_en: "Economy", name: "Wirtschaft" },
     leisure: { color: "#8B515C", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
-    sports: {color: "#F0DA59", name_en: "Sports", name: "Sport"},
+    sports: {color: "#E8D569", name_en: "Sports", name: "Sport"},
     education: {color: "#758EBA", name_en: "Education", name: "Schule und Bildung"},
-    infrastructure: { color: "#635F3F", name_en: "Infrastructure", name: "Infrastruktur" },
+    infrastructure: { color: "#665B44", name_en: "Infrastructure", name: "Infrastruktur" },
 };
   
