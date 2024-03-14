@@ -66,7 +66,7 @@
 
     <g transform="translate(15,310)">
       <MulitlineText
-        text="Du siehst die Flächenverteilung in einem 1000 Meter Radius.
+        text="Du siehst die Flächenverteilung in einem 750 Meter Radius.
         Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien."
         x="10"
         y="30"
