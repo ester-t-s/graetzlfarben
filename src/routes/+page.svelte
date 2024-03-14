@@ -75,9 +75,9 @@
 
     <p class="my-4">
       {#if $lang === "en"}
-        Create a postcard, which shows the distribution of land use in your
-        neighborhood. Simply move the map from Berlin or search for a location.
-        You can also change the text on the postcard.
+      Here you can create a postcard showing the distribution of land use 
+      in your neighbourhood. Simply move the map of Vienna or search for a 
+      location. You can also change the text on the postcard.
       {:else}
         Hier kannst du dir eine Postkarte erstellen, die die Verteilung der
         Flächennutzung in deiner Nachbarschaft zeigt. Verschiebe einfach die
