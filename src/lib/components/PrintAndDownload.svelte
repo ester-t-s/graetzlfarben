@@ -91,32 +91,6 @@
     } else {
       printSVG(file_path);
     }
-
-    // async function go() {
-    //   const base64Image = b64; // Remove the "data:image/*;base64," prefix
-
-    //   try {
-    //     // Send the base64 image to the API
-    //     const response = await fetch("http://localhost:3000/print", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ image: base64Image }),
-    //     });
-
-    //     if (response.ok) {
-    //       const result = await response.json();
-    //       alert(result.message);
-    //     } else {
-    //       throw new Error("Failed to send image to API.");
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     alert("An error occurred while sending the image to the API.");
-    //   }
-    // }
-    // go();
   }
 
   // not in use

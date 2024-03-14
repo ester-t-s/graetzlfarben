@@ -58,7 +58,6 @@
   function selectResult(value, label) {
     clearResults();
     $newBounds = value;
-    // $textVis = label;
   }
 
   function clearResults() {

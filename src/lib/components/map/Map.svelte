@@ -67,18 +67,10 @@
 
   const drawAndCount = function (map) {
     if (!map || !map.getLayer("landuse")) return;
-    // if (!map.loaded()) {
-    //   setTimeout(() => {
-    //     drawAndCount(map);
-    //   }, 1000);
-    // }
     const mC = map.getCenter().toArray();
     $mapCenter = [mC[0].toFixed(3), mC[1].toFixed(3)];
 
     const canvas = document.getElementById("myCanvas");
-
-    let carCountingEnabled = map.getZoom() >= 10;
-    //$circleRadius = getMaxCircleRadius(map);
 
     let circleGeom = getCircleGeom(map, {
       radius: $circleRadius,
@@ -86,7 +78,7 @@
     });
 
     let circleFits = checkCirleFits(map, circleGeom);
-    if (!circleFits || !carCountingEnabled) {
+    if (!circleFits) {
       const { width, height } = map.getContainer().getBoundingClientRect();
       const ctx = canvas.getContext("2d");
       canvas.width = width;
@@ -94,8 +86,6 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       return;
     }
-
-    // intersectsGrid = circleIntersectsGrid(map, circleGeom);
 
     const { sizes, sumSizes } = getLanduseSizes(map, circleGeom, landuses);
     $areaSizes = sizes;

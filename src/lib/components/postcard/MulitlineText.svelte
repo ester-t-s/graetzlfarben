@@ -1,4 +1,3 @@
-<!-- WrappedText.svelte -->
 <script>
   export let text = "";
   export let x = 0;

@@ -18,8 +18,6 @@ export default function (location) {
 		sources: {
 			osm: {
 				type: 'raster',
-				// tiles: ['https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'],
-				// https://api.maptiler.com/maps/4fd1f229-6a31-459c-9fca-54a34787b610/?key=6m5QqJw5xV46eDXJW1ZD#
 				tiles: ['https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'],
 				tileSize: 256,
 				attribution:
@@ -30,15 +28,7 @@ export default function (location) {
 				tiles: [location + 'tiles/{z}/{x}/{y}.pbf'],
 				minzoom: 10,
 				maxzoom: 13
-				// bounds: [5.625, 47.309, 15.6, 55.354]
 			}
-			// ,
-			// 'borders-source': {
-			// 	type: 'vector',
-			// 	tiles: [window.location.origin + window.location.pathname + 'data/tiles/{z}/{x}/{y}.pbf'],
-			// 	minzoom: 0,
-			// 	maxzoom: 7
-			// }
 		},
 		layers: [
 			{
@@ -59,19 +49,6 @@ export default function (location) {
 					'fill-color': ['match', ['to-string', ['get', landuseFieldname]], ...landuseColors, '#fff']
 				}
 			},
-
-			// {
-			// 	id: 'landuse-red',
-			// 	type: 'fill',
-			// 	source: 'landuse-source',
-			// 	'source-layer': 'fleachen',
-			// 	maxzoom: 24,
-			// 	paint: {
-			// 		'fill-opacity': 0.5,
-			// 		'fill-color': 'red'
-			// 	},
-			//     filter:[]
-			// },
 			{
 				id: 'landuse-line',
 				type: 'line',
@@ -98,8 +75,5 @@ export default function (location) {
 				minzoom: 0
 			}
 		]
-		// ,
-		// glyphs: '/font/webfont/{fontstack}/{range}.pbf',
-		// sprite: window.location.origin + '/sprite/sprite.json',
 	};
 }

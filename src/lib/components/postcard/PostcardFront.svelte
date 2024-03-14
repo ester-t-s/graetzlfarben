@@ -5,22 +5,18 @@ https://github.com/d3/d3-hierarchy
 https://observablehq.com/@d3/treemap
  -->
 <script>
-  import { onMount } from "svelte";
   import * as d3 from "d3";
-  import textures from "textures";
   import chroma from "chroma-js";
   import {
     areaSizes,
     dimensions,
     svg,
     textVis,
-    useLocationAsText,
     lang,
     isMobile,
     screenWidth,
   } from "$lib/stores.js";
   import {
-    landuses,
     categories
   } from "../../settings.js";
 
@@ -84,14 +80,10 @@ https://observablehq.com/@d3/treemap
   function redraw(data) {
     if ($svg) {
       $svg.remove();
-      // updateData(data);
-      // return;
     }
-    // if (!svg) {
 
     const t = d3.transition().duration(1000);
 
-    // svg = d3.select(vis);
     $svg = d3
       .select(visWrapper)
       .append("svg")
@@ -265,10 +257,6 @@ https://observablehq.com/@d3/treemap
       .style("opacity", 1);
   }
 
-  //  style={$screenWidth <= 444 ? `transform:scale(${$screenWidth / 444})` : ""}
-  //  padding-left: ${
-  // (444 / $screenWidth) * 50
-  //   }px
 </script>
 
 <div
