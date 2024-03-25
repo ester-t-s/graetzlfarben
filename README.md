@@ -60,7 +60,7 @@ Your input data has to be in ```GeoJSON``` format and in the ```EPSG:4326``` pro
 
 ## Data Licence
 
-The landuse data *Realnutzungskartierung Wien 2020* can be downloaded from the [Open Data Portal Austria](https://www.data.gv.at) and is licenced under CC BY 4.0 DEED.
+The landuse data *Realnutzungskartierung Wien 2022* can be downloaded from the [Open Data Portal Austria](https://www.data.gv.at) and is licenced under CC BY 4.0 DEED.
 
 
 ## Adapting to your city
