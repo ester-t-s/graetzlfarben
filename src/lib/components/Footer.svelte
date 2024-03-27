@@ -11,9 +11,9 @@
       class="underline"
       href="https://github.com/technologiestiftung/kiezcolors/"
     >
-      GitHub
-    </a>
-    .
+      GitHub.
+    </a><!-- TODO update github link-->
+    
     <br /><br />
 
     <span class="text-sm font-thin text-gray-400">
