@@ -2,7 +2,7 @@
 
 *Grätzlfarben* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood in Vienna. It is based on the [Kiezcolors](https://kiezcolors.odis-berlin.de) Tool of the [Open Data Informationsstelle Berlin](https://odis-berlin.de/). By zooming in and out you can pick a location and position it inside the circle. *Grätzlfarben* then maps the individual areas onto a tree map diagram. You can print the resulting motive as a postcard and share it!
 
-![graetzlfarben_overview](static/img/overview-image.png) <!-- TODO update if text or link changes -->
+![graetzlfarben_overview](static/img/overview-image.png)
 
 
 ## Tech stack
