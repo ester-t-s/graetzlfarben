@@ -214,7 +214,7 @@ export let categories = {
     street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
     living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
     rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
-    water: { color: "#DFECE8", name_en: "Water", name: "Wasser" },
+    water: { color: "#D0E4DE", name_en: "Water", name: "Wasser" },
     greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
     industry: { color: "#B68B3A", name_en: "Economy", name: "Wirtschaft" },
     leisure: { color: "#8B515C", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
