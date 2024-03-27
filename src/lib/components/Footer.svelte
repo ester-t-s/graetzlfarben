@@ -19,7 +19,7 @@
     <span class="text-sm font-thin text-gray-400">
       {$lang === "en" ? "Data sources:" : "Datenquellen:"}
       <br />
-      Realnutzungskartierung ab 2007: <a
+      Realnutzungskartierung 2022: <a
         class="underline"
         target="_blank"
         href="https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien"
