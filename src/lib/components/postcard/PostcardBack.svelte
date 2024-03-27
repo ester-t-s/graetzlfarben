@@ -29,11 +29,11 @@
         fontFamily="IBM Plex Sans Text"
         fill="#292929"
       />
-    </g> <!-- update link-->
+    </g>
 
     <g transform="translate(15,107)">
       <MulitlineText
-        text="Mit herzlichen Grüßen vom GEO-Tag 2024!"
+        text="Mit herzlichen Grüßen vom Geo-Tag 2024!"
         x="10"
         y="30"
         width="275"
@@ -67,9 +67,9 @@
     <g transform="translate(15,310)">
       <MulitlineText
         text="Du siehst die Flächenverteilung in einem 750 Meter Radius.
-        Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien."
+        Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien und das Open Source Projekt Kiezcolors der ODIS Berlin. Adaptiert von der Forschungsgruppe Kartographie der TU Wien."
         x="10"
-        y="30"
+        y="40"
         width="275"
         lineHeight="1.4"
         fontSize="9"
@@ -83,16 +83,8 @@
     <line
       y1="30"
       x1={width / 2}
-      y2={height - 80}
+      y2={height - 60}
       x2={width / 2}
-      style="stroke:rgb(200, 200, 200);stroke-width:1"
-    />
-
-    <line
-      y1={200}
-      x1={width - 30}
-      y2={200}
-      x2={width / 2 + 30}
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
@@ -108,6 +100,14 @@
       y1={300}
       x1={width - 30}
       y2={300}
+      x2={width / 2 + 30}
+      style="stroke:rgb(200, 200, 200);stroke-width:1"
+    />
+
+    <line
+      y1={350}
+      x1={width - 30}
+      y2={350}
       x2={width / 2 + 30}
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
