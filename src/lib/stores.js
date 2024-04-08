@@ -3,7 +3,7 @@ import * as settings from "./settings.js";
 
 export let areaSizes = writable();
 export let circleRadius = writable();
-export let dimensions = writable([210 * 3, 148 * 3]);
+export let dimensions = writable([210 * 3, 148 * 3]); // [settings.postcardHeight, settings.postcardWidth]
 export let svg = writable();
 export let svgBack = writable();
 export let totalSize = writable(0);

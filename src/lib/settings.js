@@ -20,6 +20,10 @@ export const postcardFooter = "Geo-Tag 2024 — cartolab.at/graetzlfarben";
 
 export const labelContrast = 1.3;
 
+export const postcardWidth = 105; // in mm
+
+export const postcardHeight = 148; // in mm
+
 // Map settings
 
 export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
