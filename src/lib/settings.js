@@ -24,6 +24,8 @@ export const postcardWidth = 105; // in mm
 
 export const postcardHeight = 148; // in mm
 
+export const postcardMargin = 8; // in layout units, TODO convert to mm!
+
 // Map settings
 
 export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place

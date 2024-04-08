@@ -38,7 +38,7 @@
       // Create a new window to display the SVG for printing
       const printWindow = window.open("", "_blank");
       printWindow.document.write(
-        '<!DOCTYPE html><html><head><title>Print SVG</title></head><body style="margin:0; padding: 0;">'
+        '<!DOCTYPE html><html><head><title>Print SVG</title></head><body style="margin:0; padding:0; font-size:0;">'
       );
       printWindow.document.write("</body></html>");
       printWindow.document.close();

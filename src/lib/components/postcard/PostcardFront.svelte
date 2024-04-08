@@ -19,7 +19,8 @@ https://observablehq.com/@d3/treemap
   import {
     categories,
     labelContrast,
-    postcardFooter
+    postcardFooter,
+    postcardMargin
   } from "../../settings.js";
 
   let treemap;
@@ -105,9 +106,10 @@ https://observablehq.com/@d3/treemap
     treemap = d3
       .treemap()
       .tile(d3.treemapBinary)
-      .size([width, height - 120])
+      .size([width - 2 * postcardMargin, height - 120])
       .round(true)
-      .paddingOuter(4);
+      .paddingOuter(4)
+    ;
 
     const root = d3.hierarchy(data);
     treemap(root.sum(sumByCount));
@@ -118,7 +120,7 @@ https://observablehq.com/@d3/treemap
       .enter()
       .append("g")
       .attr("transform", function (d) {
-        return "translate(" + d.x0 + "," + d.y0 + ")";
+        return "translate(" + (d.x0 + postcardMargin) + "," + (d.y0 + postcardMargin) + ")";
       });
 
     $svg
