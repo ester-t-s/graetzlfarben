@@ -2,7 +2,7 @@
   import { lang, printBackUI } from "$lib/stores.js";
 </script>
 
-<div class=" text-sm text-gray-400 mt-10">
+<div class=" text-sm text-gray-400 mt-4">
   <p>
     {$lang === "en"
       ? "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The research unit cartography from TU Wien adapted it for Vienna. You can find the code to this project on "

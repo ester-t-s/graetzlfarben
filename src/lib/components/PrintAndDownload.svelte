@@ -141,8 +141,8 @@
   on:click={() => {
     downloadSVG($svg);
   }}
-  class="btn btn-secondary mb-8"
-  class:mt-8={!$isMobile}
+  class="btn btn-secondary mb-4"
+  class:mt-4={!$isMobile}
   >{!$printBackUI
     ? $lang === "en"
       ? "Print"
