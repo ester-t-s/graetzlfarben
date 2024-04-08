@@ -17,7 +17,9 @@ https://observablehq.com/@d3/treemap
     screenWidth,
   } from "$lib/stores.js";
   import {
-    categories
+    categories,
+    labelContrast,
+    postcardFooter
   } from "../../settings.js";
 
   let treemap;
@@ -176,9 +178,9 @@ https://observablehq.com/@d3/treemap
         if (d.data.color) {
           let c = chroma(d.data.color);
           if (c.luminance() < 0.2) {
-            return c.brighten(2).hex();
+            return c.brighten(labelContrast).hex();
           } else {
-            return c.darken(2).hex();
+            return c.darken(labelContrast).hex();
           }
         }
       })

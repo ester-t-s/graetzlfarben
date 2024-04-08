@@ -14,7 +14,11 @@ export const defaultLanguage = "de";
 
 export const printBackUI = false;
 
+// Postcard (diagram) settings
+
 export const postcardFooter = "Geo-Tag 2024 — cartolab.at/graetzlfarben";
+
+export const labelContrast = 1.3;
 
 // Map settings
 
