@@ -12,6 +12,10 @@ export const defaultTextOnCard = ""; // leave empty to show placeholder text
 
 export const defaultLanguage = "de";
 
+export const printBackUI = false;
+
+export const postcardFooter = "Geo-Tag 2024 — cartolab.at/graetzlfarben";
+
 // Map settings
 
 export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
