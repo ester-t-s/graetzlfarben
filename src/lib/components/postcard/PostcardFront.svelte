@@ -176,9 +176,9 @@ https://observablehq.com/@d3/treemap
         if (d.data.color) {
           let c = chroma(d.data.color);
           if (c.luminance() < 0.2) {
-            return c.brighten(1).hex();
+            return c.brighten(2).hex();
           } else {
-            return c.darken(1).hex();
+            return c.darken(2).hex();
           }
         }
       })
