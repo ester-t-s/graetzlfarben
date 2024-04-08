@@ -26,8 +26,8 @@ https://observablehq.com/@d3/treemap
   function sumByCount(d) {
     return d.size;
   }
-  const width = $dimensions[1],
-    height = $dimensions[0];
+  const width = 148 * 3, // $dimensions[0],
+    height = 210 * 3; // $dimensions[1];
 
   let visWrapper;
 
@@ -89,10 +89,11 @@ https://observablehq.com/@d3/treemap
     $svg = d3
       .select(visWrapper)
       .append("svg")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("width", $dimensions[0] + "mm")
+      .attr("height", $dimensions[1] + "mm")
+      .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("xmlns", "http://www.w3.org/2000/svg")
-      .attr("class", "inline " + ($isMobile ? "border" : ""));
+      .attr("class", "postcard inline " + ($isMobile ? "border" : ""));
 
     const bg = $svg.append("rect")
       .attr("x", 0)
@@ -261,6 +262,17 @@ https://observablehq.com/@d3/treemap
 
 </script>
 
+<style>
+  .bold {
+    font-family: "IBM Plex Sans Bold";
+  }
+
+  :global(svg.postcard) {
+    width: 444px;
+    height: 630px;
+  }
+</style>
+
 <div
   class={$isMobile
     ? "mx-4 pt-10 text-center"
@@ -283,8 +295,4 @@ https://observablehq.com/@d3/treemap
   />
 </div>
 
-<style>
-  .bold {
-    font-family: "IBM Plex Sans Bold";
-  }
-</style>
+

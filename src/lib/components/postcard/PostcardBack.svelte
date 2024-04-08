@@ -3,8 +3,8 @@
   import { categories } from "../../settings";
 
   import MulitlineText from "./MulitlineText.svelte";
-  const width = $dimensions[0],
-    height = $dimensions[1];
+  const width = $dimensions[1],
+    height = $dimensions[0];
 </script>
 
 <svg

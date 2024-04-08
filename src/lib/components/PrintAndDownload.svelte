@@ -3,8 +3,8 @@
   import font from "$lib/assets/font";
   import { encode } from "$lib/assets/base64";
 
-  const width = $dimensions[1];
-  const height = $dimensions[0];
+  const width = $dimensions[0];
+  const height = $dimensions[1];
 
   function printSVG(base64EncodedSVG) {
     // Convert base64 to ArrayBuffer
@@ -38,7 +38,7 @@
       // Create a new window to display the SVG for printing
       const printWindow = window.open("", "_blank");
       printWindow.document.write(
-        "<!DOCTYPE html><html><head><title>Print SVG</title></head><body>"
+        '<!DOCTYPE html><html><head><title>Print SVG</title></head><body style="margin:0; padding: 0;">'
       );
       printWindow.document.write("</body></html>");
       printWindow.document.close();
