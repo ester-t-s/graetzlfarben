@@ -1,4 +1,18 @@
-export const landuseFieldname = "NUTZUNG_CODE";
+// Some global settings you may want to adjust when adapting the project to your city
+
+export const projectTitle = "Grätzlfarben";
+
+export const country = "AT" //for Nominatim request
+
+// App settings and defaults
+
+export const useLocationAsText = false; // Show lat/lng as text on the card
+
+export const defaultTextOnCard = ""; // leave empty to show placeholder text
+
+export const defaultLanguage = "de";
+
+// Map settings
 
 export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
     [16.0,48.05],
@@ -7,13 +21,30 @@ export const mapBounds = [ //should be bigger than city boundingbox, because cit
 
 export const initialMapCenter = [16.370402529206963, 48.20996163502622];
 
-export const country = "AT" //for Nominatim request
-
 export const mapMinZoom = 11;
 
 export const mapMaxZoom = 14;
 
-export const projectTitle = "Grätzlfarben";
+export const analysisRadiusInMeters = 750;
+
+// Landuse tiles settings
+
+export const landuseFieldname = "NUTZUNG_CODE";
+
+export let categories = {
+    street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
+    living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
+    rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
+    water: { color: "#D0E4DE", name_en: "Water", name: "Wasser" },
+    greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
+    industry: { color: "#B68B3A", name_en: "Economy", name: "Wirtschaft" },
+    leisure: { color: "#8B515C", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
+    sports: {color: "#E8D569", name_en: "Sports", name: "Sport"},
+    education: {color: "#758EBA", name_en: "Education", name: "Schule und Bildung"},
+    infrastructure: { color: "#665B44", name_en: "Infrastructure", name: "Infrastruktur" },
+};
+
+// Mapping of landuse codes to categories
 
 export let landuses = {
     1: {
@@ -210,16 +241,5 @@ export let landuses = {
     },
   };
   
-export let categories = {
-    street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
-    living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
-    rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
-    water: { color: "#D0E4DE", name_en: "Water", name: "Wasser" },
-    greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
-    industry: { color: "#B68B3A", name_en: "Economy", name: "Wirtschaft" },
-    leisure: { color: "#8B515C", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
-    sports: {color: "#E8D569", name_en: "Sports", name: "Sport"},
-    education: {color: "#758EBA", name_en: "Education", name: "Schule und Bildung"},
-    infrastructure: { color: "#665B44", name_en: "Infrastructure", name: "Infrastruktur" },
-};
+
   

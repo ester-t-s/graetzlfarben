@@ -15,8 +15,9 @@
     mapBounds,
     initialMapCenter,
     mapMaxZoom,
-    mapMinZoom
-  } from "../../settings.js";
+    mapMinZoom,
+    analysisRadiusInMeters
+  } from "$lib/settings.js";
 
   import {
     areaSizes,
@@ -63,7 +64,7 @@
 
   $: setScrollZoom($isMobile);
 
-  $circleRadius = 750;
+  $circleRadius = analysisRadiusInMeters;
 
   const drawAndCount = function (map) {
     if (!map || !map.getLayer("landuse")) return;
