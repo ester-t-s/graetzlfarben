@@ -129,7 +129,7 @@ https://observablehq.com/@d3/treemap
       .enter()
       .append("text")
       .attr("class", "title-text")
-      .attr("transform", "translate(" + width / 2 + "," + height * 0.91 + ")")
+      .attr("transform", "translate(" + width / 2 + "," + (height * 0.91 - postcardMargin) + ")")
       .attr("text-anchor", "middle")
       .attr("font-family", "IBM Plex Sans Bold")
       .attr("font-size", 30)
@@ -198,7 +198,7 @@ https://observablehq.com/@d3/treemap
 
     $svg
       .append("text")
-      .attr("transform", "translate(" + width / 2 + "," + height * 0.95 + ")")
+      .attr("transform", "translate(" + width / 2 + "," + (height * 0.95 - 0*postcardMargin) + ")")
       .attr("text-anchor", "middle")
       .attr("font-family", "IBM Plex Sans Bold")
       .attr("font-size", 10)
