@@ -7,7 +7,7 @@
 
 ## Tech stack
 
-This website is a [svelte](https://svelte.dev/) app.
+This website is a [Svelte](https://svelte.dev/) app. The map is rendered using [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) with vector tiles, and the analysis is done using [Turf.js](https://turfjs.org/). The app is built as a fully static app and does not require any active server technology.
 
 ## Developing
 
@@ -36,7 +36,7 @@ npm run build
 
 You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+To deploy your app, simply copy the `build` folder to your web server.
 
 ## Data
 
@@ -64,7 +64,7 @@ The landuse data *Realnutzungskartierung Wien 2022* can be downloaded from the [
 
 
 ## Adapting to your city
-All variables to be adapted can be found in `src/lib/settings.js`
+All variables to be adapted can be found in [`src/lib/settings.js`](src/lib/settings.js).
 
 ## Contributing
 
