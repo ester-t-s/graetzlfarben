@@ -1,10 +1,14 @@
 import { get } from "svelte/store";
+import { browser } from "$app/environment"
+
 import {
   country,
   mapBounds,
 } from "../../settings.js";
 
 export default function getAddress(filterText) {
+  // hacky: if there is no browser and thus no XMLHttpRequest, return empty promise
+  if (!browser) return new Promise((resolve, reject) => {});
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open(
