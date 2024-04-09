@@ -26,7 +26,7 @@
       <MulitlineText
         text="Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche cartolab.at/graetzlfarben und entdecke die Verteilung in deinem Grätzl,"
         x="10"
-        y="30"
+        y="38"
         width="275"
         lineHeight="1.4"
         fontSize="11"
@@ -39,7 +39,7 @@
       <MulitlineText
         text="Mit herzlichen Grüßen vom Geo-Tag 2024!"
         x="10"
-        y="30"
+        y="38"
         width="275"
         lineHeight="1.4"
         fontSize="11"
@@ -73,7 +73,7 @@
         text="Du siehst die Flächenverteilung in einem {analysisRadiusInMeters} Meter Radius.
         Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien und das Open Source Projekt Kiezcolors der ODIS Berlin. Adaptiert von der Forschungsgruppe Kartographie der TU Wien."
         x="10"
-        y="40"
+        y="48"
         width="275"
         lineHeight="1.4"
         fontSize="9"
@@ -85,33 +85,33 @@
 
     <!-- lines and rectangle for postcard layout on the right-->
     <line
-      y1="30"
+      y1="38"
       x1="315"
-      y2="384"
+      y2="392"
       x2="315"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
     <line
-      y1="250"
+      y1="258"
       x1="600"
-      y2="250"
+      y2="258"
       x2="345"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
     <line
-      y1="300"
+      y1="308"
       x1="600"
-      y2="300"
+      y2="308"
       x2="345"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
     <line
-      y1="350"
+      y1="358"
       x1="600"
-      y2="350"
+      y2="358"
       x2="345"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
