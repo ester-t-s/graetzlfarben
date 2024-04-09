@@ -11,8 +11,8 @@ const config = {
         400: "#ADADAD",
         500: "#949494",
       },
-      primary: "#2f2fa2",
-      secondary: "#f64c72",
+      primary: "#313178",
+      secondary: "#9F4305",
       white: "#ffffff",
     },
     fontFamily: {
@@ -26,9 +26,9 @@ const config = {
     themes: [
       {
         mytheme: {
-          primary: "#2f2fa2",
+          primary: "#313178",
 
-          secondary: "#f64c72",
+          secondary: "#9F4305",
 
           accent: "#37CDBE",
 
@@ -36,9 +36,9 @@ const config = {
 
           "base-100": "#FFFFFF",
 
-          info: "#3ABFF8",
+          info: "#68ABC8",
 
-          success: "#36D399",
+          success: "#5C8777",
 
           warning: "#FBBD23",
 
