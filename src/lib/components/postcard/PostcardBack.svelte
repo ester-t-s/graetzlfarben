@@ -1,6 +1,9 @@
 <script>
   import { dimensions } from "$lib/stores.js";
-  import { categories } from "../../settings";
+  import {
+    categories,
+    analysisRadiusInMeters
+  } from "../../settings";
 
   import MulitlineText from "./MulitlineText.svelte";
   const width = $dimensions[1],
@@ -10,12 +13,13 @@
 <svg
   encoding="UTF-8"
   version="1.0"
-  {width}
-  {height}
+  width="{width}mm"
+  height="{height}mm"
+  viewBox="0 0 630 444"
   xmlns="http://www.w3.org/2000/svg"
   id="postcardBack"
 >
-  <rect x="0" y="0" {width} {height} fill="#fff" />
+  <rect x="0" y="0" width="630" height="444" fill="#fff" />
 
   <g>
     <g transform="translate(15,5)">
@@ -66,7 +70,7 @@
 
     <g transform="translate(15,310)">
       <MulitlineText
-        text="Du siehst die Flächenverteilung in einem 750 Meter Radius.
+        text="Du siehst die Flächenverteilung in einem {analysisRadiusInMeters} Meter Radius.
         Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien und das Open Source Projekt Kiezcolors der ODIS Berlin. Adaptiert von der Forschungsgruppe Kartographie der TU Wien."
         x="10"
         y="40"
@@ -82,33 +86,33 @@
     <!-- lines and rectangle for postcard layout on the right-->
     <line
       y1="30"
-      x1={width / 2}
-      y2={height - 60}
-      x2={width / 2}
+      x1="315"
+      y2="384"
+      x2="315"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
     <line
-      y1={250}
-      x1={width - 30}
-      y2={250}
-      x2={width / 2 + 30}
+      y1="250"
+      x1="600"
+      y2="250"
+      x2="345"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
     <line
-      y1={300}
-      x1={width - 30}
-      y2={300}
-      x2={width / 2 + 30}
+      y1="300"
+      x1="600"
+      y2="300"
+      x2="345"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
     <line
-      y1={350}
-      x1={width - 30}
-      y2={350}
-      x2={width / 2 + 30}
+      y1="350"
+      x1="600"
+      y2="350"
+      x2="345"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
     />
 
@@ -116,7 +120,7 @@
       width="90"
       height="120"
       style="stroke:rgb(200, 200, 200);stroke-width:1"
-      transform={`translate(${width - 120},${30})`}
+      transform="translate(510,30)"
       fill="transparent"
     />
   </g>
