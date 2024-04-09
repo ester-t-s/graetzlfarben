@@ -1,5 +1,10 @@
 <script>
   import { lang, printBackUI } from "$lib/stores.js";
+  import { browser } from "$app/environment"
+
+  let printOverride = browser && new URLSearchParams(window.location.search).has("kiosk");
+  $printBackUI = !printOverride;
+
 </script>
 
 <div class=" text-sm text-gray-400 mt-4">
@@ -42,10 +47,12 @@
     Dies ist ein Forschungsprototyp – Daten und Funktionalität ohne Gewähr! 
     Entwickelt am Forschungsbereich Kartographie<br>
     TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien
+    <!--
     <input
       bind:checked={$printBackUI}
       type="checkbox"
       class="checkbox checkbox-primary checkbox-xs opacity-90 fixed bottom-0 left-0"
     />
+    -->
   </div>
 </div>
