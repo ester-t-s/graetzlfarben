@@ -14,10 +14,10 @@
       : "Grätzlfarben wurde ursprünglich unter dem Namen 'Kiezcolors' von ODIS und dem CityLAB Berlin entwickelt. Die Forschungsgruppe Kartographie der TU Wien hat das Projekt für Wien weiterentwickelt. Den Code zum Projekt findest auf "}
     <a
       class="underline"
-      href="https://github.com/technologiestiftung/kiezcolors/"
+      href="https://github.com/ester-t-s/graetzlfarben"
     >
       GitHub.
-    </a><!-- TODO update github link-->
+    </a>
     
     <br /><br />
 
