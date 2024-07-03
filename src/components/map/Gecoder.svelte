@@ -2,6 +2,18 @@
   import { newBounds, textVis, lang } from "$lib/stores.js";
   import {mapBounds} from "$lib/settings.js";
 
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+
+  let text = {};
+  $: {
+    if ($lang === 'en') {
+      text = en;
+    } else {
+      text = de;
+    }
+  }
+
   let searchText = "";
   let searchResults = undefined;
   let selectedIndex = undefined;
@@ -80,9 +92,7 @@
         autocomplete="off"
         autocorrect="off"
         spellcheck="false"
-        placeholder={$lang === "de"
-          ? "suche nach einem Ort"
-          : "search for a place"}
+        placeholder={text.inputs.search}
         bind:value={searchText}
         on:keydown={search}
         on:click={killEvent}
