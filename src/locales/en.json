@@ -6,9 +6,10 @@
         "downloadFront": "Download",
         "downloadBack": "Download backside"
     },
+    "description": "Here you can create a postcard showing the distribution of land use in your neighbourhood. Simply move the map of Vienna or search for a location. You can also change the text on the postcard.",
     "inputs": {
-        "search": "search for a place",
-    }
+        "search": "search for a place"
+    },
     "postcard": {
         "title": "Dein Text hier",
         "footer": "Geo-Tag 2024 — cartolab.at/graetzlfarben"

@@ -18,11 +18,23 @@
     printBackUI,
   } from "$lib/stores.js";
 
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+
   let innerWidth = 0;
   let innerHeight = 0;
 
   $: $isMobile = innerWidth <= 1023;
   $: $screenWidth = innerWidth;
+
+  let appText = {};
+  $: {
+    if ($lang === 'en') {
+      appText = en;
+    } else {
+      appText = de;
+    }
+  }
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
@@ -74,16 +86,7 @@
     <div class="bold py-4 text-4xl md:text-4xl xl:text-5xl">{projectTitle}</div>
 
     <p class="my-4">
-      {#if $lang === "en"}
-      Here you can create a postcard showing the distribution of land use 
-      in your neighbourhood. Simply move the map of Vienna or search for a 
-      location. You can also change the text on the postcard.
-      {:else}
-        Hier kannst du dir eine Postkarte erstellen, die die Verteilung der
-        Flächennutzung in deiner Nachbarschaft zeigt. Verschiebe einfach die
-        Karte von Wien oder suche nach einem Ort. Den Text auf der Postkarte
-        kannst du auch ändern.
-      {/if}
+      {appText.description}
     </p>
 
     <div class="w-full"><Search /></div>
