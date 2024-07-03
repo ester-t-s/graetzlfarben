@@ -34,6 +34,17 @@
     lang
   } from "$lib/stores.js";
 
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+  let appText = {};
+  $: {
+    if ($lang === 'en') {
+      appText = en;
+    } else {
+      appText = de;
+    }
+  }
+
 
   let map;
 
@@ -179,7 +190,7 @@
   </button>
 
   <div class="absolute right-2 bottom-8 z-50 text-md">
-    Radius: {$circleRadius}m
+    {appText.radius}: {$circleRadius}m
   </div>
 <!--
   <div class="absolute right-2 bottom-2 z-50 text-md">
@@ -202,7 +213,7 @@
     class="absolute right-0 bottom-12 z-50 form-control w-fit pointer-events-auto"
   >
     <label class="cursor-pointer label">
-      <span class="mx-2 text-md">{$lang === "en" ? "Street Map" : "Straßenkarte"}</span>
+      <span class="mx-2 text-md">{appText.basemap}</span>
       <input
         type="checkbox"
         bind:checked={$showBasemap}
