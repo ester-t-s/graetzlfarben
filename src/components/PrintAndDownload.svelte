@@ -3,6 +3,18 @@
   import font from "$assets/scripts/font";
   import { encode } from "$assets/scripts/base64";
 
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+
+  let appText = {};
+  $: {
+    if ($lang === 'en') {
+      appText = en;
+    } else {
+      appText = de;
+    }
+  }
+
   const width = $dimensions[0];
   const height = $dimensions[1];
 
@@ -149,7 +161,8 @@
       : "Drucken"
     : $lang === "en"
     ? "Download"
-    : "Herunterladen"}</button
+    : "Herunterladen"} TBD is if still required?-->
+    {@html appText.buttons.downloadFront}</button
 >
 
 <br />
@@ -160,6 +173,7 @@
       downloadSVGback();
     }}
     class="btn btn-primary btn-outline mb-6"
-    >{$lang === "en" ? "Download backside" : "Rückseite herunterladen"}</button
+    >
+    {@html appText.buttons.downloadBack}</button
   >
 {/if}

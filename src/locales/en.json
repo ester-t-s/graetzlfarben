@@ -2,6 +2,10 @@
     "background": "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien adapted it for Vienna. You can find the code to this project on <a class='underline' target='_blank' href='https://github.com/ester-t-s/graetzlfarben'>GitHub.</a>",
     "dataSources": "Data sources: <br> Realnutzungskartierung 2022: <a class='underline' target='_blank' href='https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien'>CC BY 4.0 Stadt Wien</a> <br> Straßenkarte: © <a class='underline' target='_blank' href='https://openstreetmap.org'>OpenStreetMap Contributors</a>",
     "imprint": "Imprint: <br> This is a research prototype – Data and functionality without warranty! Developed at the <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien",
+    "buttons": {
+        "downloadFront": "Download",
+        "downloadBack": "Download backside"
+    },
     "inputs": {
         "search": "search for a place",
     }
