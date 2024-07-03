@@ -9,6 +9,7 @@ const config = {
     }),
     alias: {
       $components: "src/components",
+      $locales: "src/locales",
       $assets: "src/assets"
     }
     // default options are shown
