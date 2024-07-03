@@ -23,6 +23,18 @@ https://observablehq.com/@d3/treemap
     postcardMargin
   } from "$lib/settings.js";
 
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+
+  let appText = {};
+  $: {
+    if ($lang === 'en') {
+      appText = en;
+    } else {
+      appText = de;
+    }
+  }
+
   let treemap;
   function sumByCount(d) {
     return d.size;
@@ -290,7 +302,7 @@ https://observablehq.com/@d3/treemap
   <input
     type="text"
     bind:value={$textVis}
-    placeholder={$lang === "de" ? "Dein Text hier" : "Your text here"}
+    placeholder={appText.postcard.title}
     class="input  text-center absolute bottom-10 text-[30px] bold"
     style={$isMobile ? `position: relative; bottom: 90px;  width:440px` : ""}
     class:w-full={$screenWidth <= 444 ? `` : "w-full"}

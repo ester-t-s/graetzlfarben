@@ -5,6 +5,10 @@
     "inputs": {
         "search": "search for a place",
     }
+    "postcard": {
+        "title": "Dein Text hier",
+        "footer": "Geo-Tag 2024 — cartolab.at/graetzlfarben"
+    },
     "basemap": "Street Map",
     "radius": "Radius"
 }
