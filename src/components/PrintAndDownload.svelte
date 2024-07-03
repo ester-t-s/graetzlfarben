@@ -143,7 +143,7 @@
   }}
   class="btn btn-secondary mb-4"
   class:mt-4={!$isMobile}
-  >{!$printBackUI
+  ><!--{!$printBackUI
     ? $lang === "en"
       ? "Print"
       : "Drucken"

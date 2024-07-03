@@ -8,12 +8,12 @@
   let printOverride = browser && new URLSearchParams(window.location.search).has("kiosk");
   $printBackUI = !printOverride;
 
-  let text = {};
+  let appText = {};
   $: {
     if ($lang === 'en') {
-      text = en;
+      appText = en;
     } else {
-      text = de;
+      appText = de;
     }
   }
 
@@ -21,13 +21,13 @@
 
 <div class=" text-sm text-gray-400 mt-4">
   <p>
-    {@html text.background}
+    {@html appText.background}
     <br><br>
     <span class="text-sm font-thin text-gray-400">
-      {@html text.dataSources}
+      {@html appText.dataSources}
     </span>
   </p>
   <div class="w-full text-gray-400 mt-4">
-    {@html text.imprint}
+    {@html appText.imprint}
   </div>
 </div>

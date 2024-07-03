@@ -5,12 +5,12 @@
   import en from "$locales/en.json";
   import de from "$locales/de.json";
 
-  let text = {};
+  let appText = {};
   $: {
     if ($lang === 'en') {
-      text = en;
+      appText = en;
     } else {
-      text = de;
+      appText = de;
     }
   }
 
@@ -92,7 +92,7 @@
         autocomplete="off"
         autocorrect="off"
         spellcheck="false"
-        placeholder={text.inputs.search}
+        placeholder={appText.inputs.search}
         bind:value={searchText}
         on:keydown={search}
         on:click={killEvent}
