@@ -21,7 +21,7 @@ https://observablehq.com/@d3/treemap
     labelContrast,
     postcardFooter,
     postcardMargin
-  } from "../../settings.js";
+  } from "$lib/settings.js";
 
   let treemap;
   function sumByCount(d) {

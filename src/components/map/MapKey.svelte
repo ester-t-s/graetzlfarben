@@ -2,7 +2,7 @@
 
 <script>
   import { dimensions, lang, isMobile } from "$lib/stores.js";
-  import {categories} from "../../settings.js";
+  import {categories} from "$lib/settings.js";
 </script>
 
 <div

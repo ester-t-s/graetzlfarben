@@ -1,7 +1,7 @@
 <script>
   import { svg, dimensions, lang, printBackUI, isMobile } from "$lib/stores.js";
-  import font from "$lib/assets/font";
-  import { encode } from "$lib/assets/base64";
+  import font from "$assets/scripts/font";
+  import { encode } from "$assets/scripts/base64";
 
   const width = $dimensions[0];
   const height = $dimensions[1];

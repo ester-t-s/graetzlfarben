@@ -3,7 +3,7 @@
   import {
     categories,
     analysisRadiusInMeters
-  } from "../../settings";
+  } from "$lib/settings";
 
   import MulitlineText from "./MulitlineText.svelte";
   const width = $dimensions[1],

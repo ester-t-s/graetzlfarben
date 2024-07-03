@@ -4,7 +4,7 @@ import { browser } from "$app/environment"
 import {
   country,
   mapBounds,
-} from "../../settings.js";
+} from "$lib/settings.js";
 
 export default function getAddress(filterText) {
   // hacky: if there is no browser and thus no XMLHttpRequest, return empty promise

@@ -1,6 +1,6 @@
 import intersect from "@turf/intersect";
 import area from "@turf/area";
-import { landuseFieldname } from "../settings";
+import { landuseFieldname } from "$lib/settings";
 
 export default function (map, circleGeom, landuses) {
   let sizes = {};

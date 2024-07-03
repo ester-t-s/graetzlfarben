@@ -3,13 +3,13 @@
   import maplibregl from "maplibre-gl";
   import { onMount } from "svelte";
   import mapStyle from "./mapStyle.js";
-  import MapKey from "$lib/components/map/MapKey.svelte";
+  import MapKey from "./MapKey.svelte";
 
-  import drawCanvasCircle from "$lib/assets/drawCanvasCircle";
-  import getMaxCircleRadius from "$lib/assets/getMaxCircleRadius";
-  import getLanduseSizes from "$lib/assets/getLanduseSizes";
-  import getCircleGeom from "$lib/assets/getCircleGeom";
-  import checkCirleFits from "$lib/assets/checkCirleFits";
+  import drawCanvasCircle from "$assets/scripts/drawCanvasCircle";
+  import getMaxCircleRadius from "$assets/scripts/getMaxCircleRadius";
+  import getLanduseSizes from "$assets/scripts/getLanduseSizes";
+  import getCircleGeom from "$assets/scripts/getCircleGeom";
+  import checkCirleFits from "$assets/scripts/checkCirleFits";
   import {
     landuses,
     mapBounds,

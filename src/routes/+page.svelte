@@ -1,12 +1,12 @@
 <script>
-  import Map from "$lib/components/map/Map.svelte";
-  import MapKey from "$lib/components/map/MapKey.svelte";
+  import Map from "$components/map/Map.svelte";
+  import MapKey from "$components/map/MapKey.svelte";
 
-  import PostcardFront from "$lib/components/postcard/PostcardFront.svelte";
-  import PostcardBack from "$lib/components/postcard/PostcardBack.svelte";
-  import Search from "$lib/components/search/Search.svelte";
-  import PrintAndDownload from "$lib/components/PrintAndDownload.svelte";
-  import Footer from "$lib/components/Footer.svelte";
+  import PostcardFront from "$components/postcard/PostcardFront.svelte";
+  import PostcardBack from "$components/postcard/PostcardBack.svelte";
+  import Search from "$components/search/Search.svelte";
+  import PrintAndDownload from "$components/PrintAndDownload.svelte";
+  import Footer from "$components/Footer.svelte";
 
   import {projectTitle} from "$lib/settings.js"
   import {
