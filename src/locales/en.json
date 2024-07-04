@@ -1,14 +1,19 @@
 {
-    "background": "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien adapted it for Vienna. You can find the code to this project on <a class='underline' target='_blank' href='https://github.com/ester-t-s/graetzlfarben'>GitHub.</a>",
-    "dataSources": "Data sources: <br> Realnutzungskartierung 2022: <a class='underline' target='_blank' href='https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien'>CC BY 4.0 Stadt Wien</a> <br> Straßenkarte: © <a class='underline' target='_blank' href='https://openstreetmap.org'>OpenStreetMap Contributors</a>",
-    "imprint": "Imprint: <br> This is a research prototype – Data and functionality without warranty! Developed at the <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien",
+    "meta": {
+        "description": "A map based tool to create a postcard showing the landuse distribution in your neighborhood"
+    },
+    "description": "Here you can create a postcard showing the distribution of land use in your neighbourhood. Simply move the map of Vienna or search for a location. You can also change the text on the postcard.",
+    "footer": {
+        "background": "Grätzlfarben was initially developed under the name 'Kiezcolors' by ODIS and CityLAB Berlin. The <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien adapted it for Vienna. You can find the code to this project on <a class='underline' target='_blank' href='https://github.com/ester-t-s/graetzlfarben'>GitHub.</a>",
+        "dataSources": "Data sources: <br> Realnutzungskartierung 2022: <a class='underline' target='_blank' href='https://www.data.gv.at/katalog/de/dataset/stadt-wien_realnutzungskartierungab200708wien'>CC BY 4.0 Stadt Wien</a> <br> Straßenkarte: © <a class='underline' target='_blank' href='https://openstreetmap.org'>OpenStreetMap Contributors</a>",
+        "imprint": "Imprint: <br> This is a research prototype – Data and functionality without warranty! Developed at the <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien"
+    },
+    "inputs": {
+        "search": "search for a place"
+    },
     "buttons": {
         "downloadFront": "Download",
         "downloadBack": "Download backside"
-    },
-    "description": "Here you can create a postcard showing the distribution of land use in your neighbourhood. Simply move the map of Vienna or search for a location. You can also change the text on the postcard.",
-    "inputs": {
-        "search": "search for a place"
     },
     "postcard": {
         "front": {
@@ -21,9 +26,8 @@
             "footer": "You can see the area distribution in an {analysisRadiusInMeters} metre radius. Made possible by open administrative data from the City of Vienna and the open source project Kiezcolors from ODIS Berlin. Adapted by the cartography research group at TU Vienna."
         }
     },
-    "basemap": "Street Map",
-    "radius": "Radius",
-    "meta": {
-        "description": "A map based tool to create a postcard showing the landuse distribution in your neighborhood"
+    "map": {
+        "basemap": "Street Map",
+        "radius": "Radius"
     }
 }

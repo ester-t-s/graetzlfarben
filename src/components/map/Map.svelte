@@ -190,7 +190,7 @@
   </button>
 
   <div class="absolute right-2 bottom-8 z-50 text-md">
-    {appText.radius}: {$circleRadius}m
+    {appText.map.radius}: {$circleRadius}m
   </div>
 <!--
   <div class="absolute right-2 bottom-2 z-50 text-md">
@@ -213,7 +213,7 @@
     class="absolute right-0 bottom-12 z-50 form-control w-fit pointer-events-auto"
   >
     <label class="cursor-pointer label">
-      <span class="mx-2 text-md">{appText.basemap}</span>
+      <span class="mx-2 text-md">{appText.map.basemap}</span>
       <input
         type="checkbox"
         bind:checked={$showBasemap}
