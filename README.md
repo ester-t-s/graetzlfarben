@@ -64,7 +64,7 @@ The landuse data *Realnutzungskartierung Wien 2022* can be downloaded from the [
 
 
 ## Adapting to your city
-All variables to be adapted can be found in [`src/lib/settings.js`](src/lib/settings.js).
+All variables to be adapted can be found in [`src/lib/settings.js`](src/lib/settings.js). The texts can be changed in ['src/locales](src/locales/). Images and tiles have to be exchanged in ['src/static'](src/static).
 
 ## Contributing
 
