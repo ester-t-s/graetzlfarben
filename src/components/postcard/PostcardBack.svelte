@@ -1,5 +1,8 @@
 <script>
-  import { dimensions } from "$lib/stores.js";
+  import { 
+    dimensions,
+    lang
+   } from "$lib/stores.js";
   import {
     categories,
     analysisRadiusInMeters
@@ -8,6 +11,18 @@
   import MulitlineText from "./MulitlineText.svelte";
   const width = $dimensions[1],
     height = $dimensions[0];
+
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+
+  let appText = {};
+  $: {
+    if ($lang === 'en') {
+      appText = en;
+    } else {
+      appText = de;
+    }
+  }
 </script>
 
 <svg
@@ -24,7 +39,7 @@
   <g>
     <g transform="translate(15,5)">
       <MulitlineText
-        text="Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche cartolab.at/graetzlfarben und entdecke die Verteilung in deinem Grätzl,"
+        text={appText.postcard.back.description}
         x="10"
         y="38"
         width="275"
@@ -37,7 +52,7 @@
 
     <g transform="translate(15,107)">
       <MulitlineText
-        text="Mit herzlichen Grüßen vom Geo-Tag 2024!"
+        text={appText.postcard.back.greetings}
         x="10"
         y="38"
         width="275"
@@ -70,8 +85,10 @@
 
     <g transform="translate(15,310)">
       <MulitlineText
-        text="Du siehst die Flächenverteilung in einem {analysisRadiusInMeters} Meter Radius.
-        Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien und das Open Source Projekt Kiezcolors der ODIS Berlin. Adaptiert von der Forschungsgruppe Kartographie der TU Wien."
+        text={appText.postcard.back.footer.replace(
+          "{analysisRadiusInMeters}",
+          analysisRadiusInMeters
+        )}
         x="10"
         y="48"
         width="275"

@@ -19,7 +19,6 @@ https://observablehq.com/@d3/treemap
   import {
     categories,
     labelContrast,
-    postcardFooter,
     postcardMargin
   } from "$lib/settings.js";
 
@@ -215,7 +214,7 @@ https://observablehq.com/@d3/treemap
       .attr("font-family", "IBM Plex Sans Bold")
       .attr("font-size", 10)
       .attr("fill", "#2f2fa2")
-      .text(postcardFooter);
+      .text(appText.postcard.front.footer);
   }
 
   function updateData(newData) {
@@ -302,7 +301,7 @@ https://observablehq.com/@d3/treemap
   <input
     type="text"
     bind:value={$textVis}
-    placeholder={appText.postcard.title}
+    placeholder={appText.postcard.front.title}
     class="input  text-center absolute bottom-10 text-[30px] bold"
     style={$isMobile ? `position: relative; bottom: 90px;  width:440px` : ""}
     class:w-full={$screenWidth <= 444 ? `` : "w-full"}

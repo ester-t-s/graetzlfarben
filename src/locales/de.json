@@ -11,12 +11,18 @@
         "search": "nach einem Ort suchen"
     },
     "postcard": {
-        "title": "Dein Text hier",
-        "footer": "Geo-Tag 2024 — cartolab.at/graetzlfarben"
-
+        "front": {
+            "title": "Dein Text hier",
+            "footer": "Geo-Tag 2024 — cartolab.at/graetzlfarben"
+        },
+        "back": {
+            "description": "Wie viel Platz brauchen wir eigentlich, um zu wohnen, uns fortzubewegen und mal tief durchzuatmen?$Eine gerechte Nutzung der Fläche in Städten kann dazu beitragen, dass wir glücklicher und gesünder leben. Besuche cartolab.at/graetzlfarben und entdecke die Verteilung in deinem Grätzl,",
+            "greetings": "Mit herzlichen Grüßen vom Geo-Tag 2024!",
+            "footer": "Du siehst die Flächenverteilung in einem {analysisRadiusInMeters} Meter Radius. Möglich gemacht durch offene Verwaltungsdaten der Stadt Wien und das Open Source Projekt Kiezcolors der ODIS Berlin. Adaptiert von der Forschungsgruppe Kartographie der TU Wien."
+        }
     },
     "basemap": "Straßenkarte",
-    "radius": "Radius"
+    "radius": "Radius",
     "meta": {
         "description": "Zeige dir die Flächennutzung in deinem Wiener Grätzl an."
     }
