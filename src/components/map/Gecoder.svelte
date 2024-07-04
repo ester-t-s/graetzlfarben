@@ -1,5 +1,5 @@
 <script>
-  import { newBounds, textVis, lang } from "$lib/stores.js";
+  import { newBounds, lang } from "$lib/stores.js";
   import {mapBounds} from "$lib/settings.js";
 
   import en from "$locales/en.json";
