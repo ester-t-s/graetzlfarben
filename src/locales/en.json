@@ -16,4 +16,7 @@
     },
     "basemap": "Street Map",
     "radius": "Radius"
+    "meta": {
+        "description": "A map based tool to create a postcard showing the landuse distribution in your neighborhood"
+    }
 }

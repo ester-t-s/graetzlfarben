@@ -2,7 +2,9 @@
 
 export const projectTitle = "Grätzlfarben";
 
-export const country = "AT" //for Nominatim request
+export const country = "AT"; //for Nominatim request
+
+export const url = "https://cartolab.at/graetzlfarben";
 
 // App settings and defaults
 

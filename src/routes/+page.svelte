@@ -8,7 +8,10 @@
   import PrintAndDownload from "$components/PrintAndDownload.svelte";
   import Footer from "$components/Footer.svelte";
 
-  import {projectTitle} from "$lib/settings.js"
+  import {
+    projectTitle,
+    url
+  } from "$lib/settings.js"
   import {
     dimensions,
     lang,
@@ -43,7 +46,7 @@
   <title>{projectTitle}</title>
   <meta
     name="description"
-    content="A map based tool to create a postcard showing the landuse distribution in your neighborhood"
+    content={appText.meta.description}
   />
   <meta property="og:title" content="{projectTitle}" />
   <meta property="og:site_name" content="{projectTitle}" />
@@ -51,6 +54,12 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=0.8, user-scalable=0"
   />
+  <meta
+    property="og:description"
+    content={appText.meta.description}
+  />
+  <meta property="og:url" content={url} />
+
 </svelte:head>
 
 <div class="fixed right-4 top-4 margin-4 z-50">

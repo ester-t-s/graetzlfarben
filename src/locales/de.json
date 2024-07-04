@@ -17,5 +17,8 @@
     },
     "basemap": "Straßenkarte",
     "radius": "Radius"
+    "meta": {
+        "description": "Zeige dir die Flächennutzung in deinem Wiener Grätzl an."
+    }
 
 }
