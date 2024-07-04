@@ -16,6 +16,8 @@ export const defaultLanguage = "de";
 
 export const printBackUI = false;
 
+export const downloadFilename = "Graetzlfarben-postcard"
+
 // Postcard (diagram) settings
 
 export const postcardFooter = "Geo-Tag 2024 — cartolab.at/graetzlfarben";

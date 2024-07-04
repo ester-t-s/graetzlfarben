@@ -2,6 +2,7 @@
   import { svg, dimensions, lang, printBackUI, isMobile } from "$lib/stores.js";
   import font from "$assets/scripts/font";
   import { encode } from "$assets/scripts/base64";
+  import {downloadFilename} from "$lib/settings.js";
 
   import en from "$locales/en.json";
   import de from "$locales/de.json";
@@ -96,7 +97,7 @@
     if ($printBackUI) {
       var a = document.createElement("A");
       a.href = file_path;
-      a.download = "Graetzlfarben-postcard.svg";
+      a.download = `${downloadFilename}.svg`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -136,7 +137,7 @@
       var file_path = canvas.toDataURL("image/png");
       var a = document.createElement("A");
       a.href = file_path;
-      a.download = "Graetzlfarben-postcard.png";
+      a.download = `${downloadFilename}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
