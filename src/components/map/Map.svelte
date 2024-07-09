@@ -192,23 +192,6 @@
   <div class="absolute right-2 bottom-8 z-50 text-md">
     {appText.map.radius}: {$circleRadius}m
   </div>
-<!--
-  <div class="absolute right-2 bottom-2 z-50 text-md">
-    {#if $showBasemap}
-      &copy;
-      <a
-        target="_blank"
-        rel="noreferrer"
-        href="https://www.openstreetmap.org/copyright"
-      >
-        OpenStreetMap
-      </a>
-      contributors &copy; |
-    {/if}
-
-    Datenquelle: Stadt Wien - https://data.wien.gv.at
-  </div>
--->
   <div
     class="absolute right-0 bottom-12 z-50 form-control w-fit pointer-events-auto"
   >
