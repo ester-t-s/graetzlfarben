@@ -18,6 +18,13 @@ export const printBackUI = false;
 
 export const downloadFilename = "Graetzlfarben-postcard"
 
+// Design settings (interim solution as long as Tailwind is used in this project)
+
+export const colors= {
+  primary: "#313178",
+  secondary: "#9F4305"
+}; // set button colors
+
 // Postcard (diagram) settings
 
 export const postcardFooter = "Geo-Tag 2024 — cartolab.at/graetzlfarben";

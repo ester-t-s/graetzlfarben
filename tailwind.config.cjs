@@ -1,3 +1,5 @@
+const {colors} = require('./src/lib/settings.js');
+
 const config = {
   content: ["./src/**/*.{html,js,svelte,ts}"],
 
@@ -11,8 +13,8 @@ const config = {
         400: "#ADADAD",
         500: "#949494",
       },
-      primary: "#313178",
-      secondary: "#9F4305",
+      primary: colors.primary,
+      secondary: colors.secondary,
       white: "#ffffff",
     },
     fontFamily: {
@@ -26,9 +28,9 @@ const config = {
     themes: [
       {
         mytheme: {
-          primary: "#313178",
+          primary: colors.primary,
 
-          secondary: "#9F4305",
+          secondary: colors.secondary,
 
           accent: "#37CDBE",
 
