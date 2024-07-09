@@ -95,7 +95,7 @@
     <div class="bold py-4 text-4xl md:text-4xl xl:text-5xl">{projectTitle}</div>
 
     <p class="my-4">
-      {appText.description}
+      {@html appText.description}
     </p>
 
     <div class="w-full"><Search /></div>
