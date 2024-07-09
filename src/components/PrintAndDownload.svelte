@@ -162,7 +162,7 @@
       : "Drucken"
     : $lang === "en"
     ? "Download"
-    : "Herunterladen"} TBD is if still required?-->
+    : "Herunterladen"} -->
     {@html appText.buttons.downloadFront}</button
 >
 
