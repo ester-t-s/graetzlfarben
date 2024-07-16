@@ -1,9 +1,10 @@
 # Grätzlfarben, aka Kiezcolors
 
-*Grätzlfarben* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood in Vienna. It is based on the [Kiezcolors](https://kiezcolors.odis-berlin.de) Tool of the [Open Data Informationsstelle Berlin](https://odis-berlin.de/). By zooming in and out you can pick a location and position it inside the circle. *Grätzlfarben* then maps the individual areas onto a tree map diagram. You can print the resulting motive as a postcard and share it!
+*Grätzlfarben* is a map based tool that creates a postcard showing the landuse distribution in your neighborhood in Vienna. It is based on the [Kiezcolors](https://kiezcolors.odis-berlin.de) tool of the [Open Data Informationsstelle Berlin](https://odis-berlin.de/).
+By zooming in and out you can pick a location and position it inside the circle. *Grätzlfarben* then maps the individual areas onto a tree map diagram.
+You can print the resulting motive as a postcard and share it!
 
 ![graetzlfarben_overview](static/img/overview-image.png)
-
 
 ## Tech stack
 
@@ -21,8 +22,11 @@ Start a development server by running:
 
 ```bash
 npm run dev
+```
 
-# or start the server and open the app in a new browser tab
+or start the server and open the app in a new browser tab
+
+```bash
 npm run dev -- --open
 ```
 
@@ -64,13 +68,32 @@ The landuse data *Realnutzungskartierung Wien 2022* can be downloaded from the [
 
 
 ## Adapting to your city
+
 The application is built to be easily implemented in other cities if suitable data is available. All variables to be adapted can be found in [`src/lib/settings.js`](src/lib/settings.js). The texts can be changed in ['src/locales](src/locales/). Images and tiles have to be exchanged in ['src/static'](src/static).
+
+## Kiosk mode
+
+For use in public settings, Grätzlfarben can be run in "kiosk mode", which offers a single print button instead of download buttons for the postcard images. Only printing the postcard front (the treemap visualizaton) is supported in kiosk mode -- it is assumed that postcards pre-printed with the back side are provided on site.
+
+To activate kiosk mode in the app, append the `?kiosk` url parameter *before* the `#` sign in the url, like so:
+
+```
+http://localhost:5173/?kiosk#13/48.20996/16.3704
+```
+
+You can start most browsers in ki
+osk mode, which causes the app to be displayed in full screen, disables any user interface elements, and supports printing without showing a dialog. E.g. for Firefox, the command to launch the app in kiosk mode would be:
+
+```
+"C:\Program Files\Mozilla Firefox\firefox.exe" -kiosk -private-window https://cartolab.at/graetzlfarben/?kiosk
+```
 
 ## Contributing
 
 Before you create a pull request, write an issue so we can discuss your changes.
 
 ## Contributors
+
 ODIS Berlin / CityLAB Berlin has made the biggest contribution by developing and coding the initial [Kiezcolors](https://kiezcolors.odis-berlin.de) tool. On part of the research unit cartography at TU Wien, [Ester Scheck](https://github.com/ester-t-s) and [Florian Ledermann](https://github.com/floledermann) mostly worked on the code and the documentation while Sacha Schlumpf and Andrea Binn supported with feedback and brainstorming ideas.
 
 
