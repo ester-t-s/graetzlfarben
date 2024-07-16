@@ -1,7 +1,7 @@
 const {colors} = require('./src/lib/settings.js');
 
 const config = {
-  content: ["./src/**/*.{html,js,svelte,ts}"],
+  content: ["./src/**/*.{html,js,svelte,ts,json}"],
 
   theme: {
     extend: {},
