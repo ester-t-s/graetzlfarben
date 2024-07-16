@@ -8,7 +8,7 @@ export const url = "https://cartolab.at/graetzlfarben";
 
 // App settings and defaults
 
-export const useLocationAsText = false; // Show lat/lng as text on the card
+export const useLocationAsText = true; // Show lat/lng as text on the card
 
 export const defaultTextOnCard = ""; // leave empty to show placeholder text
 
