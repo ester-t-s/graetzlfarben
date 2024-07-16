@@ -19,11 +19,11 @@
     "postcard": {
         "front": {
             "title": "Your text here",
-            "footer": "Geo-Day 2024 — cartolab.at/graetzlfarben"
+            "footer": "cartolab.at/graetzlfarben"
         },
         "back": {
             "description": "How much space do we really need to live, move around, and breathe freely?$Fair use of space in cities can lead to happier, healthier lives. Visit cartolab.at/graetzlfarben to explore how space is distributed in your neighborhood,",
-            "greetings": "With kind regards from the Geo-Day 2024 at TU Wien!",
+            "greetings": "With kind regards from TU Wien!",
             "footer": "You can see the area distribution in an {analysisRadiusInMeters} metre radius. Made possible by open administrative data from the City of Vienna and the open source project Kiezcolors from ODIS Berlin. Adapted by the cartography research group at TU Vienna."
         }
     },
