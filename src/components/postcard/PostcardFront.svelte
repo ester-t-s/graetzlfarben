@@ -141,7 +141,7 @@ https://observablehq.com/@d3/treemap
       .enter()
       .append("text")
       .attr("class", "title-text")
-      .attr("transform", "translate(" + width / 2 + "," + (height * 0.91 - postcardMargin) + ")")
+      .attr("transform", "translate(" + width / 2 + "," + (height * 0.93 - postcardMargin) + ")")
       .attr("text-anchor", "middle")
       .attr("font-family", "IBM Plex Sans Bold")
       .attr("font-size", 30)
