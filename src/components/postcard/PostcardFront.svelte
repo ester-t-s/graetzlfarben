@@ -106,6 +106,7 @@ https://observablehq.com/@d3/treemap
       .attr("viewBox", `0 0 ${width} ${height}`)
       .attr("xmlns", "http://www.w3.org/2000/svg")
       .attr("class", "postcard inline " + ($isMobile ? "border" : ""));
+      .attr("style", "print-color-adjust: exact;"); // preserve background when printing
 
     const bg = $svg.append("rect")
       .attr("x", 0)

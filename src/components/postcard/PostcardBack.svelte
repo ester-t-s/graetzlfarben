@@ -33,6 +33,7 @@
   viewBox="0 0 630 444"
   xmlns="http://www.w3.org/2000/svg"
   id="postcardBack"
+  style="print-color-adjust: exact;"
 >
   <rect x="0" y="0" width="630" height="444" fill="#fff" />
 
