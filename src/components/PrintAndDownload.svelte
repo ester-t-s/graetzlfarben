@@ -88,11 +88,14 @@
       svg.node().appendChild(defs);
 
       b64 = encode(svg.node().outerHTML);
+      //b64 = encodeURIComponent('<?xml version="1.0" encoding="utf-8"?>' + svg.node().outerHTML);
     } else {
       b64 = encode(svg.outerHTML);
+      //b64 = encodeURIComponent('<?xml version="1.0" encoding="utf-8"?>' + svg.outerHTML);
     }
 
     var file_path = "data:image/svg+xml;base64,\n" + b64;
+    //var file_path = "data:image/svg+xml," + b64;
 
     if ($printBackUI) {
       var a = document.createElement("A");
