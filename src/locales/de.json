@@ -13,7 +13,8 @@
     },
     "buttons": {
         "downloadFront": "Herunterladen",
-        "downloadBack": "Rückseite herunterladen"
+        "downloadBack": "Rückseite herunterladen",
+        "printFront": "Drucken"
     },
     "postcard": {
         "front": {

@@ -157,14 +157,7 @@
   }}
   class="btn btn-secondary mb-4"
   class:mt-4={!$isMobile}
-  ><!--{!$printBackUI
-    ? $lang === "en"
-      ? "Print"
-      : "Drucken"
-    : $lang === "en"
-    ? "Download"
-    : "Herunterladen"} -->
-    {@html appText.buttons.downloadFront}</button
+  >{!$printBackUI ? appText.buttons.printFront : appText.buttons.downloadFront}</button
 >
 
 <br />
