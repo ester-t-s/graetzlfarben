@@ -65,7 +65,7 @@
     </g>
 
     <g transform="translate(15,160)">
-      {#each Object.values(categories) as { color, name}, i}
+      {#each Object.values(categories) as { color, name, name_en}, i}
         <rect
           classs="rect-legend"
           width="10"
@@ -79,7 +79,7 @@
           text-anchor="start"
           font-family="IBM Plex Sans Text"
           font-size="11"
-          fill="#292929">{name}</text
+          fill="#292929">{ $lang == 'en' ? name_en : name }</text
         >
       {/each}
     </g>
