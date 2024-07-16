@@ -16,7 +16,9 @@ export const defaultLanguage = "de";
 
 export const printBackUI = false;
 
-export const downloadFilename = "Graetzlfarben-postcard"
+export const downloadFilename = "Graetzlfarben-postcard";
+
+export const backsideSuffix = "-backside";
 
 // Design settings (interim solution as long as Tailwind is used in this project)
 

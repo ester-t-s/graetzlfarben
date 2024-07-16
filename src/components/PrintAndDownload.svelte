@@ -2,7 +2,7 @@
   import { svg, dimensions, lang, printBackUI, isMobile } from "$lib/stores.js";
   import font from "$assets/scripts/font";
   import { encode } from "$assets/scripts/base64";
-  import {downloadFilename} from "$lib/settings.js";
+  import {downloadFilename, backsideSuffix} from "$lib/settings.js";
 
   import en from "$locales/en.json";
   import de from "$locales/de.json";
@@ -70,7 +70,7 @@
     };
   }
 
-  function downloadSVG(svg) {
+  function downloadSVG(svg, suffix) {
     var b64;
     if (svg._groups) {
       const defs = document.createElementNS(
@@ -97,11 +97,12 @@
     if ($printBackUI) {
       var a = document.createElement("A");
       a.href = file_path;
-      a.download = `${downloadFilename}.svg`;
+      a.download = `${downloadFilename + (suffix || "")}.svg`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    } else {
+    }
+    else {
       printSVG(file_path);
     }
   }
@@ -146,7 +147,7 @@
 
   function downloadSVGback() {
     const svgBack = document.getElementById("postcardBack");
-    downloadSVG(svgBack);
+    downloadSVG(svgBack, backsideSuffix);
   }
 </script>
 
