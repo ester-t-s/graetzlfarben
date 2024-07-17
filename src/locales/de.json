@@ -9,7 +9,7 @@
         "imprint": "Impressum: <br> Dies ist ein Forschungsprototyp – Daten und Funktionalität ohne Gewähr! Entwickelt am <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Forschungsbereich Kartographie</a><br> TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien"
     },
     "inputs": {
-        "search": "nach einem Ort suchen"
+        "search": "nach einem Ort in Wien suchen"
     },
     "buttons": {
         "downloadFront": "Herunterladen",

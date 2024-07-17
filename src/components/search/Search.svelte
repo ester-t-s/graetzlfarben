@@ -5,6 +5,18 @@
   import loadOptions from "./requestAddress.js";
   import { newBounds, lang } from "$lib/stores.js";
 
+  import en from "$locales/en.json";
+  import de from "$locales/de.json";
+
+  let appText = {};
+  $: {
+    if ($lang === 'en') {
+      appText = en;
+    } else {
+      appText = de;
+    }
+  }
+
   let noOptionsMessage = "Keine Ergebnisse";
 
   let selectedSearchResult;
@@ -26,9 +38,7 @@
     {noOptionsMessage}
     {loadOptions}
     loadOptionsInterval={1500}
-    placeholder={$lang === "de"
-      ? "nach einem Ort suchen"
-      : "search for a place"}
+    placeholder={appText.inputs.search}
     on:select={handleSelect}
     on:clear={handelClear}
     label="display_name"
