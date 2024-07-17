@@ -9,7 +9,8 @@
         "imprint": "Imprint: <br> This is a research prototype – Data and functionality without warranty! Developed at the <a href='https://cartography.tuwien.ac.at/' class='underline' target='_blank'>Research Unit Cartography</a> at TU Wien, Wiedner Hauptstraße 8-10, 1040 Wien"
     },
     "inputs": {
-        "search": "search for a place in Vienna"
+        "search": "search for a place in Vienna",
+        "noSearchResults": "No results"
     },
     "buttons": {
         "downloadFront": "Download",

@@ -17,8 +17,6 @@
     }
   }
 
-  let noOptionsMessage = "Keine Ergebnisse";
-
   let selectedSearchResult;
 
   function handleSelect(event) {
@@ -35,13 +33,15 @@
 
 <div class="mb-5 pt-5">
   <Select
-    {noOptionsMessage}
     {loadOptions}
+    hideEmptyState={true}
     loadOptionsInterval={1500}
     placeholder={appText.inputs.search}
     on:select={handleSelect}
     on:clear={handelClear}
     label="display_name"
     value={selectedSearchResult}
-  />
+  >
+    <!--<div slot="empty" class="empty">{appText.inputs.noSearchResults}</div>-->
+  </Select>
 </div>
