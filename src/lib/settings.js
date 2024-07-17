@@ -2,6 +2,8 @@
 
 export const projectTitle = "Grätzlfarben";
 
+export const og_siteName = "Forschungsbereich Kartographie @ TU Wien";
+
 export const country = "AT"; //for Nominatim request
 
 export const url = "https://cartolab.at/graetzlfarben";

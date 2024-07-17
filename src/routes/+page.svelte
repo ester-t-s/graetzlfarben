@@ -10,6 +10,7 @@
 
   import {
     projectTitle,
+    og_siteName,
     url
   } from "$lib/settings.js"
   import {
@@ -49,7 +50,7 @@
     content={appText.meta.description}
   />
   <meta property="og:title" content="{projectTitle}" />
-  <meta property="og:site_name" content="Forschungsbereich Kartographie @ TU Wien" />
+  <meta property="og:site_name" content="{og_siteName}" />
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=0.8, user-scalable=0"
