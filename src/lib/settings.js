@@ -76,6 +76,158 @@ export let categories = {
 // Mapping of landuse codes to categories
 
 export let landuses = {
+  40: {
+    category: "greenspace",
+    info: "",
+    name: "Landwirtschaftlich genutzte Grundfläche - Dauerkulturanlagen oder Erwerbsgärten",
+    name_en: "field or commercial garden",
+  },
+  41: {
+    category: "infrastructure",
+    info: "",
+    name: "Bauflächen - Gebäude",
+    name_en: "construction site for a building",
+  },
+  42: {
+    category: "street",
+    info: "",
+    name: "Sonstige - Parkplätze",
+    name_en: "parking",
+  },
+  48: {
+    category: "greenspace",
+    info: "",
+    name: "Landwirtschaftlich genutzte Grundflächen - Äcker, Wiesen oder Weiden",
+    name_en: "field or meadow",
+  },
+  52: {
+    category: "greenspace",
+    info: "",
+    name: "Gärten - Gärten",
+    name_en: "gardens",
+  },
+  53: {
+    category: "greenspace",
+    info: "",
+    name: "Weingärten - Weingärten",
+    name_en: "vineyard",
+  },
+  54: {
+    category: "greenspace",
+    info: "",
+    name: "Alpen - Alpen",
+    name_en: "alps",
+  },
+  55: {
+    category: "greenspace",
+    info: "",
+    name: "Wald - Krummholzflächen",
+    name_en: "forest",
+  },
+  56: {
+    category: "greenspace",
+    info: "",
+    name: "Wald - Wälder",
+    name_en: "forest",
+  },
+  57: {
+    category: "greenspace",
+    info: "",
+    name: "Landwirtschaftlich genutzte Grundflächen - Verbuschte Flächen",
+    name_en: "bushy area",
+  },
+  58: {
+    category: "greenspace",
+    info: "",
+    name: "Wald - Forststraßen",
+    name_en: "forest road",
+  59: {
+    category: "water",
+    info: "",
+    name: "Gewässer - Fließende Gewässer",
+    name_en: "flowing water",
+  },
+  60: {
+    category: "water",
+    info: "",
+    name: "Gewässer - Stehende Gewässer",
+    name_en: "standing water",
+  },
+  60: {
+    category: "water",
+    info: "",
+    name: "Gewässer - Feuchtgebiete",
+    name_en: "wetlands",
+  },
+  62: {
+    category: "greenspace",
+    info: "",
+    name: "Sonstige - Vegetationsarme Flächen",
+    name_en: "other areas with little vegetation",
+  },
+  63: {
+    category: "infrastructure",
+    info: "",
+    name: "Sonstige - Betriebsflächen",
+    name_en: "operating areas",
+  },
+  64: {
+    category: "water",
+    info: "",
+    name: "Gewässer - Gewässerrandflächen",
+    name_en: "waterside areas",
+  },
+  65: {
+    category: "street",
+    info: "",
+    name: "Sonstige - Verkehrsrandflächen",
+    name_en: "traffic edge areas",
+  },
+  72: {
+    category: "greenspace",
+    info: "",
+    name: "Sonstige - Friedhöfe",
+    name_en: "cemetery",
+  },
+  83: {
+    category: "infrastructure",
+    info: "",
+    name: "Bauflächen - Gebäudeebenenflächen",
+    name_en: "Building areas - building level areas",
+  
+  },
+  84: {
+    category: "infrastructure",
+    info: "",
+    name: "Sonstige - Abbauflächen, Halden und Deponien",
+    name_en: "mining areas, dumps and landfills",
+  },
+  87: {
+    category: "greenspace",
+    info: "",
+    name: "Sonstige - Fels- und Geröllflächen",
+    name_en: "rock and scree surfaces",
+  },
+  22: {
+    category: "rail",
+    info: "",
+    name: "Sonstige - Schienenverkehrsanlagen",
+    name_en: "rail transport facilities",
+  },
+  95: {
+    category: "street",
+    info: "",
+    name: "Sonstige - Straßenverkehrsanlagen",
+    name_en: "Street traffic",
+  },
+  96: {
+    category: "leisure",
+    info: "",
+    name: "Sonstige - Freizeitflächen",
+    name_en: "leisure areas",
+  },
+
+/*export let landuses = {
     1: {
       category: "living",
       info: "",
@@ -267,8 +419,6 @@ export let landuses = {
       info: "",
       name: "Gewässer inkl. Bachbett",
       name_en: "water",
-    },
-  };
-  
-
-  
+    },  */
+  }
+};
