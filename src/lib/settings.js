@@ -24,9 +24,9 @@ export const backsideSuffix = "-backside";
 
 // Design settings (interim solution as long as Tailwind is used in this project)
 
-export const colors= {
+export const colors = {
   primary: "#313178",
-  secondary: "#9F4305"
+  secondary: "#9F4305",
 }; // set button colors
 
 // Postcard (diagram) settings
@@ -43,10 +43,11 @@ export const postcardMargin = 8; // in layout units, TODO convert to mm!
 
 // Map settings
 
-export const mapBounds = [ //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
-    [16.0,48.05],
-    [16.75,48.4],
-  ];
+export const mapBounds = [
+  //should be bigger than city boundingbox, because city boundingbox borders should be possible to be dragged to center of screen, where the landuse analysis takes place
+  [16.0, 48.05],
+  [16.75, 48.4],
+];
 
 export const initialMapCenter = [16.370402529206963, 48.20996163502622];
 
@@ -58,19 +59,31 @@ export const analysisRadiusInMeters = 750;
 
 // Landuse tiles settings
 
-export const landuseFieldname = "NUTZUNG_CODE";
+export const landuseFieldname = "NS";
 
 export let categories = {
-    street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
-    living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
-    rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
-    water: { color: "#D0E4DE", name_en: "Water", name: "Wasser" },
-    greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
-    industry: { color: "#B68B3A", name_en: "Economy", name: "Wirtschaft" },
-    leisure: { color: "#8B515C", name_en: "Culture and Leisure", name: "Kultur und Freizeit" },
-    sports: {color: "#E8D569", name_en: "Sports", name: "Sport"},
-    education: {color: "#758EBA", name_en: "Education", name: "Schule und Bildung"},
-    infrastructure: { color: "#665B44", name_en: "Infrastructure", name: "Infrastruktur" },
+  street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
+  living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
+  rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
+  water: { color: "#D0E4DE", name_en: "Water", name: "Wasser" },
+  greenspace: { color: "#92BA95", name_en: "Nature", name: "Grünflächen" },
+  industry: { color: "#B68B3A", name_en: "Economy", name: "Wirtschaft" },
+  leisure: {
+    color: "#8B515C",
+    name_en: "Culture and Leisure",
+    name: "Kultur und Freizeit",
+  },
+  sports: { color: "#E8D569", name_en: "Sports", name: "Sport" },
+  education: {
+    color: "#758EBA",
+    name_en: "Education",
+    name: "Schule und Bildung",
+  },
+  infrastructure: {
+    color: "#665B44",
+    name_en: "Infrastructure",
+    name: "Infrastruktur",
+  },
 };
 
 // Mapping of landuse codes to categories
@@ -83,13 +96,14 @@ export let landuses = {
     name_en: "field or commercial garden",
   },
   41: {
-    category: "infrastructure",
+    category:
+      "living" /* actually all kinds of buildings, also university, museum etc */,
     info: "",
     name: "Bauflächen - Gebäude",
     name_en: "construction site for a building",
   },
   42: {
-    category: "street",
+    category: "street" /* not clear if they are really parking spots */,
     info: "",
     name: "Sonstige - Parkplätze",
     name_en: "parking",
@@ -101,7 +115,7 @@ export let landuses = {
     name_en: "field or meadow",
   },
   52: {
-    category: "greenspace",
+    category: "greenspace" /*not necessarilly greenspace, e.g. our backyard*/,
     info: "",
     name: "Gärten - Gärten",
     name_en: "gardens",
@@ -141,6 +155,7 @@ export let landuses = {
     info: "",
     name: "Wald - Forststraßen",
     name_en: "forest road",
+  },
   59: {
     category: "water",
     info: "",
@@ -153,7 +168,7 @@ export let landuses = {
     name: "Gewässer - Stehende Gewässer",
     name_en: "standing water",
   },
-  60: {
+  61: {
     category: "water",
     info: "",
     name: "Gewässer - Feuchtgebiete",
@@ -166,19 +181,20 @@ export let landuses = {
     name_en: "other areas with little vegetation",
   },
   63: {
-    category: "infrastructure",
+    category: "infrastructure" /*unclear*/,
     info: "",
     name: "Sonstige - Betriebsflächen",
     name_en: "operating areas",
   },
   64: {
-    category: "water",
+    category: "greenspace" /*space along the water*/,
     info: "",
     name: "Gewässer - Gewässerrandflächen",
     name_en: "waterside areas",
   },
   65: {
-    category: "street",
+    category:
+      "greenspace" /*e.g. greenspace along the rails or a street, but not always green*/,
     info: "",
     name: "Sonstige - Verkehrsrandflächen",
     name_en: "traffic edge areas",
@@ -190,11 +206,10 @@ export let landuses = {
     name_en: "cemetery",
   },
   83: {
-    category: "infrastructure",
+    category: "leisure" /*e.g. parts of backyards*/,
     info: "",
     name: "Bauflächen - Gebäudeebenenflächen",
     name_en: "Building areas - building level areas",
-  
   },
   84: {
     category: "infrastructure",
@@ -208,26 +223,27 @@ export let landuses = {
     name: "Sonstige - Fels- und Geröllflächen",
     name_en: "rock and scree surfaces",
   },
-  22: {
+  92: {
     category: "rail",
     info: "",
     name: "Sonstige - Schienenverkehrsanlagen",
     name_en: "rail transport facilities",
   },
   95: {
-    category: "street",
+    category:
+      "street" /*but e.g. also path in front of TU main building / Resselpark */,
     info: "",
     name: "Sonstige - Straßenverkehrsanlagen",
     name_en: "Street traffic",
   },
   96: {
-    category: "leisure",
+    category: "greenspace" /* but also sports areas, playgrounds */,
     info: "",
     name: "Sonstige - Freizeitflächen",
     name_en: "leisure areas",
   },
 
-/*export let landuses = {
+  /*export let landuses = {
     1: {
       category: "living",
       info: "",
@@ -420,5 +436,4 @@ export let landuses = {
       name: "Gewässer inkl. Bachbett",
       name_en: "water",
     },  */
-  }
 };
