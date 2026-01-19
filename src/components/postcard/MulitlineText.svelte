@@ -1,15 +1,17 @@
 <script>
-  export let text = "";
-  export let x = 0;
-  export let y = 0;
-  export let width = 0;
-  export let lineHeight = 1.2;
-  export let fontSize = 16;
-  export let fontFamily = "Arial";
-  export let fontStyle = "";
-  export let fontFill = "#292929";
+  const { 
+    text = "", 
+    x = 0, 
+    y = 0, 
+    width = 0, 
+    lineHeight = 1.2, 
+    fontSize = 16, 
+    fontFamily = "Arial", 
+    fontStyle = "", 
+    fontFill = "#292929" 
+  } = $props();
 
-  import { onMount, afterUpdate } from "svelte";
+  import {onMount} from "svelte";
 
   let lines = [];
   let canvas;
@@ -51,11 +53,12 @@
   };
 
   onMount(() => {
+    const canvas = document.getElementById('myCanvas');
     context = canvas.getContext("2d");
     wrapText();
   });
 
-  afterUpdate(() => {
+  $effect(() => {
     wrapText();
   });
 </script>
