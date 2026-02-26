@@ -73,7 +73,7 @@ The application is built to be easily implemented in other cities if suitable da
 
 ## Kiosk mode
 
-For use in public settings, Grätzlfarben can be run in "kiosk mode", which offers a single print button instead of download buttons for the postcard images. Only printing the postcard front (the treemap visualizaton) is supported in kiosk mode -- it is assumed that postcards pre-printed with the back side are provided on site.
+For use in public settings, Grätzlfarben can be run in "kiosk mode", which offers a single print button instead of download buttons for the postcard images. Only printing the postcard front (the treemap visualizaton) is supported in kiosk mode -- it is assumed that postcards pre-printed with the back side are provided on site. After the printing, the website will automatically reload without the coordinates in the URL, if that is turned on in settings.
 
 To activate kiosk mode in the app, append the `?kiosk` url parameter *before* the `#` sign in the url, for example:
 

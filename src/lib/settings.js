@@ -18,6 +18,8 @@ export const defaultLanguage = "de";
 
 export const printBackUI = false;
 
+export const reloadAfterPrint = true;
+
 export const downloadFilename = "Graetzlfarben-postcard";
 
 export const backsideSuffix = "-backside";

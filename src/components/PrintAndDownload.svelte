@@ -2,7 +2,7 @@
   import { svg, dimensions, lang, printBackUI, isMobile } from "$lib/stores.js";
   import font from "$assets/scripts/font";
   import { encode } from "$assets/scripts/base64";
-  import {downloadFilename, backsideSuffix} from "$lib/settings.js";
+  import {downloadFilename, backsideSuffix, reloadAfterPrint} from "$lib/settings.js";
 
   import en from "$locales/en.json";
   import de from "$locales/de.json";
@@ -67,6 +67,15 @@
 
       // Remove the temporary div from the document
       document.body.removeChild(tempDiv);
+
+      // Reload page without coordinates fragment, preserving query string (?kiosk)
+      if (reloadAfterPrint) {
+        setTimeout(() => {
+          const currentUrl = window.location.href;
+          const urlWithoutFragment = currentUrl.split('#')[0];
+          window.location.href = urlWithoutFragment;
+        }, 1000); // timeout in ms
+      }
     };
   }
 
