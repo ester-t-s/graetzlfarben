@@ -1,4 +1,4 @@
-import within from "@turf/boolean-within";
+import booleanIntersects from "@turf/boolean-intersects";
 
 export default function (map, cirlceGeom) {
 
@@ -28,7 +28,7 @@ export default function (map, cirlceGeom) {
         }
       };
 
-      return  within(cirlceGeom,bBoxGeoJSON); 
+      return  booleanIntersects(cirlceGeom,bBoxGeoJSON); 
 
     
 }
