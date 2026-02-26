@@ -54,7 +54,7 @@ export const initialMapCenter = [16.370402529206963, 48.20996163502622];
 
 export const mapMinZoom = 11.3;
 
-export const mapMaxZoom = 14;
+export const mapMaxZoom = 16;
 
 export const analysisRadiusInMeters = 750;
 
