@@ -9,7 +9,7 @@
   import getMaxCircleRadius from "$assets/scripts/getMaxCircleRadius";
   import getLanduseSizes from "$assets/scripts/getLanduseSizes";
   import getCircleGeom from "$assets/scripts/getCircleGeom";
-  import checkCirleFits from "$assets/scripts/checkCirleFits";
+  import checkCircleFits from "$assets/scripts/checkCircleFits";
   import {
     landuses,
     mapBounds,
@@ -90,7 +90,7 @@
       steps: 16,
     });
 
-    let circleFits = checkCirleFits(map, circleGeom);
+    let circleFits = checkCircleFits(map, circleGeom);
     if (!circleFits) {
       const { width, height } = map.getContainer().getBoundingClientRect();
       const ctx = canvas.getContext("2d");
