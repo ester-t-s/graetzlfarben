@@ -60,7 +60,7 @@ export const analysisRadiusInMeters = 750;
 
 // Landuse tiles settings
 
-export const landuseFieldname = "NUTZUNG_CODE";
+export const landuseFieldname = "CODE";
 
 export let categories = {
     street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
@@ -78,193 +78,181 @@ export let categories = {
 // Mapping of landuse codes to categories
 
 export let landuses = {
-    1: {
+    114: {
       category: "living",
       info: "",
       name: "locker bebautes Wohn(misch)gebiet",
       name_en: "living",
     },
-    2: {
+    113: {
       category: "living",
       info: "",
       name: "Wohn(misch)gebiet mittlerer Dichte",
       name_en: "living",
     },
-    3: {
+    111: {
       category: "living",
       info: "",
       name: "dichtes Wohn(misch)gebiet",
       name_en: "living",
     },
-    4: {
+    112: {
       category: "living",
       info: "",
-      name: "großvolumiger, solitärer Wohn(misch)bau",
+      name: "dichtes, durchgrüntes Wohn(misch)gebiet",
       name_en: "living",
     },
-    5: {
+    122: {
       category: "industry",
       info: "",
-      name: "Büro- und Verwaltungsviertel",
+      name: "Büro, Verwaltung",
       name_en: "industry",
     },
-    6: {
+    123: {
       category: "industry",
       info: "",
       name: "solitäre Handelsstrukturen",
       name_en: "industry",
     },
-    7: {
+    121: {
       category: "industry",
       info: "",
-      name: "Geschäfts-, Kern- u. Mischgebiete",
+      name: "Geschäfts-, Kern-, Mischgebiete",
       name_en: "industry",
     },
-    8: {
+    131: {
       category: "industry",
       info: "",
-      name: "Mischnutzung wenig dicht",
+      name: "Industrie, produzierendes Gewerbe, Großhandel",
       name_en: "industry",
     },
-    9: {
-      category: "industry",
-      info: "",
-      name: "Industrie, prod. Gewerbe, Großhandel inkl. Lager",
-      name_en: "industry",
-    },
-    10: {
+    142: {
       category: "leisure",
       info: "",
       name: "Kultur, Freizeit, Messe",
       name_en: "culture and leisure",
     },
-    11: {
+    143: {
       category: "infrastructure",
       info: "",
-      name: "Gesundheit und Einsatzorg",
+      name: "Gesundheit, Einsatzorganisation",
       name_en: "health",
     },
-    12: {
+    141: {
       category: "education",
       info: "",
       name: "Bildung",
       name_en: "education",
     },
-    13: {
+    144: {
       category: "sports",
       info: "",
-      name: "Sport und Bad (Indoor)",
+      name: "Sporthalle, Hallenbad",
       name_en: "sports and swimming indoor",
     },
-    14: {
+    151: {
       category: "infrastructure",
       info: "",
-      name: "Militärische Anlagen",
+      name: "Militärische Anlage",
       name_en: "military",
     },
-    15: {
+    155: {
       category: "infrastructure",
       info: "",
       name: "Kläranlage, Deponie",
       name_en: "sewage plant or landfill ",
     },
-    16: {
+    152: {
       category: "infrastructure",
       info: "",
-      name: "Energieversorgung u. Rundfunkanlagen",
+      name: "Energieversorgung, Rundfunkanlage",
       name_en: "Power supply and broadcasting equipment",
     },
-    17: {
+    153: {
       category: "infrastructure",
       info: "",
       name: "Wasserversorgung",
       name_en: "water supply",
     },
-    18: {
+    154: {
       category: "infrastructure",
       info: "",
-      name: "Transformationsfläche, Baustelle, Materialgew.",
-      name_en: "Transformation area, construction site, material weight",
+      name: "Transformationsfläche, Baustelle, Materialgewinnung",
+      name_en: "Transformation area, construction site, extraction of materials",
     },
-    19: {
+    311: {
       category: "street",
       info: "",
-      name: "Straßenraum begrünt",
+      name: "Straßenraum",
       name_en: "Street traffic",
     },
-    20: {
+    321: {
       category: "street",
       info: "",
-      name: "Straßenraum unbegrünt", //are name and name_en relevant anywhere?
-      name_en: "Street traffic",
-    },
-    21: {
-      category: "street",
-      info: "",
-      name: "Parkplätze u. Parkhäuser",
+      name: "Parkplatz, Parkhaus",
       name_en: "parking",
     },
-    22: {
+    322: {
       category: "rail",
       info: "",
-      name: "Bahnhöfe und Bahnanlagen",
+      name: "Bahnhof, Bahnanlage",
       name_en: "railways",
     },
-    23: {
+    323: {
       category: "industry",
       info: "",
-      name: "Transport und Logistik inkl. Lager",
+      name: "Transport, Logistik inkl. Lager",
       name_en: "transport and logistics",
     },
-    24: {
+    232: {
       category: "greenspace",
       info: "",
-      name: "Park, Grünanlage",
+      name: "Parkanlage",
       name_en: "park",
     },
-    25: {
+    233: {
       category: "sports",
       info: "",
-      name: "Sport und Bad (Outdoor), Camping",
+      name: "Sportanlage, Freibad, Camping",
       name_en: "sports and swimming outdoor, camping",
     },
-    26: {
+    231: {
       category: "greenspace",
       info: "",
       name: "Friedhof",
       name_en: "cemetery",
     },
-    27: {
+    221: {
       category: "greenspace",
       info: "",
       name: "Acker",
       name_en: "field",
     },
-    28: {
+    222: {
       category: "greenspace",
       info: "",
       name: "Weingarten",
       name_en: "vineyard",
     },
-    29: {
+    223: {
       category: "industry",
       info: "",
-      name: "Gärtnerei, Obstplantagen",
-      name_en: "orchards",
+      name: "Gärtnerei, sonstige landwirtschaftliche Fläche",
+      name_en: "nursery and other agricultural use",
     },
-    30: {
+    211: {
       category: "greenspace",
       info: "",
       name: "Wald",
       name_en: "forest",
     },
-    31: {
+    212: {
       category: "greenspace",
       info: "",
-      name: "Wiese",
-      name_en: "meadow",
+      name: "Wiese, sonstige Grünfläche",
+      name_en: "meadow, other green space",
     },
-    32: {
+    241: {
       category: "water",
       info: "",
       name: "Gewässer inkl. Bachbett",
