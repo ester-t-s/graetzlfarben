@@ -63,7 +63,7 @@ export const analysisRadiusInMeters = 750;
 export const landuseFieldname = "CODE";
 
 export let categories = {
-    street: { color: "#3A3838", name_en: "Street", name: "Straßen" },
+    street: { color: "#3A3838", name_en: "Street traffic", name: "Straßenverkehr" },
     living: { color: "#F0BD9F", name_en: "Living", name: "Wohnen" },
     rail: { color: "#898989", name_en: "Rail", name: "Bahn" },
     water: { color: "#D0E4DE", name_en: "Water", name: "Wasser" },
