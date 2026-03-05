@@ -27,7 +27,7 @@ export default function (location) {
 				type: 'vector',
 				tiles: [location + 'tiles/{z}/{x}/{y}.pbf'],
 				minzoom: 10,
-				maxzoom: 13
+				maxzoom: 12
 			}
 		},
 		layers: [

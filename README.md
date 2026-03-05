@@ -44,9 +44,9 @@ To deploy your app, simply copy the `build` folder to your web server.
 
 ## Data
 
-For Vienna, the 'Realnutzungskartierung' dataset by the City of Vienna is suitable for the application and [available as a WFS](https://www.data.gv.at/katalog/dataset/2f5baa1f-208c-42c2-8d04-9ea74aa1b229#resources). QGIS can be used to project it to ```EPSG:4326``` and save it (with layername 'landuse-data') as ```GeoJSON```, which is required to create the vector tiles for the map.
+For Vienna, the 'Realnutzungskartierung' dataset by the City of Vienna is suitable for the application and [available as a shapefile](https://www.data.gv.at/katalog/datasets/9e1ad9a0-ff89-3ac2-b4ac-d87f3a2c6554). The shapefile is encoded in ISO-8859-1, which has to be specified when opened in QGIS. QGIS can be used to project it to ```EPSG:4326``` and save it (with layername 'landuse-data') as ```GeoJSON```, which is required to create the vector tiles for the map.
 
-The most detailed information on landuse was used, based on the NUTZUNG_CODE or the NUTZUNG_LEVEL3 column.
+The most detailed information on landuse was used, based on the CODE or the LEV3 column.
   
 ## Tile Creation
 
@@ -57,15 +57,14 @@ To then use tippecanoe, open the Ubuntu shell, change directory to c/ by `cd ../
 After changing to the directory where the input file is located, you can make the tiles by running the following command:
 
 ```bash
-tippecanoe --output-to-directory ./tiles --layer "landuse-data" --no-tile-compression --force --minimum-zoom=10 --maximum-zoom=13 ./{input-file}.geojson
+tippecanoe --output-to-directory ./tiles --layer "landuse-data" --no-tile-compression --force --minimum-zoom=11 --maximum-zoom=g ./{input-file}.geojson
 ```
 
 Your input data has to be in ```GeoJSON``` format and in the ```EPSG:4326``` projection. 
 
 ## Data Licence
 
-The landuse data *Realnutzungskartierung Wien 2022* can be downloaded from the [Open Data Portal Austria](https://www.data.gv.at) and is licenced under CC BY 4.0 DEED.
-
+The landuse data *Realnutzungskartierung Wien 2024* (02.12.2024) can be downloaded from the [Open Data Portal Austria](https://www.data.gv.at) and is licenced under CC BY 4.0. 
 
 ## Adapting to your city
 
