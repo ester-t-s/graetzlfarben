@@ -57,7 +57,7 @@ To then use tippecanoe, open the Ubuntu shell, change directory to c/ by `cd ../
 After changing to the directory where the input file is located, you can make the tiles by running the following command:
 
 ```bash
-tippecanoe --output-to-directory ./tiles --layer "landuse-data" --no-tile-compression --force --minimum-zoom=10 --maximum-zoom=13 ./{input-file}.geojson
+tippecanoe --output-to-directory ./tiles --layer "landuse-data" --no-tile-compression --force --minimum-zoom=11 --maximum-zoom=g ./{input-file}.geojson
 ```
 
 Your input data has to be in ```GeoJSON``` format and in the ```EPSG:4326``` projection. 
