@@ -26,7 +26,7 @@ export default function (location) {
 			'landuse-source': {
 				type: 'vector',
 				tiles: [location + 'tiles/{z}/{x}/{y}.pbf'],
-				minzoom: 10,
+				minzoom: 11,
 				maxzoom: 12
 			}
 		},
