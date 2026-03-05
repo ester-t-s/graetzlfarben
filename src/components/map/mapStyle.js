@@ -21,7 +21,7 @@ export default function (location) {
 				tiles: ['https://c.tile.openstreetmap.org/{z}/{x}/{y}.png'],
 				tileSize: 256,
 				attribution:
-					"&copy; <a target='_blank' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a target='_blank' href='https://carto.com/attributions'>CARTO</a>"
+					"&copy; <a  href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a  href='https://carto.com/attributions'>CARTO</a>"
 			},
 			'landuse-source': {
 				type: 'vector',
