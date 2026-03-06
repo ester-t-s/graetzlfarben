@@ -4,6 +4,8 @@
   import { onMount } from "svelte";
   import mapStyle from "./mapStyle.js";
   import MapKey from "./MapKey.svelte";
+  import { point } from "@turf/helpers";
+  import { booleanPointInPolygon } from "@turf/boolean-point-in-polygon"; 
 
   import drawCanvasCircle from "$assets/scripts/drawCanvasCircle";
   import getMaxCircleRadius from "$assets/scripts/getMaxCircleRadius";
@@ -16,7 +18,9 @@
     initialMapCenter,
     mapMaxZoom,
     mapMinZoom,
-    analysisRadiusInMeters
+    analysisRadiusInMeters,
+    boundingPolygonProvided,
+    boundingPolygon
   } from "$lib/settings.js";
 
   import {
@@ -128,6 +132,18 @@
       drawAndCount(map);
 
       map.on("moveend", function (e) {
+        if (boundingPolygonProvided == true) { //besser wäre direkt auf boundingPolygon zu prüfen, und eventuell auf $mapCenter
+          //check if map center is within bounding polygon
+          const centerPoint = point([$mapCenter[0], $mapCenter[1]]) //Lng, Lat
+          console.log(centerPoint)
+          //const isWithinPolygon = turf.booleanPointInPolygon(centerPoint, $boundingPolygon); //turf functions have to be imported first
+          //if (!isWithinPolygon) {
+          //  const nearestPoint = turf.nearestPointOnLine($boundingPolygon.geometry, centerPoint);
+          //  map.setCenter(nearestPoint.geometry.coordinates);
+          //}
+        };
+
+        //draw
         const canvas = document.getElementById("myCanvas");
         drawCanvasCircle(map, canvas, $circleRadius);
         setTimeout(() => {

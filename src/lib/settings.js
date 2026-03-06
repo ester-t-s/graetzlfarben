@@ -50,6 +50,13 @@ export const mapBounds = [ //should be bigger than city boundingbox, because cit
     [16.75,48.4],
   ];
 
+export const boundingPolygonProvided = true;
+
+export var boundingPolygon = [
+    [16.0,48.05],
+    [16.75,48.4],
+  ];
+
 export const initialMapCenter = [16.370402529206963, 48.20996163502622];
 
 export const mapMinZoom = 11.3;
