@@ -7,15 +7,15 @@
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@esbuild/win32-x64@0.25.12":
+"@esbuild/darwin-arm64@0.25.12":
   version "0.25.12"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.25.12.tgz"
-  integrity sha512-alJC0uCZpTFrSL0CCDjcgleBXPnCrEAhTBILpeAp7M/OFgoqtAetfBzX0xM00MUsVVPpVjlPuMbREqnZCXaTnA==
+  resolved "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.25.12.tgz"
+  integrity sha512-N3zl+lxHCifgIlcMUP5016ESkeQjLj/959RxxNYIthIg+CQHInujFuXeWbWMgnTo4cp5XVHqFPmpyu9J65C1Yg==
 
-"@esbuild/win32-x64@0.27.3":
+"@esbuild/darwin-arm64@0.27.3":
   version "0.27.3"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.27.3.tgz"
-  integrity sha512-4uJGhsxuptu3OcpVAzli+/gWusVGwZZHTlS63hh++ehExkVT8SgiEf7/uC/PclrPPkLhZqGgCTjd0VWLo6xMqA==
+  resolved "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.27.3.tgz"
+  integrity sha512-Re491k7ByTVRy0t3EKWajdLIr0gz2kKKfzafkth4Q8A5n1xTHrkqZgLLjFEHVD+AXdUGgQMq+Godfq45mGpCKg==
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.6.1":
   version "4.9.1"
@@ -213,15 +213,10 @@
   resolved "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.29.tgz"
   integrity sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==
 
-"@rollup/rollup-win32-x64-gnu@4.59.0":
+"@rollup/rollup-darwin-arm64@4.59.0":
   version "4.59.0"
-  resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-gnu/-/rollup-win32-x64-gnu-4.59.0.tgz"
-  integrity sha512-laBkYlSS1n2L8fSo1thDNGrCTQMmxjYY5G0WFWjFFYZkKPjsMBsgJfGf4TLxXrF6RyhI60L8TMOjBMvXiTcxeA==
-
-"@rollup/rollup-win32-x64-msvc@4.59.0":
-  version "4.59.0"
-  resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.59.0.tgz"
-  integrity sha512-2HRCml6OztYXyJXAvdDXPKcawukWY2GpR5/nxKp4iBgiO3wcoEGkAaqctIbZcNB6KlUQBIqt8VYkNSj2397EfA==
+  resolved "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.59.0.tgz"
+  integrity sha512-W2Psnbh1J8ZJw0xKAd8zdNgF9HRLkdWwwdWqubSVk0pUuQkoHnv7rx4GiF9rT4t5DIZGAsConRE3AxCdJ4m8rg==
 
 "@standard-schema/spec@^1.0.0":
   version "1.1.0"
@@ -1341,6 +1336,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
+fsevents@~2.3.2, fsevents@~2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
+
 function-bind@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz"
@@ -1963,15 +1963,15 @@ prelude-ls@^1.2.1:
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier-plugin-svelte@^2.8.1:
-  version "2.10.1"
-  resolved "https://registry.npmjs.org/prettier-plugin-svelte/-/prettier-plugin-svelte-2.10.1.tgz"
-  integrity sha512-Wlq7Z5v2ueCubWo0TZzKc9XHcm7TDxqcuzRuGd0gcENfzfT4JZ9yDlCbEgxWgiPmLHkBjfOtpAWkcT28MCDpUQ==
+prettier-plugin-svelte@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.npmjs.org/prettier-plugin-svelte/-/prettier-plugin-svelte-3.5.1.tgz"
+  integrity sha512-65+fr5+cgIKWKiqM1Doum4uX6bY8iFCdztvvp2RcF+AJoieaw9kJOFMNcJo/bkmKYsxFaM9OsVZK/gWauG/5mg==
 
-"prettier@^1.16.4 || ^2.0.0", prettier@^2.8.0:
-  version "2.8.8"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.8.8.tgz"
-  integrity sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==
+prettier@^3.0.0, prettier@^3.8.1:
+  version "3.8.1"
+  resolved "https://registry.npmjs.org/prettier/-/prettier-3.8.1.tgz"
+  integrity sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==
 
 protocol-buffers-schema@^3.3.1:
   version "3.6.0"
@@ -2226,7 +2226,7 @@ svelte-select@^5.6.0:
   dependencies:
     svelte-floating-ui "1.5.8"
 
-"svelte@^3.2.0 || ^4.0.0-next.0", "svelte@^3.37.0 || ^4.0.0 || ^5.0.0", "svelte@^4.0.0 || ^5.0.0-next.0", "svelte@^4.0.0 || ^5.0.0-next.100 || ^5.0.0", svelte@^5.0.0, svelte@^5.47.0:
+"svelte@^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0", "svelte@^3.37.0 || ^4.0.0 || ^5.0.0", "svelte@^4.0.0 || ^5.0.0-next.0", "svelte@^4.0.0 || ^5.0.0-next.100 || ^5.0.0", svelte@^5.0.0, svelte@^5.47.0:
   version "5.53.6"
   resolved "https://registry.npmjs.org/svelte/-/svelte-5.53.6.tgz"
   integrity sha512-lP5DGF3oDDI9fhHcSpaBiJEkFLuS16h92DhM1L5K1lFm0WjOmUh1i2sNkBBk8rkxJRpob0dBE75jRfUzGZUOGA==
