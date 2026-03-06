@@ -308,6 +308,16 @@
     "@turf/helpers" "^6.5.0"
     "@turf/meta" "^6.5.0"
 
+"@turf/bbox@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/bbox/-/bbox-7.3.4.tgz"
+  integrity sha512-D5ErVWtfQbEPh11yzI69uxqrcJmbPU/9Y59f1uTapgwAwQHQztDWgsYpnL3ns8r1GmPWLP8sGJLVTIk2TZSiYA==
+  dependencies:
+    "@turf/helpers" "7.3.4"
+    "@turf/meta" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
 "@turf/bearing@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmjs.org/@turf/bearing/-/bearing-6.5.0.tgz"
@@ -354,6 +364,39 @@
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
 
+"@turf/buffer@^7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/buffer/-/buffer-7.3.4.tgz"
+  integrity sha512-MVOCBDuOl3KGDsh2stW12RmiFaFeSkVjeUbZ+ADUtIVnv+jlFsmjBpFtsEw8s9YQn5g0667QppOshm0FBHA57Q==
+  dependencies:
+    "@turf/bbox" "7.3.4"
+    "@turf/center" "7.3.4"
+    "@turf/helpers" "7.3.4"
+    "@turf/jsts" "^2.7.1"
+    "@turf/meta" "7.3.4"
+    "@turf/projection" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    d3-geo "1.7.1"
+
+"@turf/center@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/center/-/center-7.3.4.tgz"
+  integrity sha512-4SsLMDHWthXbyIHsczgFCo4fx+8tC8w2+B5HdEuY+P+cSOOL4T+6QQzd7WWjuN/Y3ndowFssUmwRrvXuwVRxQA==
+  dependencies:
+    "@turf/bbox" "7.3.4"
+    "@turf/helpers" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
+"@turf/clone@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/clone/-/clone-7.3.4.tgz"
+  integrity sha512-pwQ+RyQw986uu7IulY/18NRAebwZZScb084bvVqVkTrllwLSv4oVBqUxmUMiwtp+PNdiRGRFOvNyZqtRsiD+Jw==
+  dependencies:
+    "@turf/helpers" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
 "@turf/destination@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmjs.org/@turf/destination/-/destination-6.5.0.tgz"
@@ -369,6 +412,16 @@
   dependencies:
     "@turf/helpers" "^6.5.0"
     "@turf/invariant" "^6.5.0"
+
+"@turf/distance@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/distance/-/distance-7.3.4.tgz"
+  integrity sha512-9drWgd46uHPPyzgrcRQLgSvdS/SjVlQ6ZIBoRQagS5P2kSjUbcOXHIMeOSPwfxwlKhEtobLyr+IiR2ns1TfF8w==
+  dependencies:
+    "@turf/helpers" "7.3.4"
+    "@turf/invariant" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
 
 "@turf/helpers@^6.5.0":
   version "6.5.0"
@@ -408,12 +461,28 @@
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
+"@turf/jsts@^2.7.1":
+  version "2.7.2"
+  resolved "https://registry.npmjs.org/@turf/jsts/-/jsts-2.7.2.tgz"
+  integrity sha512-zAezGlwWHPyU0zxwcX2wQY3RkRpwuoBmhhNE9HY9kWhFDkCxZ3aWK5URKwa/SWKJbj9aztO+8vtdiBA28KVJFg==
+  dependencies:
+    jsts "2.7.1"
+
 "@turf/meta@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmjs.org/@turf/meta/-/meta-6.5.0.tgz"
   integrity sha512-RrArvtsV0vdsCBegoBtOalgdSOfkBrTJ07VkpiCnq/491W67hnMWmDu7e6Ztw0C3WldRYTXkg3SumfdzZxLBHA==
   dependencies:
     "@turf/helpers" "^6.5.0"
+
+"@turf/meta@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/meta/-/meta-7.3.4.tgz"
+  integrity sha512-tlmw9/Hs1p2n0uoHVm1w3ugw1I6L8jv9YZrcdQa4SH5FX5UY0ATrKeIvfA55FlL//PGuYppJp+eyg/0eb4goqw==
+  dependencies:
+    "@turf/helpers" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
 
 "@turf/midpoint@^6.5.0":
   version "6.5.0"
@@ -425,6 +494,18 @@
     "@turf/distance" "^6.5.0"
     "@turf/helpers" "^6.5.0"
 
+"@turf/nearest-point-on-line@^7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/nearest-point-on-line/-/nearest-point-on-line-7.3.4.tgz"
+  integrity sha512-DQrP3lRju83rIXFN68tUEpc7ki/eRwdwBkK2CTT4RAcyCxbcH2NGJPQv8dYiww/Ar77u1WLVn+aINXZH904dWw==
+  dependencies:
+    "@turf/distance" "7.3.4"
+    "@turf/helpers" "7.3.4"
+    "@turf/invariant" "7.3.4"
+    "@turf/meta" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
 "@turf/points-within-polygon@^6.5.0":
   version "6.5.0"
   resolved "https://registry.npmjs.org/@turf/points-within-polygon/-/points-within-polygon-6.5.0.tgz"
@@ -433,6 +514,27 @@
     "@turf/boolean-point-in-polygon" "^6.5.0"
     "@turf/helpers" "^6.5.0"
     "@turf/meta" "^6.5.0"
+
+"@turf/polygon-to-line@^7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/polygon-to-line/-/polygon-to-line-7.3.4.tgz"
+  integrity sha512-xhmOZ5rHZAKLUDLeYKWMsX84ip8CCGOcGLBHtPPYOjdIDHddMV6Sxt5kVgkmlZpK6NEWEmOD6lYR4obxHcHlGA==
+  dependencies:
+    "@turf/helpers" "7.3.4"
+    "@turf/invariant" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
+"@turf/projection@7.3.4":
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/@turf/projection/-/projection-7.3.4.tgz"
+  integrity sha512-p91zOaLmzoBHzU/2H6Ot1tOhTmAom85n1P7I4Oo0V9xU8hmJXWfNnomLFf/6rnkKDIFZkncLQIBz4iIecZ61sA==
+  dependencies:
+    "@turf/clone" "7.3.4"
+    "@turf/helpers" "7.3.4"
+    "@turf/meta" "7.3.4"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
 
 "@types/cookie@^0.6.0":
   version "0.6.0"
@@ -725,6 +827,11 @@ d3-array@^3.2.0, "d3-array@2 - 3", "d3-array@2.10.0 - 3", "d3-array@2.5.0 - 3", 
   dependencies:
     internmap "1 - 2"
 
+d3-array@1:
+  version "1.2.4"
+  resolved "https://registry.npmjs.org/d3-array/-/d3-array-1.2.4.tgz"
+  integrity sha512-KHW6M86R+FUPYGb3R5XiYjXPq7VzwxZ22buHhAEVG5ztoEcZZMLov530mmccaqA1GghZArjQV46fuc8kUqhhHw==
+
 d3-axis@3:
   version "3.0.0"
   resolved "https://registry.npmjs.org/d3-axis/-/d3-axis-3.0.0.tgz"
@@ -814,6 +921,13 @@ d3-force@3:
   version "3.1.2"
   resolved "https://registry.npmjs.org/d3-format/-/d3-format-3.1.2.tgz"
   integrity sha512-AJDdYOdnyRDV5b6ArilzCPPwc1ejkHcoyFarqlPqT7zRYjhavcT3uSrqcMvsgh2CgoPbK3RCwyHaVyxYcP2Arg==
+
+d3-geo@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/d3-geo/-/d3-geo-1.7.1.tgz"
+  integrity sha512-O4AempWAr+P5qbk2bC2FuN/sDW4z+dN2wDf9QV3bxQt4M5HfOEeXLgJ/UKQW0+o1Dj8BE+L5kiDbdWUMjsmQpw==
+  dependencies:
+    d3-array "1"
 
 d3-geo@3:
   version "3.1.1"
@@ -1569,6 +1683,11 @@ json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz"
   integrity sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==
+
+jsts@2.7.1:
+  version "2.7.1"
+  resolved "https://registry.npmjs.org/jsts/-/jsts-2.7.1.tgz"
+  integrity sha512-x2wSZHEBK20CY+Wy+BPE7MrFQHW6sIsdaGUMEqmGAio+3gFzQaBYPwLRonUfQf9Ak8pBieqj9tUofX1+WtAEIg==
 
 kdbush@^3.0.0:
   version "3.0.0"
