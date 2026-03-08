@@ -6,7 +6,9 @@
   import MapKey from "./MapKey.svelte";
   import { booleanPointInPolygon } from "@turf/boolean-point-in-polygon";
   import { nearestPointOnLine } from "@turf/nearest-point-on-line";
+  import { pointToPolygonDistance } from "@turf/point-to-polygon-distance";
   import { polygonToLine } from "@turf/polygon-to-line";
+  import { point } from "@turf/helpers";
   import buffer from "@turf/buffer";
 
   import drawCanvasCircle from "$assets/scripts/drawCanvasCircle";
@@ -111,9 +113,6 @@
   };
 
   onMount(async () => {
-    const res = await fetch("/vienna.geojson");
-    const fc = await res.json();
-    const cityPolygon = fc.features[0];
 
     map = new maplibregl.Map({
       container: "map", // container id
@@ -135,24 +134,35 @@
       map.on("moveend", function () {
         $mapCenter = map.getCenter().toArray();
 
-        if (cityPolygon) {
-          // check if map center is within bounding polygon
-          const isWithinPolygon = booleanPointInPolygon(
-            $mapCenter,
-            cityPolygon,
-          );
-          if (!isWithinPolygon) {
-            const nearestPoint = nearestPointOnLine(polygonToLine(cityPolygon), $mapCenter);
+        const renderedFeaturesAtMapCenter = map.queryRenderedFeatures(map.project($mapCenter), {
+          layers: ["landuse"],
+        });
 
-            // create a buffer polygon around the nearest point and check whether
-            // the current center lies inside that buffer
-            const buf = buffer(nearestPoint, 50, { units: "meters" });
-            const centerInBuffer = booleanPointInPolygon($mapCenter, buf);
+        const renderedFeatures = map.queryRenderedFeatures({
+          layers: ["landuse"],
+        });
 
-            const [nx, ny] = nearestPoint.geometry.coordinates;
-            if (!centerInBuffer) {
-              map.easeTo({ duration: 500, center: [nx, ny] });
-            }
+        const getEaseToPoint = (renderedFeatures) => {
+          if (renderedFeatures.length === 0) return point(initialMapCenter);
+          const nearestFeature = renderedFeatures.map((d) => ({d, distance: pointToPolygonDistance($mapCenter, d)})).toSorted((a, b) => a.distance - b.distance).at(0).d;
+          const nearestFeatureAsLine = polygonToLine(nearestFeature);
+          return nearestPointOnLine(nearestFeatureAsLine, $mapCenter);
+        }
+
+        // when map center is not on data
+        if (renderedFeaturesAtMapCenter.length === 0) {
+
+          const easeToPoint = getEaseToPoint(renderedFeatures);
+
+          // create a buffer polygon around the nearest point and check whether
+          // the current center lies inside that buffer
+          const buf = buffer(easeToPoint, 1, { units: "meters" });
+          const centerInBuffer = booleanPointInPolygon($mapCenter, buf);
+
+          const [nx, ny] = easeToPoint.geometry.coordinates;
+          if (!centerInBuffer) {
+            map.easeTo({ duration: 500, center: [nx, ny] });
+            return;
           }
         }
 

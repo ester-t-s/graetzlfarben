@@ -43,6 +43,7 @@
 		"@turf/intersect": "^6.5.0",
 		"@turf/midpoint": "^6.5.0",
 		"@turf/nearest-point-on-line": "^7.3.4",
+		"@turf/point-to-polygon-distance": "^7.3.4",
 		"@turf/points-within-polygon": "^6.5.0",
 		"@turf/polygon-to-line": "^7.3.4",
 		"chroma-js": "^2.4.2",
