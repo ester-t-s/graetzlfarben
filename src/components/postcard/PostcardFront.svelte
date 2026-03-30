@@ -297,7 +297,7 @@ https://observablehq.com/@d3/treemap
       }); height: ${(630 * ($screenWidth - 0)) / 444}px;`
     : ""}
 >
-  <main class="w-full text-center" bind:this={visWrapper} />
+  <main class="w-full text-center" bind:this={visWrapper}></main>
 
   <input
     type="text"
