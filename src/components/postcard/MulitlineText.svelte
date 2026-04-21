@@ -13,15 +13,21 @@
 
   import {onMount} from "svelte";
 
-  let lines = [];
   let canvas;
-  let context;
+  let context = $state(null);
 
-  const wrapText = () => {
-    lines = [];
+  onMount(() => {
+    const canvas = document.getElementById('myCanvas');
+    context = canvas.getContext("2d");
+  });
 
+  const lines = $derived.by(() => {
+    if (!context) return [];
+
+    const result = [];
     context.font = `${fontSize}px ${fontFamily}`;
     const textBlocks = text.split("$");
+
     textBlocks.forEach((block, blockIdx) => {
       const words = block.split(" ");
       let currentLine = words[0];
@@ -32,7 +38,7 @@
         const lineWidth = context.measureText(newLine).width;
 
         if (lineWidth > width) {
-          lines.push({
+          result.push({
             text: currentLine,
             extraSpace: blockIdx > 0 && i === 1,
           });
@@ -42,24 +48,16 @@
         }
       }
 
-      lines.push({
+      result.push({
         text: currentLine,
         extraSpace: blockIdx > 0 && words.length === 1,
       });
       if (blockIdx < textBlocks.length - 1) {
-        lines.push({ text: "", extraSpace: false }); // Add an extra empty line after each block
+        result.push({ text: "", extraSpace: false });
       }
     });
-  };
 
-  onMount(() => {
-    const canvas = document.getElementById('myCanvas');
-    context = canvas.getContext("2d");
-    wrapText();
-  });
-
-  $effect(() => {
-    wrapText();
+    return result;
   });
 </script>
 
