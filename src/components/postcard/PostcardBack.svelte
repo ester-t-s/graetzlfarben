@@ -8,7 +8,7 @@
     analysisRadiusInMeters
   } from "$lib/settings";
 
-  import MulitlineText from "./MulitlineText.svelte";
+  import MultilineText from "./MultilineText.svelte";
   const width = $dimensions[1],
     height = $dimensions[0];
 
@@ -39,7 +39,7 @@
 
   <g>
     <g transform="translate(15,5)">
-      <MulitlineText
+      <MultilineText
         text={appText.postcard.back.description}
         x="10"
         y="38"
@@ -52,7 +52,7 @@
     </g>
 
     <g transform="translate(15,107)">
-      <MulitlineText
+      <MultilineText
         text={appText.postcard.back.greetings}
         x="10"
         y="38"
@@ -85,7 +85,7 @@
     </g>
 
     <g transform="translate(15,310)">
-      <MulitlineText
+      <MultilineText
         text={appText.postcard.back.footer.replace(
           "{analysisRadiusInMeters}",
           analysisRadiusInMeters

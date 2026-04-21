@@ -77,4 +77,4 @@
     >
   {/each}
 </text>
-<canvas bind:this={canvas} style="display: none;" />
+<canvas bind:this={canvas} style="display: none;" ></canvas>
