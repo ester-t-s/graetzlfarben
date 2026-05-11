@@ -7,6 +7,7 @@ https://observablehq.com/@d3/treemap
 <script>
   import * as d3 from "d3";
   import chroma from "chroma-js";
+  import NoDataPattern from "$components/NoDataPattern.svelte";
   import {
     areaSizes,
     dimensions,
@@ -162,7 +163,7 @@ https://observablehq.com/@d3/treemap
         return d.y1 - d.y0;
       })
       .attr("fill", function (d) {
-        return d.data.color; // color(d.parent.data.id);
+        return d.data.category === "nodata" ? "url(#nodataPattern)" : d.data.color;
       })
       .style("opacity", 0);
       
@@ -246,7 +247,7 @@ https://observablehq.com/@d3/treemap
         return d.y1 - d.y0;
       })
       .attr("fill", function (d) {
-        return d.data.color;
+        return d.data.category === "nodata" ? "url(#nodataPattern)" : d.data.color;
       });
 
     // Enter new elements present in the new data
@@ -266,7 +267,7 @@ https://observablehq.com/@d3/treemap
         return d.y1 - d.y0;
       })
       .attr("fill", function (d) {
-        return d.data.color;
+        return d.data.category === "nodata" ? "url(#nodataPattern)" : d.data.color;
       })
       .style("opacity", 0)
       .transition()
@@ -297,7 +298,7 @@ https://observablehq.com/@d3/treemap
       }); height: ${(630 * ($screenWidth - 0)) / 444}px;`
     : ""}
 >
-  <main class="w-full text-center" bind:this={visWrapper} />
+  <main class="w-full text-center" bind:this={visWrapper}></main>
 
   <input
     type="text"
@@ -307,6 +308,7 @@ https://observablehq.com/@d3/treemap
     style={$isMobile ? `position: relative; bottom: 90px;  width:440px` : ""}
     class:w-full={$screenWidth <= 444 ? `` : "w-full"}
   />
+  <NoDataPattern />
 </div>
 
 

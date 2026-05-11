@@ -5,7 +5,7 @@
 </script>
 
 <div class="app">
-	<header />
+	<header></header>
 
 	<main>
 		<slot />

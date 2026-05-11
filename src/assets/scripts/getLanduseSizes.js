@@ -3,26 +3,22 @@ import area from "@turf/area";
 import { landuseFieldname } from "$lib/settings";
 
 export default function (map, circleGeom, landuses) {
-  let sizes = {};
-  let sumSizes = 0;
+  const circleArea = area(circleGeom);
+
   const landuse = map.queryRenderedFeatures({ layers: ["landuse"] });
-  landuse.forEach(function (feature) {
+  const areaPerCategory = landuse.reduce((acc, feature) => {
     const intersection = intersect(circleGeom, feature.geometry);
     if (intersection) {
-      const size = area(intersection);
+      const m = area(intersection);
       const category = landuses[feature.properties[landuseFieldname]].category;
-      if (!sizes[category]) {
-        sizes[category] = {};
-        sizes[category].m = size;
-      } else {
-        sizes[category].m += size;
-      }
-      sumSizes += size;
+      if (!acc[category]) acc[category] = {m: 0, p: 0};
+      acc[category].m += m;
+      acc[category].p = acc[category].m / circleArea * 100;
     }
-  });
-  Object.keys(sizes).forEach(function (key) {
-    sizes[key].p = (sizes[key].m / sumSizes) * 100;
-  });
+    return acc;
+  }, {});
+  const totalAreaCategories = Object.values(areaPerCategory).reduce((sum, value) => sum + value.m, 0);
+  const nodata = {m: circleArea - totalAreaCategories, p: (circleArea - totalAreaCategories) / circleArea * 100};
 
-  return { sizes, sumSizes };
+  return { sizes: {...areaPerCategory, nodata }, sumSizes: totalAreaCategories };
 }

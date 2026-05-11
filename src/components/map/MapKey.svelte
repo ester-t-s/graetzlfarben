@@ -1,27 +1,41 @@
 <!-- map legend -->
 
 <script>
-  import { dimensions, lang, isMobile } from "$lib/stores.js";
-  import {categories} from "$lib/settings.js";
+  import { lang, isMobile } from "$lib/stores.js";
+  import { categories } from "$lib/settings.js";
+  import NoDataPattern from "$components/NoDataPattern.svelte";
 </script>
 
+<!-- render pattern defs once -->
+<NoDataPattern />
+
 <div
-  class="z-50 absolute pointer-events-auto inline-block mx-2"
+  class="z-50 absolute pointer-events-auto mx-5"
   style={$isMobile ? "" : "max-width:calc(100% - 250px)"}
   class:relative={$isMobile}
   class:bottom-4={!$isMobile}
   class:my-8={$isMobile}
 >
-  {#each Object.values(categories) as { color, name, name_en }, i}
-    <div class="inline-block align-middle">
-      <div
-        class="w-4 h-4 rounded-full ml-2 inline-block"
-        style={`background-color:${color}; border: 1.5px solid white;`}
-      />
-      <p class="align-middle leading-4 ml-1 inline-block mb-2" style="text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
-      1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;;">
-        {$lang === "de" ? name : name_en}
-      </p>
-    </div>
-  {/each}
+  <div class="flex flex-wrap gap-y-0 gap-6">
+    {#each Object.entries(categories) as [key, { color, name, name_en }]}
+      <div class="flex gap-1">
+          <svg class="block w-4 h-4" xmlns="http://www.w3.org/2000/svg">
+            <circle
+              cx="50%"
+              cy="50%"
+              r="40%"
+              fill={key === "nodata" ? `url(#nodataPattern)` : color}
+              stroke="white"
+              stroke-width="2"
+            />
+          </svg>
+        <span
+          class="align-middle leading-4 mb-2"
+          style="-webkit-text-stroke: 3px white; paint-order: stroke fill"
+        >
+          {$lang === "de" ? name : name_en}
+        </span>
+      </div>
+    {/each}
+  </div>
 </div>

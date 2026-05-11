@@ -4,9 +4,14 @@
   import { onMount } from "svelte";
   import mapStyle from "./mapStyle.js";
   import MapKey from "./MapKey.svelte";
+  import { booleanPointInPolygon } from "@turf/boolean-point-in-polygon";
+  import { nearestPointOnLine } from "@turf/nearest-point-on-line";
+  import { pointToPolygonDistance } from "@turf/point-to-polygon-distance";
+  import { polygonToLine } from "@turf/polygon-to-line";
+  import { point } from "@turf/helpers";
+  import buffer from "@turf/buffer";
 
   import drawCanvasCircle from "$assets/scripts/drawCanvasCircle";
-  import getMaxCircleRadius from "$assets/scripts/getMaxCircleRadius";
   import getLanduseSizes from "$assets/scripts/getLanduseSizes";
   import getCircleGeom from "$assets/scripts/getCircleGeom";
   import checkCircleFits from "$assets/scripts/checkCircleFits";
@@ -16,15 +21,15 @@
     initialMapCenter,
     mapMaxZoom,
     mapMinZoom,
-    analysisRadiusInMeters
+    analysisRadiusInMeters,
   } from "$lib/settings.js";
 
   import {
     areaSizes,
     circleRadius,
-    dimensions,
     totalSize,
     mapCenter,
+    mapCenterFormatted,
     showBasemap,
     locationText,
     useLocationAsText,
@@ -44,7 +49,6 @@
       appText = de;
     }
   }
-
 
   let map;
 
@@ -80,8 +84,6 @@
 
   const drawAndCount = function (map) {
     if (!map || !map.getLayer("landuse")) return;
-    const mC = map.getCenter().toArray();
-    $mapCenter = [mC[0].toFixed(3), mC[1].toFixed(3)];
 
     const canvas = document.getElementById("myCanvas");
 
@@ -103,14 +105,15 @@
     const { sizes, sumSizes } = getLanduseSizes(map, circleGeom, landuses);
     $areaSizes = sizes;
     $totalSize = sumSizes;
-    $locationText = "Lat " + $mapCenter[1] + " N, Lng " + $mapCenter[0] + " E";
+    $locationText = "Lat " + $mapCenterFormatted.lat + " N, Lng " + $mapCenterFormatted.lng + " E";
     if ($useLocationAsText) {
       $textVis = $locationText;
     }
     drawCanvasCircle(map, canvas, $circleRadius);
   };
 
-  onMount(() => {
+  onMount(async () => {
+
     map = new maplibregl.Map({
       container: "map", // container id
       style: mapStyle(window.location.origin + window.location.pathname),
@@ -125,17 +128,44 @@
     });
 
     map.on("load", function () {
+      $mapCenter = map.getCenter().toArray();
       drawAndCount(map);
 
-      map.on("moveend", function (e) {
-        const canvas = document.getElementById("myCanvas");
-        drawCanvasCircle(map, canvas, $circleRadius);
-        setTimeout(() => {
-          drawAndCount(map);
-        }, 100);
-      });
+      map.on("moveend", function () {
+        $mapCenter = map.getCenter().toArray();
 
-      map.on("zoomend", function (e) {
+        const renderedFeaturesAtMapCenter = map.queryRenderedFeatures(map.project($mapCenter), {
+          layers: ["landuse"],
+        });
+
+        const renderedFeatures = map.queryRenderedFeatures({
+          layers: ["landuse"],
+        });
+
+        const getEaseToPoint = (renderedFeatures) => {
+          if (renderedFeatures.length === 0) return point(initialMapCenter);
+          const nearestFeature = renderedFeatures.map((d) => ({d, distance: pointToPolygonDistance($mapCenter, d)})).toSorted((a, b) => a.distance - b.distance).at(0).d;
+          const nearestFeatureAsLine = polygonToLine(nearestFeature);
+          return nearestPointOnLine(nearestFeatureAsLine, $mapCenter);
+        }
+
+        // when map center is not on data
+        if (renderedFeaturesAtMapCenter.length === 0) {
+
+          const easeToPoint = getEaseToPoint(renderedFeatures);
+
+          // create a buffer polygon around the nearest point and check whether
+          // the current center lies inside that buffer
+          const buf = buffer(easeToPoint, 1, { units: "meters" });
+          const centerInBuffer = booleanPointInPolygon($mapCenter, buf);
+
+          const [nx, ny] = easeToPoint.geometry.coordinates;
+          if (!centerInBuffer) {
+            map.easeTo({ duration: 500, center: [nx, ny] });
+            return;
+          }
+        }
+
         const canvas = document.getElementById("myCanvas");
         drawCanvasCircle(map, canvas, $circleRadius);
         setTimeout(() => {
@@ -147,7 +177,7 @@
 </script>
 
 <div id="map" class="w-full h-1/2 lg:h-screen !absolute left-0 z-0">
-  <canvas id="myCanvas" class="absolute" />
+  <canvas id="myCanvas" class="absolute"></canvas>
 </div>
 
 <div class="relative w-full h-full pointer-events-none">
@@ -155,9 +185,10 @@
     <MapKey />
   {/if}
   <button
-    class="btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-4  leading-7 z-40 pointer-events-auto "
+    class="btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-4 leading-7 z-40 pointer-events-auto"
     on:click={() => map.zoomIn()}
     on:keypress={() => map.zoomIn()}
+    aria-label="Zoom in"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -173,9 +204,10 @@
     </svg>
   </button>
   <button
-    class="btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-10 mt-8   leading-7 z-40 pointer-events-auto"
+    class="btn btn-primary drop-shadow-xl text-2xl btn-circle absolute left-4 top-10 mt-8 leading-7 z-40 pointer-events-auto"
     on:click={() => map.zoomOut()}
     on:keypress={() => map.zoomOut()}
+    aria-label="Zoom out"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

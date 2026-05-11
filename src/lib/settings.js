@@ -73,6 +73,7 @@ export let categories = {
     sports: {color: "#E8D569", name_en: "Sports", name: "Sport"},
     education: {color: "#758EBA", name_en: "Education", name: "Schule und Bildung"},
     infrastructure: { color: "#665B44", name_en: "Infrastructure", name: "Infrastruktur" },
+    nodata: {color: "#afafaf", name_en: "No data", name: "Keine Daten" },
 };
 
 // Mapping of landuse codes to categories

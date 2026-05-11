@@ -1,4 +1,4 @@
-import { writable, readable } from "svelte/store";
+import { writable, derived } from "svelte/store";
 import * as settings from "./settings.js";
 
 export let areaSizes = writable();
@@ -19,3 +19,8 @@ export let screenHeight = writable();
 export let isMobile = writable(true);
 export let screenWidth = writable(0);
 export let textVis = writable(settings.defaultTextOnCard);
+export const mapCenterFormatted = derived(mapCenter, ($mapCenter) => {
+  if (!$mapCenter) return "";
+  const [lng, lat] = $mapCenter;
+  return { lat: lat.toFixed(3), lng: lng.toFixed(3) };
+});
